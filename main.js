@@ -1,5 +1,7 @@
-'use strict';
-const { app, ipcMain } = require('electron');
+//@ts-check
+'use strict'
+
+const { app, ipcMain, BrowserWindow } = require('electron');
 if (require('electron-squirrel-startup')) app.quit();
 const path = require('path');
 global.appRoot = path.resolve(__dirname);
@@ -25,24 +27,16 @@ app.whenReady().then(() => {
 
 app.on('window-all-closed', () => {
     //stop app on all closed
-    if (process.platform !== 'darwin') app.quit();
+    if (process.platform !== 'darwin') {
+        db.close()
+        app.quit()
+    }
 });
 
 app.on('web-contents-created', (event, contents) => {
-
     //disable navigation
     contents.on('will-navigate', (event, navigationUrl) => {
         event.preventDefault()
-    })
-
-    //disable other windows
-    contents.setWindowOpenHandler(({ url }) => {
-        if (isSafeForExternalOpen(url)) {
-            setImmediate(() => {
-                shell.openExternal(url)
-            })
-        }
-        return { action: 'deny' }
     })
 })
 
@@ -52,3 +46,11 @@ const bind = () => {
     // ipcMain.handle('dialog:openFile', handleFileOpen)
     // ipcMain.on('counter-value', handleCounterValue)
 }
+
+
+// DataBase experiment
+const db = require('./src/db/db')
+db.open()
+db.cars((data) => {
+    console.log('Cars: ', data)
+})
