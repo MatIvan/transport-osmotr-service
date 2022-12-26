@@ -8,7 +8,11 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 const defaultProps = {
     width: 800,
     height: 600,
-    show: false
+    show: false,
+    //secrity
+    nodeIntegration: false,
+    contextIsolation: true,
+    enableRemoteModule: false
 }
 
 class Win extends BrowserWindow {

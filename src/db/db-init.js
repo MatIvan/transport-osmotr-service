@@ -5,8 +5,7 @@ const sqlite3 = require('sqlite3').verbose()
 const fs = require("fs")
 const path = require('path')
 
-var db
-var onErrorHandler
+var db, onErrorHandler, onReadyHandler
 
 module.exports = {
 
@@ -16,6 +15,10 @@ module.exports = {
 
     onError: function (handler) {
         onErrorHandler = handler
+    },
+
+    onReady: function (handler) {
+        onReadyHandler = handler
     },
 
     open: function () {
@@ -41,19 +44,15 @@ function init() {
     getTables((err, tables) => {
         if (err) return onErrorHandler(err)
         if (tables.length > 0) {
-            console.log('Database is OK.')
+            onReadyHandler();
             return
         }
         createSchema((err) => {
-            if (err) {
-                console.error('Database error.', err)
-                return onErrorHandler(err)
-            }
-            console.log('Database is ready.')
+            if (err) return onErrorHandler(err)
+            onReadyHandler();
         })
     })
 }
-
 
 function getTables(callback) {
     db.all("select name from sqlite_master where type='table'", callback)

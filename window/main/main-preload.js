@@ -9,8 +9,12 @@ contextBridge.exposeInMainWorld('versions', {
 })
 
 contextBridge.exposeInMainWorld('service', {
-    ping: () => ipcRenderer.invoke('ping'),
-    setTitle: (title) => ipcRenderer.send('set-title', title),
-    openFile: () => ipcRenderer.invoke('dialog:openFile'),
-    handleCounter: (callback) => ipcRenderer.on('update-counter', callback),
+    ready: () => ipcRenderer.send('main-win-ready'),
+    // ping: () => ipcRenderer.invoke('ping'),
+    // setTitle: (title) => ipcRenderer.send('set-title', title),
+})
+
+contextBridge.exposeInMainWorld('handlers', {
+    onReady: (callback) => ipcRenderer.on('cli-ready', callback),
+    onError: (callback) => ipcRenderer.on('cli-error', callback),
 })
