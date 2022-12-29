@@ -20,4 +20,4 @@ window.handlers.onError((event, err) => {
 window.service.ready();
 
 
-demoImport()
+UI.echo("test");
