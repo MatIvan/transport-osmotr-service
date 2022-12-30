@@ -13,9 +13,9 @@ module.exports = {
         OPEN: "db-open",
         ERROR: "db-error",
     },
-    CLI: {
-        READY: "cli-ready",
-        ERROR: "cli-error",
+    TO_CLI: { //events from main process to client renderer
+        READY: "to-cli-ready",
+        ERROR: "to-cli-error",
     },
     emit: (eventName, ...args) => {
         console.log("EMIT: ", eventName, args)

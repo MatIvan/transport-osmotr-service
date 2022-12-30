@@ -10,28 +10,36 @@ const events = require('./local-events')
  */
 var mainWin
 
+/**
+ * Handle evets from main process
+ */
 module.exports.bind = () => {
     events.on(events.APP.READY, onAppReady)
     events.on(events.DB.OPEN, onDBReady)
     events.on(events.DB.ERROR, onDBError)
 }
 
-// Bind IPC
-ipcMain.on('main-win-ready', () => { db.open() })
+/**
+ * Handle events from renderer
+ */
+ipcMain.on('main-win-ready', () => {
+    db.open()
+})
 // ipcMain.handle('ping', handlePing) //response
 
 
-// Handlers
-
+/**
+ *  Handlers
+ */
 function onAppReady() {
     mainWin = new MainWin()
 }
 
 function onDBReady() {
-    mainWin.webContents.send(events.CLI.READY)
+    mainWin.webContents.send(events.TO_CLI.READY)
 }
 
 function onDBError(err) {
     const msg = "DB ERROR: " + err.message
-    mainWin.webContents.send(events.CLI.ERROR, msg)
+    mainWin.webContents.send(events.TO_CLI.ERROR, msg)
 }

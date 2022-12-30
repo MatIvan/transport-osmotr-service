@@ -11,13 +11,18 @@ information.innerHTML = `
 window.handlers.onReady((event, data) => {
     console.log('onReady: ', data);
     //event.sender.send('event-name', data) //respose
+
+    //TODO: load table from DB
+    //TODO: render table
 })
 
 window.handlers.onError((event, err) => {
     console.log('onError: ', err);
 })
 
+
 window.service.ready();
 
-
 UI.echo("test");
+
+console.log('Renderer is loaded.');

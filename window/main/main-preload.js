@@ -10,13 +10,22 @@ contextBridge.exposeInMainWorld('versions', {
     // we can also expose variables, not just functions
 });
 
+/**
+ * Commands from renderer to main
+ */
 contextBridge.exposeInMainWorld('service', {
     ready: () => ipcRenderer.send('main-win-ready'),
     // ping: () => ipcRenderer.invoke('ping'),
     // setTitle: (title) => ipcRenderer.send('set-title', title),
 });
 
+
+//TODO: How to import ../../src/local-events.js ???
+/**
+ * Bind events from main process to client renderer
+ * See local-events.js
+ */
 contextBridge.exposeInMainWorld('handlers', {
-    onReady: (callback) => ipcRenderer.on('cli-ready', callback),
-    onError: (callback) => ipcRenderer.on('cli-error', callback),
+    onReady: (callback) => ipcRenderer.on('to-cli-ready', callback),
+    onError: (callback) => ipcRenderer.on('to-cli-error', callback),
 });
