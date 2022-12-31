@@ -3,6 +3,8 @@
 
 const { contextBridge, ipcRenderer } = require('electron');
 
+
+
 contextBridge.exposeInMainWorld('versions', {
     node: () => process.versions.node,
     chrome: () => process.versions.chrome,
@@ -15,6 +17,9 @@ contextBridge.exposeInMainWorld('versions', {
  */
 contextBridge.exposeInMainWorld('service', {
     ready: () => ipcRenderer.send('main-win-ready'),
+    db: {
+        getCars: () => ipcRenderer.send('db-get-cars'),
+    },
     // ping: () => ipcRenderer.invoke('ping'),
     // setTitle: (title) => ipcRenderer.send('set-title', title),
 });
@@ -28,4 +33,7 @@ contextBridge.exposeInMainWorld('service', {
 contextBridge.exposeInMainWorld('handlers', {
     onReady: (callback) => ipcRenderer.on('to-cli-ready', callback),
     onError: (callback) => ipcRenderer.on('to-cli-error', callback),
+    db: {
+        onCars: (callback) => ipcRenderer.on('to-cli-db-cars', callback),
+    }
 });

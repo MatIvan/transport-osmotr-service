@@ -16,6 +16,17 @@ module.exports = {
     TO_CLI: { //events from main process to client renderer
         READY: "to-cli-ready",
         ERROR: "to-cli-error",
+        DB: {
+            CARS: 'to-cli-db-cars',
+        },
+    },
+    TO_MAIN: {
+        WIN_MAIN: {
+            READY: 'main-win-ready',
+        },
+        DB: {
+            GET_CARS: 'db-get-cars',
+        }
     },
     emit: (eventName, ...args) => {
         console.log("EMIT: ", eventName, args)
