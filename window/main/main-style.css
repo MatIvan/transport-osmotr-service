@@ -1,21 +1,15 @@
-body {
-    font: caption;
-    width: 100vw;
-    height: 100vh;
-}
-
 .versions {
     font-size: 9px;
 }
 
-.main-container {
+.main-box {
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 100%;
 }
 
-.body-container {
+.body-box {
     flex-grow: 1;
     width: 100%;
 }

@@ -1,0 +1,30 @@
+body {
+    font: caption;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-align: left;
+    width: 100%;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #a7a7a7;
+    cursor: pointer;
+}
+
+td {
+    border-bottom: .05rem solid #a7a7a7;
+    padding: .2rem .2rem;
+
+}
+
+th {
+    border-bottom: .1rem solid #a7a7a7;
+    padding: .2rem .2rem;
+}
