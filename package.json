@@ -20,7 +20,6 @@
     "sqlite3": "^5.1.4"
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0",
-    "spectre.css": "^0.5.9"
+    "electron-squirrel-startup": "^1.0.0"
   }
 }
