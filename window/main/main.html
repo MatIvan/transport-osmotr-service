@@ -7,18 +7,28 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
     <title>-=TOS=-</title>
+    <link rel="stylesheet" href="../icons.css">
     <link rel="stylesheet" href="../common.css">
     <link rel="stylesheet" href="main-style.css">
     <script src="../ui.js"></script>
 </head>
 
 <body>
-    <div class="main-box">
+    <div class="ver-panel main-box">
         <h1>-= T O S =-</h1>
-        <div class="body-box">
+        <div class="body-box grow">
+            <!-- SEARCH -->
+            <div class="hor-panel col-3">
+                <input id="input-search" class="input grow" type="text" placeholder="Введите номер">
+                <div class="ml4 icon button">
+                    <i class="gg-search-loading"></i>
+                </div>
+            </div>
+
+            <br><br>
 
             <!-- CARS TABLE -->
-            <table class="table table-hover">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>id</th>

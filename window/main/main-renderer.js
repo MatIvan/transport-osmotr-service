@@ -31,7 +31,7 @@ function buildTableCars(cars) {
     for (let i = 0; i < cars.length; i++) {
         const car = cars[i];
         rows += `
-            <tr>
+            <tr class="button">
               <td>${car.id}</td>
               <td>${car.uid}</td>
               <td>${car.marka}</td>
