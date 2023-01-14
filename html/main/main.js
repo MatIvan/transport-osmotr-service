@@ -1,12 +1,15 @@
 'use strict';
 
+const UI = require('../ui');
+
 const information = document.getElementById('info');
 information.innerText = `Chrome ${versions.chrome()}; Node.js ${versions.node()}; Electron ${versions.electron()}`;
 
 window.handlers.onReady((event, data) => {
     //event.sender.send('event-name', data) //respose
     console.log('onReady: ', data);
-    window.service.db.getCars();
+    //window.service.db.getCars();
+    UI.echo("sd");
 })
 
 window.handlers.onError((event, err) => {

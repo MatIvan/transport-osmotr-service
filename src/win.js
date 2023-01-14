@@ -21,7 +21,7 @@ class Win extends BrowserWindow {
             ...defaultProps,
             ...windowSettings,
             webPreferences: {
-                preload: path.join(global.appRoot, 'window', name, name + '-preload.js'),
+                preload: path.join(global.appRoot, 'html', name, name + '-preload.js'),
             },
         })
 
@@ -36,7 +36,7 @@ class Win extends BrowserWindow {
             })
         })
 
-        this.loadFile(path.join(global.appRoot, 'window', name, name + '.html'));
+        this.loadFile(path.join(global.appRoot, 'html', name, name + '.html'));
 
         this.once('ready-to-show', () => {
             this.show();

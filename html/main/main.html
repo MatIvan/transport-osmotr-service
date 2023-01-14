@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8" />
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-eval'; script-src 'self' 'unsafe-eval'" />
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self' 'unsafe-eval'; script-src 'self' 'unsafe-eval'" />
+
     <title>-=TOS=-</title>
     <link rel="stylesheet" href="../icons.css">
     <link rel="stylesheet" href="../common.css">
     <link rel="stylesheet" href="main-style.css">
-    <script src="../ui.js"></script>
 </head>
 
 <body>
@@ -46,7 +46,7 @@
         </div>
         <div id="info" class="versions"></div>
     </div>
-    <script src="./main-renderer.js"></script>
+    <script src="../renderers/main-renderer.js"></script>
 </body>
 
 </html>

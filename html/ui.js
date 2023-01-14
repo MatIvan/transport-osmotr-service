@@ -1,7 +1,7 @@
 //@ts-check
 'use strict'
 
-const UI = {
+module.exports = {
 
     div: function (className) {
         let div = document.createElement('div');

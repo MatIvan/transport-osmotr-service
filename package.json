@@ -2,6 +2,7 @@
   "name": "tos",
   "version": "1.0.0",
   "description": "TOS - Transport Osmotr Service",
+  "private": true,
   "main": "main.js",
   "scripts": {
     "start": "electron-forge start",
@@ -17,7 +18,9 @@
     "@electron-forge/maker-squirrel": "^6.0.4",
     "@electron-forge/maker-zip": "^6.0.4",
     "electron": "^22.0.0",
-    "sqlite3": "^5.1.4"
+    "sqlite3": "^5.1.4",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0"
