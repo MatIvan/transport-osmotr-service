@@ -5,7 +5,7 @@ INSERT INTO ts_category (id, name) VALUES
 (40, "Автобус"),
 (50, "Прицеп");
 
-INSERT INTO ats_type (ts_id, name) VALUES
+INSERT INTO ats_type (ts_category_id, name) VALUES
 -- 10, "Мотоцикл"
 (10, "A/L3"),
 (10, "A/L4"),
@@ -25,8 +25,16 @@ INSERT INTO ats_type (ts_id, name) VALUES
 (50, "E/O3"),
 (50, "E/O4");
 
-INSERT INTO car ('uid', 'marka') VALUES 
-('A111AA36', 'VAZ-1'),
-('A222AA36', 'VAZ-2'),
-('A333AA36', 'VAZ-3'),
-('A444AA36', 'VAZ-4');
+INSERT INTO engine_type (name) VALUES
+("Бензиновый на бензине"),
+("Бензиновый на бензине/газ"),
+("Электромобиль");
+
+INSERT INTO owner_type (name) VALUES
+("Физическое лицо"),
+("Юридическое лицо");
+
+INSERT INTO ts_doc_type (name) VALUES
+("ПТС"),
+("СРТС"),
+("ЭПТС");

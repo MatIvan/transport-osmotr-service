@@ -4,21 +4,26 @@
 const sqlite3 = require('sqlite3').verbose();
 const fs = require("fs");
 const path = require('path');
+const events = require('../local-events')
 
-var db, onErrorHandler, onReadyHandler;
+var db;
+
+const onErrorHandler = function (err) {
+    if (err) {
+        console.error('Database error:', err)
+        events.emit(events.DB.ERROR, err)
+    }
+}
+
+const onReadyHandler = function () {
+    console.log('Database ready.')
+    events.emit(events.DB.OPEN)
+}
 
 module.exports = {
 
     getDB: function () {
         return db;
-    },
-
-    onError: function (handler) {
-        onErrorHandler = handler;
-    },
-
-    onReady: function (handler) {
-        onReadyHandler = handler;
     },
 
     open: function () {
@@ -29,7 +34,7 @@ module.exports = {
         });
         db.addListener('open', () => { console.log('DB onOpen') });
         db.addListener('close', () => { console.log('DB onClose') });
-        db.addListener('error', (err) => { console.log('DB onError', err.message) });
+        db.addListener('error', onErrorHandler);
     },
 
     close: function () {

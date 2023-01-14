@@ -1,12 +1,12 @@
 //@ts-check
 'use strict'
 
-const { app, ipcMain, BrowserWindow } = require('electron');
+const { app } = require('electron');
 if (require('electron-squirrel-startup')) app.quit();
 
 const path = require('path');
 const events = require('./src/local-events')
-const db = require('./src/db/db')
+const dbService = require('./src/db/db-service')
 const controller = require('./src/controller')
 
 global.appRoot = path.resolve(__dirname);
@@ -19,7 +19,7 @@ app.whenReady().then(() => {
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
-        db.close()
+        dbService.close()
         app.quit()
     }
 });

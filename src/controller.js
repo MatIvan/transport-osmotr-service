@@ -2,7 +2,7 @@
 'use strict'
 const { ipcMain } = require('electron');
 const MainWin = require('./windows/main-win');
-const db = require('./db/db');
+const dbService = require('./db/db-service');
 const events = require('./local-events');
 
 /**
@@ -23,11 +23,11 @@ module.exports.bind = () => {
  * Handle events from renderer
  */
 ipcMain.on(events.TO_MAIN.WIN_MAIN.READY, () => {
-    db.open();
+    dbService.open();
 })
 
 ipcMain.on(events.TO_MAIN.DB.GET_CARS, () => {
-    db.cars((cars) => {
+    dbService.cars((cars) => {
         mainWin.webContents.send(events.TO_CLI.DB.CARS, cars);
     });
 })
