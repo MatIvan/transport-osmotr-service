@@ -4,7 +4,7 @@ module.exports = {
     mode: 'development',
     //mode: 'production',
     entry: {
-        main: './html/main/main.js',
+        startpage: './html/startpage/startpage.js',
         //ts: './html/ts-all/ts-all.js',
       },
     output: {

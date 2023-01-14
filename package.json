@@ -5,9 +5,9 @@
   "private": true,
   "main": "main.js",
   "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
+    "start": "webpack && electron-forge start",
+    "package": "webpack && electron-forge package",
+    "make": "webpack && electron-forge make"
   },
   "author": "mativ",
   "license": "MIT",

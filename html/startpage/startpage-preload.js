@@ -13,10 +13,10 @@ contextBridge.exposeInMainWorld('versions', {
 });
 
 /**
- * Commands from renderer to main
+ * Commands from renderer to startpage
  */
 contextBridge.exposeInMainWorld('service', {
-    ready: () => ipcRenderer.send('main-win-ready'),
+    ready: () => ipcRenderer.send('startpage-win-ready'),
     db: {
         getCars: () => ipcRenderer.send('db-get-cars'),
     },

@@ -131,3 +131,4 @@ dist
 
 
 database.sqlite
+html/renderers/*

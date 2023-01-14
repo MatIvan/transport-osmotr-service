@@ -21,8 +21,8 @@ module.exports = {
         },
     },
     TO_MAIN: {
-        WIN_MAIN: {
-            READY: 'main-win-ready',
+        WIN_startpage: {
+            READY: 'startpage-win-ready',
         },
         DB: {
             GET_CARS: 'db-get-cars',

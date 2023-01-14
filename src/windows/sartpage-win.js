@@ -2,18 +2,18 @@
 'use strict'
 const Win = require('../win')
 
-class MainWindow extends Win {
+class StartpageWindow extends Win {
     constructor() {
-        super({ name: 'main' })
+        super({ name: 'startpage' })
         this.bind()
     }
 
     bind() {
         this.addListener('ready-to-show', () => {
-            console.log('MainWin: ready-to-show');
+            console.log('startpageWin: ready-to-show');
         })
     }
 
 }
 
-module.exports = MainWindow
+module.exports = StartpageWindow
