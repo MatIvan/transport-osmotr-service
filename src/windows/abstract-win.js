@@ -6,8 +6,6 @@ const path = require('path');
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 const defaultProps = {
-    width: 800,
-    height: 600,
     show: false,
     //secrity
     nodeIntegration: false,
@@ -15,13 +13,17 @@ const defaultProps = {
     enableRemoteModule: false
 }
 
-class Win extends BrowserWindow {
+function getPreloaderPath(name) {
+    return path.join(global.appRoot, 'src', 'windows', name, name + '-preload.js');
+}
+
+class AbstractWin extends BrowserWindow {
     constructor({ name, ...windowSettings }) {
         super({
             ...defaultProps,
             ...windowSettings,
             webPreferences: {
-                preload: path.join(global.appRoot, 'html', name, name + '-preload.js'),
+                preload: getPreloaderPath(name),
             },
         })
 
@@ -36,12 +38,10 @@ class Win extends BrowserWindow {
             })
         })
 
-        this.loadFile(path.join(global.appRoot, 'html', name, name + '.html'));
-
         this.once('ready-to-show', () => {
             this.show();
         })
     }
 }
 
-module.exports = Win
+module.exports = AbstractWin

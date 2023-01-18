@@ -1,14 +1,15 @@
 //@ts-check
 'use strict'
 const { ipcMain } = require('electron');
-const StartpageWin = require('./windows/sartpage-win');
+const Startwin = require('./windows/startwin/startwin');
 const dbService = require('./db/db-service');
 const events = require('./local-events');
+const pages = require('./pages');
 
 /**
- * @type {StartpageWin}
+ * @type {Startwin}
  */
-var startpageWin;
+var startwin;
 
 /**
  * Handle evets from main process
@@ -28,7 +29,7 @@ ipcMain.on(events.TO_MAIN.WIN_startpage.READY, () => {
 
 ipcMain.on(events.TO_MAIN.DB.GET_CARS, () => {
     dbService.cars((cars) => {
-        startpageWin.webContents.send(events.TO_CLI.DB.CARS, cars);
+        startwin.webContents.send(events.TO_CLI.DB.CARS, cars);
     });
 })
 // ipcMain.handle('ping', handlePing) //response
@@ -38,14 +39,15 @@ ipcMain.on(events.TO_MAIN.DB.GET_CARS, () => {
  *  Handlers
  */
 function onAppReady() {
-    startpageWin = new StartpageWin();
+    startwin = new Startwin();
+    startwin.loadFile(pages.startPage);
 }
 
 function onDBReady() {
-    startpageWin.webContents.send(events.TO_CLI.READY);
+    startwin.webContents.send(events.TO_CLI.READY);
 }
 
 function onDBError(err) {
     const msg = "DB ERROR: " + err.message;
-    startpageWin.webContents.send(events.TO_CLI.ERROR, msg);
+    startwin.webContents.send(events.TO_CLI.ERROR, msg);
 }
