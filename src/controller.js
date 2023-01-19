@@ -1,18 +1,17 @@
 //@ts-check
 'use strict'
+
 const { ipcMain } = require('electron');
 const Startwin = require('./windows/startwin/startwin');
-const dbService = require('./db/db-service');
 const events = require('./local-events');
 const pages = require('./pages');
+const MainChannelHandler = require('./handlers/main-channel-handler');
+const DataBaseChannelHandler = require('./handlers/database-channel-handler');
 
-/**
- * @type {Startwin}
- */
 var startwin;
 
 /**
- * Handle evets from main process
+ * Handle evets from main chanel
  */
 module.exports.bind = () => {
     events.on(events.APP.READY, onAppReady);
@@ -23,17 +22,23 @@ module.exports.bind = () => {
 /**
  * Handle events from renderer
  */
-ipcMain.on(events.TO_MAIN.WIN_startpage.READY, () => {
-    dbService.open();
-})
 
-ipcMain.on(events.TO_MAIN.DB.GET_CARS, () => {
-    dbService.cars((cars) => {
-        startwin.webContents.send(events.TO_CLI.DB.CARS, cars);
+bind(MainChannelHandler);
+bind(DataBaseChannelHandler);
+
+function bind(handler) {
+    const handlerName = handler.name;
+    ipcMain.on(handlerName, (event, cmd, params) => {
+        console.log(`invoke ${handlerName}: cmd=${cmd}, params=${params} `);
+        const func = handler[cmd];
+        if (typeof func !== 'function') {
+            console.warn('Unknown command = ', cmd);
+            return;
+        }
+        const callback = (cmd, data) => { event.sender.send(handlerName, cmd, data) };
+        func(params, callback);
     });
-})
-// ipcMain.handle('ping', handlePing) //response
-
+}
 
 /**
  *  Handlers
@@ -44,10 +49,12 @@ function onAppReady() {
 }
 
 function onDBReady() {
-    startwin.webContents.send(events.TO_CLI.READY);
+    const cmd = 'databaseReady';
+    startwin.webContents.send(DataBaseChannelHandler.name, cmd);
 }
 
 function onDBError(err) {
-    const msg = "DB ERROR: " + err.message;
-    startwin.webContents.send(events.TO_CLI.ERROR, msg);
+    const cmd = 'databaseError';
+    const msg = err.message;
+    startwin.webContents.send(DataBaseChannelHandler.name, cmd, msg);
 }

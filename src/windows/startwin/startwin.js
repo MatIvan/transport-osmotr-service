@@ -8,9 +8,9 @@ const props = {
     height: 600,
 }
 
-class StartpageWindow extends AbstractWin {
+class StartWindow extends AbstractWin {
     constructor() {
-        super({ name: 'startpage', props });
+        super({ name: 'startwin', props });
         this.setMenu(Menu.menu);
         Menu.setHandler(this);
     }
@@ -20,4 +20,4 @@ class StartpageWindow extends AbstractWin {
     }
 }
 
-module.exports = StartpageWindow
+module.exports = StartWindow
