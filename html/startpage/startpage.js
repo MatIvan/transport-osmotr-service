@@ -8,9 +8,8 @@ const information = document.getElementById('info');
 information.innerText = `Chrome ${versions.chrome()}; Node.js ${versions.node()}; Electron ${versions.electron()}`;
 
 document.getElementById('editTS').onclick = () => {
-    window.service.sendToMainChannel('onEditTs', 1);
+    channels.sendToMainChannel('onEditTs', 1);
 }
-
 
 const HANDLER = {
     //TODO
@@ -21,7 +20,7 @@ const HANDLER = {
 // channels.bind(channels.DB, HANDLER);
 
 
-window.service.sendToMainChannel('startpageReady');
+channels.sendToMainChannel('startpageReady');
 
 
 

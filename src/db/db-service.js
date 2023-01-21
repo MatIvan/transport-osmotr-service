@@ -29,7 +29,7 @@ module.exports = {
     },
 
     selectAtsTypeByCategory: function (tsCategoryId, callback) {
-        select("SELECT id, ts_id, name FROM ats_type WHERE ts_category_id = ?;", [tsCategoryId], callback);
+        select("SELECT id, ts_category_id, name FROM ats_type WHERE ts_category_id = ?;", [tsCategoryId], callback);
     },
 
     selectTS: function (carId, callback) {

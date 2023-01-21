@@ -1,4 +1,4 @@
-//@ts-check
+//@ ts-check
 'use strict'
 
 module.exports = {
@@ -9,8 +9,13 @@ module.exports = {
         return div;
     },
 
-    echo: function (params) {
-        console.log('ECHO: ', params);
+    fillList: function (listId, data) {
+        let rows = `<option value=-1>-</option>`;
+        for (let i = 0; i < data.length; i++) {
+            const item = data[i];
+            rows += `<option value=${item.id}>${item.name}</option>`
+        }
+        document.getElementById(listId).innerHTML = rows;
     }
 
 }

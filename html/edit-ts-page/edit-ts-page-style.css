@@ -68,7 +68,10 @@ i {
 }
 
 input[type="text"] {
-    width: 222px;
+    flex-grow: 1;
+}
+
+select {
     flex-grow: 1;
 }
 

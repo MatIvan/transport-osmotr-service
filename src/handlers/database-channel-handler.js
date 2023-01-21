@@ -13,5 +13,9 @@ function wrapCallback(cmd, callback) {
 module.exports.name = 'database-channel';
 
 module.exports.getTsCategory = (params, callback) => {
-    dbService.selectAllTsCategory(wrapCallback('TsCategory', callback));
+    dbService.selectAllTsCategory(wrapCallback('tsCategory', callback));
+}
+
+module.exports.getAtsType = (tsCategoryId, callback) => {
+    dbService.selectAtsTypeByCategory(tsCategoryId, wrapCallback('atsType', callback));
 }

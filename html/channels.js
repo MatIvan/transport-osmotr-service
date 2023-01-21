@@ -1,16 +1,25 @@
-//@ts-check
+//@ ts-check
 'use strict';
 
-module.exports.MAIN = 'onMainChannel';
-module.exports.DB = 'onDatabaseChannel';
+module.exports = {
+    MAIN: 'onMainChannel',
+    DB: 'onDatabaseChannel',
+    bind: (channelName, handler) => {
+        // @ts-ignore
+        window.handlers[channelName]((cmd, data) => {
+            console.log(channelName + ': ', cmd, data);
+            const func = handler[cmd];
+            if (typeof func === 'function') {
+                func(data);
+            }
+        })
+    },
 
-module.exports.bind = (channelName, handler) => {
-    // @ts-ignore
-    window.handlers[channelName]((cmd, data) => {
-        console.log(channelName + ': ', cmd, data);
-        const func = handler[cmd];
-        if (typeof func === 'function') {
-            func(data);
-        }
-    });
+    sendToMainChannel: (command, params) => {
+        window.service.sendToMainChannel(command, params);
+    },
+
+    sendToDataBaseChannel: (command, params, callback) => {
+        window.service.sendToDataBaseChannel(command, params);
+    }
 }

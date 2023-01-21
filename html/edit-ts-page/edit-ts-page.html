@@ -52,10 +52,6 @@
                             <input type="text" id="ts.vin">
                         </div>
                         <div class="row hor-panel">
-                            <i>Номер VIN:</i>
-                            <input type="text" id="ts.vin">
-                        </div>
-                        <div class="row hor-panel">
                             <i></i>
                             <input type="checkbox" id="ts.no_vin"><i>VIN отсутствует</i>
                         </div>
@@ -77,15 +73,15 @@
                     <div class="table ver-panel">
                         <div class="row hor-panel">
                             <i>Категория ТС:</i>
-                            <input type="text" id="ts.ts_category">
+                            <select id="ts.ts_category"><option value=-1>-</option></select>
                         </div>
                         <div class="row hor-panel">
                             <i>Тип АТС:</i>
-                            <input type="text" id="ts.ats_type" readonly>
+                            <select id="ts.ats_type"><option value=-1>-</option></select>
                         </div>
                         <div class="row hor-panel">
                             <i>Тип двигателя:</i>
-                            <input type="text" id="ts.engine_type">
+                            <select id="ts.engine_type"><option value=-1>-</option></select>
                         </div>
                         <div class="row hor-panel">
                             <i>Пробег:</i>
@@ -113,7 +109,7 @@
                         </div>
                         <div class="row hor-panel">
                             <i>Статус:</i>
-                            <input type="text" id="owner.owner_type">
+                            <select id="owner.owner_type"><option value=-1>-</option></select>
                         </div>
                     </div>
                 </div>
@@ -125,7 +121,7 @@
                     <div class="table ver-panel">
                         <div class="row hor-panel">
                             <i>Вид документа:</i>
-                            <input type="text" id="ts_doc.ts_doc_type">
+                            <select id="ts_doc.ts_doc_type"><option value=-1>-</option></select>
                         </div>
                         <div class="row hor-panel">
                             <i>Серия СВ о рег.:</i>
