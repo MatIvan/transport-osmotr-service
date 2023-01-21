@@ -1,16 +1,21 @@
-//@ts-check
+//@ ts-check
 'use strict';
 
-bindHandlers();
+const channels = require('../channels');
 
-window.service.sendToDataBaseChannel('getTsCategory');
+const HANDLER = {
+    tsForEdit: (data) => {
+        if (!data) {
+            console.log('Открыто для добавления ТС');
+            return;
+        }
+        document.getElementById('caption').innerText = 'Редактировать транспортное средство';
 
-function bindHandlers() {
-    window.handlers.onMainChannel((cmd, data) => {
-        console.log('onMainChannel: ', cmd, data);
-    });
-
-    window.handlers.onDatabaseChannel((cmd, data) => {
-        console.log('onDatabaseChannel: ', cmd, data);
-    });
+    }
 }
+
+channels.bind(channels.MAIN, HANDLER);
+channels.bind(channels.DB, HANDLER);
+
+// @ts-ignore
+window.service.sendToMainChannel('getTsForEdit');

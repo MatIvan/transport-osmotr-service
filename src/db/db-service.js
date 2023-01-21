@@ -31,5 +31,16 @@ module.exports = {
     selectAtsTypeByCategory: function (tsCategoryId, callback) {
         select("SELECT id, ts_id, name FROM ats_type WHERE ts_category_id = ?;", [tsCategoryId], callback);
     },
-    
+
+    selectTS: function (carId, callback) {
+        select(`
+            SELECT  t.*, 
+                    o.first_name ,o.second_name ,o.midle_name,
+                    td.ts_doc_type_id,td.series ,td."number" ,td.issuer ,td.date 
+            FROM ts t 
+            LEFT JOIN owner o ON o.id = t.owner_id 
+            LEFT JOIN ts_doc td ON td.id =t.ts_doc_id 
+            WHERE t.id = ?;
+            `, [carId], callback);
+    },
 }

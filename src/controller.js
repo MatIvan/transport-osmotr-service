@@ -10,6 +10,10 @@ const DataBaseChannelHandler = require('./handlers/database-channel-handler');
 
 var startwin;
 
+module.exports.windows = {
+    startwin: () => { return startwin },
+}
+
 /**
  * Handle evets from main chanel
  */

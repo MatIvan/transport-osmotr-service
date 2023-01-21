@@ -4,8 +4,8 @@ module.exports = {
     mode: 'development',
     //mode: 'production',
     entry: {
-        startpage: './html/startpage/startpage.js',
-        //ts: './html/ts-all/ts-all.js',
+        'startpage': './html/startpage/startpage.js',
+        'edit-ts-page': './html/edit-ts-page/edit-ts-page.js',
       },
     output: {
         path: path.resolve(__dirname, 'html', 'renderers'),
