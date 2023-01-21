@@ -10,4 +10,5 @@ function getAbdolutePath(name) {
 
 module.exports = {
     startPage: getAbdolutePath('startpage'),
+    editTs: getAbdolutePath('edit-ts-page'),
 }

@@ -1,6 +1,7 @@
 //@ts-check
 'use strict'
 const AbstractWin = require('../abstract-win');
+const pages = require('../../pages');
 const Menu = require('./startwin-menu');
 
 const props = {
@@ -15,8 +16,12 @@ class StartWindow extends AbstractWin {
         Menu.setHandler(this);
     }
 
-    onReturnToMainPage() {
-        console.log('onReturnToMainPage');
+    onReturnToMainPage(menuItem, browserWindow, event) {
+        browserWindow.loadFile(pages.startPage);
+    }
+
+    onEditTs(menuItem, browserWindow, event) {
+        browserWindow.loadFile(pages.editTs);
     }
 }
 

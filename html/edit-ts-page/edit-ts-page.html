@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self' 'unsafe-eval'; script-src 'self' 'unsafe-eval'" />
+    <meta http-equiv="X-Content-Security-Policy"
+        content="default-src 'self' 'unsafe-eval'; script-src 'self' 'unsafe-eval'" />
+
+    <title>-=TOS=-</title>
+    <link rel="stylesheet" href="../icons.css">
+    <link rel="stylesheet" href="../common.css">
+    <link rel="stylesheet" href="edit-ts-page-style.css">
+</head>
+
+<body>
+    <div class="ver-panel edit-ts-box">
+        <div id="caption">Добавить транспортное средство</div>
+        <div class="body-box grow">
+
+            <!-- Реквизиты -->
+            <div class="block">
+                <div class="block-child block-child-req">
+                    <div class="table ver-panel">
+                        <div class="row hor-panel">
+                            <i>Гос. номер:</i>
+                            <input type="text" id="ts.plate">
+                        </div>
+                        <div class="row hor-panel">
+                            <i></i>
+                            <input type="checkbox" id="ts.no_grz"><i>Отсутствует ГРЗ</i>
+                        </div>
+                        <div class="row hor-panel">
+                            <i>Марка, модель:</i>
+                            <input type="text" id="ts.brand-model" readonly>
+                        </div>
+                        <div class="row hor-panel">
+                            <i>Марка ТС:</i>
+                            <input type="text" id="ts.brand">
+                        </div>
+                        <div class="row hor-panel">
+                            <i>Модель ТС:</i>
+                            <input type="text" id="ts.model">
+                        </div>
+                        <div class="row hor-panel">
+                            <i>Год выпуска:</i>
+                            <input type="text" id="ts.year">
+                        </div>
+                        <div class="row hor-panel">
+                            <i>Номер VIN:</i>
+                            <input type="text" id="ts.vin">
+                        </div>
+                        <div class="row hor-panel">
+                            <i>Номер VIN:</i>
+                            <input type="text" id="ts.vin">
+                        </div>
+                        <div class="row hor-panel">
+                            <i></i>
+                            <input type="checkbox" id="ts.no_vin"><i>VIN отсутствует</i>
+                        </div>
+                        <div class="row hor-panel">
+                            <i>Номер шасси:</i>
+                            <input type="text" id="ts.chassis">
+                        </div>
+                        <div class="row hor-panel">
+                            <i>Номер кузова:</i>
+                            <input type="text" id="ts.body">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Харакеристики -->
+            <div class="block">
+                <div class="block-child block-child-xar">
+                    <div class="table ver-panel">
+                        <div class="row hor-panel">
+                            <i>Категория ТС:</i>
+                            <input type="text" id="ts.ts_category">
+                        </div>
+                        <div class="row hor-panel">
+                            <i>Тип АТС:</i>
+                            <input type="text" id="ts.ats_type" readonly>
+                        </div>
+                        <div class="row hor-panel">
+                            <i>Тип двигателя:</i>
+                            <input type="text" id="ts.engine_type">
+                        </div>
+                        <div class="row hor-panel">
+                            <i>Пробег:</i>
+                            <input type="text" id="ts.odometer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Представитель -->
+            <div class="block">
+                <div class="block-child block-child-own">
+                    <div class="table ver-panel">
+                        <div class="row hor-panel">
+                            <i>Фамилия:</i>
+                            <input type="text" id="owner.first_name">
+                        </div>
+                        <div class="row hor-panel">
+                            <i>Имя:</i>
+                            <input type="text" id="owner.second_name">
+                        </div>
+                        <div class="row hor-panel">
+                            <i>Отчество:</i>
+                            <input type="text" id="owner.midle_name">
+                        </div>
+                        <div class="row hor-panel">
+                            <i>Статус:</i>
+                            <input type="text" id="owner.owner_type">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Документы -->
+            <div class="block">
+                <div class="block-child block-child-doc">
+                    <div class="table ver-panel">
+                        <div class="row hor-panel">
+                            <i>Вид документа:</i>
+                            <input type="text" id="ts_doc.ts_doc_type">
+                        </div>
+                        <div class="row hor-panel">
+                            <i>Серия СВ о рег.:</i>
+                            <input type="text" id="ts_doc.series">
+                        </div>
+                        <div class="row hor-panel">
+                            <i>Номер документа:</i>
+                            <input type="text" id="ts_doc.number">
+                        </div>
+                        <div class="row hor-panel">
+                            <i>Кем выдан:</i>
+                            <input type="text" id="ts_doc.issuer">
+                        </div>
+                        <div class="row hor-panel">
+                            <i>Дата документа:</i>
+                            <input type="text" id="ts_doc.date">
+                        </div>
+                        <div class="row hor-panel">
+                            <i>Полный номер:</i>
+                            <input type="text" id="ts_doc.full" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui-panel">
+            <div class="button">
+                Отмена
+            </div>
+            <div class="button">
+                Сохранить
+            </div>
+        </div>
+    </div>
+    <script src="../renderers/edit-ts-page-renderer.js"></script>
+</body>
+
+</html>

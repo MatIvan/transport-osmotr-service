@@ -10,7 +10,6 @@ information.innerText = `Chrome ${versions.chrome()}; Node.js ${versions.node()}
 bindHandlers();
 
 window.service.sendToMainChannel('startpageReady');
-window.service.sendToDataBaseChannel('getTsCategory');
 
 function bindHandlers() {
     window.handlers.onMainChannel((cmd, data) => {

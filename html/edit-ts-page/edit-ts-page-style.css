@@ -1,0 +1,81 @@
+#caption {
+    font: caption;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.edit-ts-box {
+    align-items: center;
+    height: 100%;
+}
+
+.body-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    overflow: auto;
+}
+
+.block {
+    width: 50%;
+}
+
+.block-child {
+    border: solid 2px #a7a7a7;
+    margin: 8px;
+    position: relative;
+}
+
+.block-child::before {
+    position: absolute;
+    top: -10px;
+    left: 8px;
+    background-color: white;
+    padding: 0px 4px;
+    color: #a7a7a7;
+}
+
+.block-child-req::before {
+    content: "Реквезиты: ";
+}
+
+.block-child-xar::before {
+    content: "Характеристики: ";
+}
+
+.block-child-own::before {
+    content: "Представитель: ";
+}
+
+.block-child-doc::before {
+    content: "Документы: ";
+}
+
+.table {
+    margin: 10px;
+}
+
+.row {
+    width: 100%;
+    margin-top: 6px;
+}
+
+i {
+    width: 40%;
+    display: block;
+    font: small-caption;
+}
+
+input[type="text"] {
+    width: 222px;
+    flex-grow: 1;
+}
+
+.ui-panel {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 10px;
+}
