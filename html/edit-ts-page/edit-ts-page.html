@@ -33,7 +33,7 @@
                         </div>
                         <div class="row hor-panel grey">
                             <i>Марка, модель:</i>
-                            <input type="text" id="ts.brand-model" disabled>
+                            <div class="multiline-text grow" id="ts.brand-model" disabled></div>
                         </div>
                         <div class="row hor-panel">
                             <i>Марка ТС:</i>
@@ -45,7 +45,7 @@
                         </div>
                         <div class="row hor-panel">
                             <i>Год выпуска:</i>
-                            <input type="text" id="ts.year">
+                            <input type="number" min="1900" max="2099" step="1" id="ts.year">
                         </div>
                         <div class="row hor-panel">
                             <i>Номер VIN:</i>
@@ -62,6 +62,7 @@
                         <div class="row hor-panel">
                             <i>Номер кузова:</i>
                             <input type="text" id="ts.body">
+                            <div class="button btn-vin" id="ts.btnBodyCopyVin">VIN</div>
                         </div>
                     </div>
                 </div>
@@ -91,7 +92,7 @@
                         </div>
                         <div class="row hor-panel">
                             <i>Пробег:</i>
-                            <input type="text" id="ts.odometer">
+                            <input type="number" min="1900" step="1" id="ts.odometer">
                         </div>
                     </div>
                 </div>
@@ -103,11 +104,11 @@
                     <div class="table ver-panel">
                         <div class="row hor-panel">
                             <i>Фамилия:</i>
-                            <input type="text" id="owner.first_name">
+                            <input type="text" id="owner.second_name">
                         </div>
                         <div class="row hor-panel">
                             <i>Имя:</i>
-                            <input type="text" id="owner.second_name">
+                            <input type="text" id="owner.first_name">
                         </div>
                         <div class="row hor-panel">
                             <i>Отчество:</i>
@@ -129,7 +130,7 @@
                     <div class="table ver-panel">
                         <div class="row hor-panel">
                             <i>Вид документа:</i>
-                            <select id="ts_doc.ts_doc_type">
+                            <select id="ts_doc.type">
                                 <option value=-1>-</option>
                             </select>
                         </div>
@@ -147,11 +148,11 @@
                         </div>
                         <div class="row hor-panel">
                             <i>Дата документа:</i>
-                            <input type="text" id="ts_doc.date">
+                            <input type="date" id="ts_doc.date">
                         </div>
-                        <div class="row hor-panel">
+                        <div class="row hor-panel grey">
                             <i>Полный номер:</i>
-                            <input type="text" id="ts_doc.full" disabled>
+                            <div class="multiline-text grow" id="ts_doc.full" disabled></div>
                         </div>
                     </div>
                 </div>

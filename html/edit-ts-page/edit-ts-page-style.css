@@ -71,6 +71,10 @@ input[type="text"] {
     flex-grow: 1;
 }
 
+input[type="number"] {
+    flex-grow: 1;
+}
+
 select {
     flex-grow: 1;
 }
@@ -85,4 +89,21 @@ select {
 
 .grey {
     color: grey;
+}
+
+.bad {
+    background-color: #ffbfbf;
+}
+
+.btn-vin {
+    font-size: 12px;
+    margin: 0 2px;
+    padding: 2px;
+}
+
+.multiline-text {
+    padding: 1px 2px;
+    border: solid 1px #a7a7a7;
+    border-radius: 1px;
+    font-size: 0.8em;
 }

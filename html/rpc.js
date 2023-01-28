@@ -19,6 +19,9 @@ module.exports = {
     // common
     getAtsType: (category) => channels.sendToDataBaseChannel('getAtsType', category),
     getTsCategory: () => channels.sendToDataBaseChannel('getTsCategory'),
+    getTsEngineType: () => channels.sendToDataBaseChannel('getTsEngineType'),
+    getOwnerType: () => channels.sendToDataBaseChannel('getOwnerType'),
+    getDocType: () => channels.sendToDataBaseChannel('getDocType'),
     // @ts-ignore
     appVersions: window.versions,
 }

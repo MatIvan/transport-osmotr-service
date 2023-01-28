@@ -36,7 +36,7 @@ function bind(handler) {
         console.log(`invoke ${handlerName}: cmd=${cmd}, params=${params} `);
         const func = handler[cmd];
         if (typeof func !== 'function') {
-            console.warn('Unknown command = ', cmd);
+            console.error('ERROR: Unknown command = ', cmd);
             return;
         }
         const callback = (cmd, data) => { event.sender.send(handlerName, cmd, data) };

@@ -10,12 +10,27 @@ function wrapCallback(cmd, callback) {
     }
 }
 
-module.exports.name = 'database-channel';
 
-module.exports.getTsCategory = (params, callback) => {
-    dbService.selectAllTsCategory(wrapCallback('tsCategory', callback));
-}
+module.exports = {
+    name: 'database-channel',
 
-module.exports.getAtsType = (tsCategoryId, callback) => {
-    dbService.selectAtsTypeByCategory(tsCategoryId, wrapCallback('atsType', callback));
+    getTsCategory: (params, callback) => {
+        dbService.selectAllTsCategory(wrapCallback('tsCategory', callback));
+    },
+
+    getAtsType: (tsCategoryId, callback) => {
+        dbService.selectAtsTypeByCategory(tsCategoryId, wrapCallback('atsType', callback));
+    },
+
+    getTsEngineType: (params, callback) => {
+        dbService.selectAllEngineType(wrapCallback('tsEngineType', callback));
+    },
+
+    getOwnerType: (params, callback) => {
+        dbService.selectAllOwnerType(wrapCallback('ownerType', callback));
+    },
+
+    getDocType: (params, callback) => {
+        dbService.selectAllDocType(wrapCallback('docType', callback));
+    },
 }

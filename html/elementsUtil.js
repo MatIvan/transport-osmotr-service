@@ -1,9 +1,14 @@
 //@ts-check
 'use strict';
 
+const STYLE_BAD = "bad";
+
 module.exports = {
     getDiv: getDiv,
     getInput: getInput,
+    getSelector: getSelector,
+    getDate: getDate,
+
     fillList: (element, data) => {
         let rows = `<option value=-1>-</option>`;
         for (let i = 0; i < data.length; i++) {
@@ -20,6 +25,16 @@ module.exports = {
         element.addEventListener('change', () => {
             element.value = element.value.toUpperCase();
         });
+    },
+
+    markAsBad: (/** @type { HTMLElement } */ elem, /** @type {boolean} */ isBad) => {
+        if (isBad) {
+            if (!elem.classList.contains(STYLE_BAD)) {
+                elem.classList.add(STYLE_BAD);
+            }
+        } else {
+            elem.classList.remove(STYLE_BAD);
+        }
     }
 }
 
@@ -41,6 +56,24 @@ function getDiv(id) {
  * @returns {HTMLInputElement}
  */
 function getInput(id) {
+    // @ts-ignore
+    return getDiv(id);
+}
+
+/**
+ * @param {string} id
+ * @returns {HTMLSelectElement}
+ */
+function getSelector(id) {
+    // @ts-ignore
+    return getDiv(id);
+}
+
+/**
+ * @param {string} id
+ * @returns {HTMLDataElement}
+ */
+function getDate(id) {
     // @ts-ignore
     return getDiv(id);
 }

@@ -43,4 +43,16 @@ module.exports = {
             WHERE t.id = ?;
             `, [carId], callback);
     },
+
+    selectAllEngineType: function (callback) {
+        select("SELECT id, name FROM engine_type;", [], callback);
+    },
+
+    selectAllOwnerType: function (callback) {
+        select("SELECT id, name FROM owner_type;", [], callback);
+    },
+
+    selectAllDocType: function (callback) {
+        select("SELECT id, name FROM ts_doc_type;", [], callback);
+    }
 }
