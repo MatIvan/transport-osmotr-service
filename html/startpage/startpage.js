@@ -1,28 +1,21 @@
-//@ ts-check
+//@ts-check
 'use strict';
 
-const channels = require('../channels');
-const UI = require('../ui');
+const ELEM = require('./elements');
+const RPC = require('../rpc');
 
-const information = document.getElementById('info');
-information.innerText = `Chrome ${versions.chrome()}; Node.js ${versions.node()}; Electron ${versions.electron()}`;
+const appVers = RPC.appVersions;
+ELEM.versionInfo.innerText = `Chrome ${appVers.chrome()}; Node.js ${appVers.node()}; Electron ${appVers.electron()}`;
 
-document.getElementById('editTS').onclick = () => {
-    channels.sendToMainChannel('onEditTs', 1);
+ELEM.btnEditTS.onclick = () => {
+    RPC.onEditTs(1);
 }
 
-const HANDLER = {
+RPC.bind({
     //TODO
-}
+});
 
-// TODO
-// channels.bind(channels.MAIN, HANDLER);
-// channels.bind(channels.DB, HANDLER);
-
-
-channels.sendToMainChannel('startpageReady');
-
-
+RPC.startpageReady();
 
 // function buildTableCars(cars) {
 //     const tableBody = document.getElementById('cars-table-body');
