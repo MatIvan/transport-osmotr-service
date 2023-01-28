@@ -7,20 +7,29 @@ const pages = require('../pages');
 
 let tsIdForEdit = null;
 
-module.exports.name = 'main-channel';
+module.exports = {
+    name: 'main-channel',
 
-module.exports.startpageReady = (params, callback) => {
-    dbService.open();
-}
+    startpageReady: (params, callback) => {
+        dbService.open();
+    },
 
-module.exports.getTsForEdit = (params, callback) => {
-    dbService.selectTS(tsIdForEdit, (data) => {
-        callback('tsForEdit', data);
-    });
-    tsIdForEdit = null;
-}
+    getTsForEdit: (params, callback) => {
+        if (tsIdForEdit) {
+            dbService.selectTS(tsIdForEdit, (data) => {
+                callback('tsForEdit', data);
+            });
+            tsIdForEdit = null;
+        }
+    },
 
-module.exports.onEditTs = (params, callback) => {
-    tsIdForEdit = params;
-    controller.windows.startwin().loadFile(pages.editTs);
+    onEditTs: (params, callback) => {
+        tsIdForEdit = params;
+        controller.windows.startwin().loadFile(pages.editTs);
+    },
+
+    showStartPage: (params, callback) => {
+        tsIdForEdit = null;
+        controller.windows.startwin().loadFile(pages.startPage);
+    },
 }

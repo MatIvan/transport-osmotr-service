@@ -33,7 +33,7 @@ bind(DataBaseChannelHandler);
 function bind(handler) {
     const handlerName = handler.name;
     ipcMain.on(handlerName, (event, cmd, params) => {
-        console.log(`invoke ${handlerName}: cmd=${cmd}, params=${params} `);
+        console.log(`invoke ${handlerName}: cmd=${cmd}, params=${JSON.stringify(params)} `);
         const func = handler[cmd];
         if (typeof func !== 'function') {
             console.error('ERROR: Unknown command = ', cmd);

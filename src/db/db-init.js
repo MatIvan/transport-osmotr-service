@@ -1,11 +1,13 @@
 //@ts-check
 'use strict';
 
-const sqlite3 = require('sqlite3').verbose();
+const sqLite3 = require('sqlite3').verbose();
+const { Database } = require('sqlite3');
 const fs = require("fs");
 const path = require('path');
 const events = require('../local-events')
 
+/** @type {Database} */
 var db;
 
 const onErrorHandler = function (err) {
@@ -28,7 +30,7 @@ module.exports = {
 
     open: function () {
         const dbFile = path.join(global.appRoot, 'database.sqlite')
-        db = new sqlite3.Database(dbFile, (err) => {
+        db = new sqLite3.Database(dbFile, (err) => {
             if (err) return onErrorHandler(err);
             init();
         });
@@ -96,6 +98,7 @@ function load(file, callback) {
             });
             db.run("COMMIT;");
         } catch (err) {
+            db.run("ROLLBACK;");
             callback(err);
         }
         callback();

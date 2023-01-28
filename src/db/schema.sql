@@ -17,11 +17,12 @@ CREATE TABLE engine_type (
 CREATE TABLE ts (
 	'id' INTEGER  PRIMARY KEY,
 	'plate' TEXT NOT NULL,
-	'no_grz' INTEGER DEFAULT FALSE,
+	'no_grz' INTEGER DEFAULT TRUE,
 	'brand' TEXT NOT NULL,
 	'model' TEXT NOT NULL,
 	'year' INTEGER NOT NULL,
 	'vin' TEXT,
+	'no_vin' INTEGER DEFAULT TRUE,
 	'chassis' TEXT,
 	'body' TEXT,
 	'ts_category_id' INTEGER NOT NULL,

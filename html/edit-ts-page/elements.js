@@ -4,7 +4,11 @@
 const { getDiv, getInput, getSelector, getDate } = require('../elementsUtil');
 
 module.exports = {
-    caption: getDiv('caption'),
+    ui: {
+        caption: getDiv('caption'),
+        btnCancel: getDiv('btnCancel'),
+        btnSave: getDiv('btnSave'),
+    },
     ts: {
         plate: getInput('ts.plate'),
         no_grz: getInput('ts.no_grz'),

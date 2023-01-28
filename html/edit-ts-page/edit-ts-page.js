@@ -5,39 +5,51 @@ const { fillList, bindUpperValue, markAsBad } = require('../elementsUtil');
 const RPC = require('../rpc');
 const ELEM = require('./elements');
 
+var hasChanged = false;
+
 RPC.bind({
+    databaseError: (msg) => {
+        alert(msg);
+    },
     tsForEdit: (data) => {
         if (!data) {
             console.log('Открыто для добавления ТС');
             return;
         }
-        ELEM.caption.innerText = 'Редактировать транспортное средство';
+        ELEM.ui.caption.innerText = 'Редактировать транспортное средство';
     },
-
     tsCategory: (data) => {
         fillList(ELEM.ts.ts_category, data);
     },
-
     atsType: (data) => {
         fillList(ELEM.ts.ats_type, data);
     },
-
     tsEngineType: (data) => {
         fillList(ELEM.ts.engine_type, data);
     },
-
     ownerType: (data) => {
         fillList(ELEM.owner.type, data);
     },
-
     docType: (data) => {
         fillList(ELEM.doc.type, data);
     },
-
+    tsSavedSuccess: () => {
+        alert('tsSavedSuccess');
+    }
 });
 
 prepareElements();
+bindHasChanged(ELEM.ts);
+bindHasChanged(ELEM.owner);
+bindHasChanged(ELEM.doc);
 loadLists();
+
+ELEM.ui.btnSave.onclick = save;
+ELEM.ui.btnCancel.onclick = () => {
+    if (!hasChanged || confirm('Данные будут потеряны!\nВыйти?')) {
+        RPC.showStartPage();
+    }
+}
 
 RPC.getTsForEdit();
 
@@ -110,6 +122,14 @@ function prepareElements() {
     ELEM.doc.date.onkeyup = refreshDocFullName;
 }
 
+function bindHasChanged(object) {
+    for (let elem in object) {
+        object[elem].addEventListener('change', () => {
+            hasChanged = true;
+        });
+    }
+}
+
 function loadLists() {
     RPC.getTsCategory();
     RPC.getTsEngineType();
@@ -155,4 +175,36 @@ function refreshDocFullName() {
         + ELEM.doc.number.value + ', '
         + ELEM.doc.issuer.value + ', '
         + ELEM.doc.date.value
+}
+
+function save() {
+    const ts = {
+        doc: {
+            type_id: ELEM.doc.type.value,
+            series: ELEM.doc.series.value,
+            number: ELEM.doc.number.value,
+            issuer: ELEM.doc.issuer.value,
+            date: ELEM.doc.date.value,
+        },
+        owner: {
+            first_name: ELEM.owner.first_name.value,
+            second_name: ELEM.owner.second_name.value,
+            midle_name: ELEM.owner.midle_name.value,
+            type_id: ELEM.owner.type.value,
+        },
+        plate: ELEM.ts.plate.value,
+        no_grz: ELEM.ts.no_grz.checked,
+        brand: ELEM.ts.brand.value,
+        model: ELEM.ts.model.value,
+        year: ELEM.ts.year.value,
+        vin: ELEM.ts.vin.value,
+        no_vin: ELEM.ts.no_vin.checked,
+        chassis: ELEM.ts.chassis.value,
+        body: ELEM.ts.body.value,
+        ts_category_id: ELEM.ts.ts_category.value,
+        ats_type_id: ELEM.ts.ats_type.value,
+        engine_type_id: ELEM.ts.engine_type.value,
+        odometer: ELEM.ts.odometer.value
+    };
+    RPC.saveTs(ts);
 }

@@ -15,8 +15,12 @@ module.exports = {
 
     // from edit-ts-page
     getTsForEdit: () => channels.sendToMainChannel('getTsForEdit'),
+    saveTs: (ts) => channels.sendToDataBaseChannel('saveTs', ts),
 
     // common
+    showStartPage: () => channels.sendToMainChannel('showStartPage'),
+
+    // common DB
     getAtsType: (category) => channels.sendToDataBaseChannel('getAtsType', category),
     getTsCategory: () => channels.sendToDataBaseChannel('getTsCategory'),
     getTsEngineType: () => channels.sendToDataBaseChannel('getTsEngineType'),
