@@ -31,9 +31,9 @@
                             <i></i>
                             <input type="checkbox" id="ts.no_grz"><i>Отсутствует ГРЗ</i>
                         </div>
-                        <div class="row hor-panel">
+                        <div class="row hor-panel grey">
                             <i>Марка, модель:</i>
-                            <input type="text" id="ts.brand-model" readonly>
+                            <input type="text" id="ts.brand-model" disabled>
                         </div>
                         <div class="row hor-panel">
                             <i>Марка ТС:</i>
@@ -73,15 +73,21 @@
                     <div class="table ver-panel">
                         <div class="row hor-panel">
                             <i>Категория ТС:</i>
-                            <select id="ts.ts_category"><option value=-1>-</option></select>
+                            <select id="ts.ts_category">
+                                <option value=-1>-</option>
+                            </select>
                         </div>
                         <div class="row hor-panel">
                             <i>Тип АТС:</i>
-                            <select id="ts.ats_type"><option value=-1>-</option></select>
+                            <select id="ts.ats_type">
+                                <option value=-1>-</option>
+                            </select>
                         </div>
                         <div class="row hor-panel">
                             <i>Тип двигателя:</i>
-                            <select id="ts.engine_type"><option value=-1>-</option></select>
+                            <select id="ts.engine_type">
+                                <option value=-1>-</option>
+                            </select>
                         </div>
                         <div class="row hor-panel">
                             <i>Пробег:</i>
@@ -109,7 +115,9 @@
                         </div>
                         <div class="row hor-panel">
                             <i>Статус:</i>
-                            <select id="owner.owner_type"><option value=-1>-</option></select>
+                            <select id="owner.owner_type">
+                                <option value=-1>-</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -121,7 +129,9 @@
                     <div class="table ver-panel">
                         <div class="row hor-panel">
                             <i>Вид документа:</i>
-                            <select id="ts_doc.ts_doc_type"><option value=-1>-</option></select>
+                            <select id="ts_doc.ts_doc_type">
+                                <option value=-1>-</option>
+                            </select>
                         </div>
                         <div class="row hor-panel">
                             <i>Серия СВ о рег.:</i>
@@ -141,7 +151,7 @@
                         </div>
                         <div class="row hor-panel">
                             <i>Полный номер:</i>
-                            <input type="text" id="ts_doc.full" readonly>
+                            <input type="text" id="ts_doc.full" disabled>
                         </div>
                     </div>
                 </div>

@@ -12,6 +12,15 @@ module.exports = {
         }
         element.innerHTML = rows;
     },
+
+    bindUpperValue: (/** @type { HTMLInputElement } */ element) => {
+        element.addEventListener('keyup', () => {
+            element.value = element.value.toUpperCase();
+        });
+        element.addEventListener('change', () => {
+            element.value = element.value.toUpperCase();
+        });
+    }
 }
 
 /**
