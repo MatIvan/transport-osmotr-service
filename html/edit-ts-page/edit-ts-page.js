@@ -180,31 +180,38 @@ function refreshDocFullName() {
 function save() {
     const ts = {
         doc: {
-            type_id: ELEM.doc.type.value,
-            series: ELEM.doc.series.value,
-            number: ELEM.doc.number.value,
-            issuer: ELEM.doc.issuer.value,
-            date: ELEM.doc.date.value,
+            type_id: valueOrNull(ELEM.doc.type.value),
+            series: valueOrNull(ELEM.doc.series.value),
+            number: valueOrNull(ELEM.doc.number.value),
+            issuer: valueOrNull(ELEM.doc.issuer.value),
+            date: valueOrNull(ELEM.doc.date.value),
         },
         owner: {
-            first_name: ELEM.owner.first_name.value,
-            second_name: ELEM.owner.second_name.value,
-            midle_name: ELEM.owner.midle_name.value,
-            type_id: ELEM.owner.type.value,
+            first_name: valueOrNull(ELEM.owner.first_name.value),
+            second_name: valueOrNull(ELEM.owner.second_name.value),
+            midle_name: valueOrNull(ELEM.owner.midle_name.value),
+            type_id: valueOrNull(ELEM.owner.type.value),
         },
-        plate: ELEM.ts.plate.value,
+        plate: valueOrNull(ELEM.ts.plate.value),
         no_grz: ELEM.ts.no_grz.checked,
-        brand: ELEM.ts.brand.value,
-        model: ELEM.ts.model.value,
-        year: ELEM.ts.year.value,
-        vin: ELEM.ts.vin.value,
+        brand: valueOrNull(ELEM.ts.brand.value),
+        model: valueOrNull(ELEM.ts.model.value),
+        year: valueOrNull(ELEM.ts.year.value),
+        vin: valueOrNull(ELEM.ts.vin.value),
         no_vin: ELEM.ts.no_vin.checked,
-        chassis: ELEM.ts.chassis.value,
-        body: ELEM.ts.body.value,
-        ts_category_id: ELEM.ts.ts_category.value,
-        ats_type_id: ELEM.ts.ats_type.value,
-        engine_type_id: ELEM.ts.engine_type.value,
-        odometer: ELEM.ts.odometer.value
+        chassis: valueOrNull(ELEM.ts.chassis.value),
+        body: valueOrNull(ELEM.ts.body.value),
+        ts_category_id: valueOrNull(ELEM.ts.ts_category.value),
+        ats_type_id: valueOrNull(ELEM.ts.ats_type.value),
+        engine_type_id: valueOrNull(ELEM.ts.engine_type.value),
+        odometer: valueOrNull(ELEM.ts.odometer.value),
     };
     RPC.saveTs(ts);
+}
+
+function valueOrNull(val) {
+    if (!val) {
+        return null;
+    }
+    return val;
 }

@@ -81,8 +81,8 @@ module.exports = {
         select(SQL.selectAtsTypeByCategory, [tsCategoryId], callback);
     },
 
-    selectTS: function (carId, callback) {
-        select(SQL.selectTS, [carId], callback);
+    selectTS: function (tsId, callback) {
+        select(SQL.selectTS, [tsId], callback);
     },
 
     selectAllEngineType: function (callback) {
