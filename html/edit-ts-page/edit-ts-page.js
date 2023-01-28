@@ -9,7 +9,7 @@ var hasChanged = false;
 
 RPC.bind({
     databaseError: (msg) => {
-        alert(msg);
+        alert('ОШИБКА !!!\n\n' + msg);
     },
     tsForEdit: (data) => {
         if (!data) {
@@ -34,7 +34,7 @@ RPC.bind({
         fillList(ELEM.doc.type, data);
     },
     tsSavedSuccess: () => {
-        alert('tsSavedSuccess');
+        alert('Сохранено успешно!');
     }
 });
 
