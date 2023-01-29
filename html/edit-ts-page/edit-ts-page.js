@@ -5,35 +5,78 @@ const { fillList, bindUpperValue, markAsBad } = require('../elementsUtil');
 const RPC = require('../rpc');
 const ELEM = require('./elements');
 
+/**
+ * @typedef {import('../../src/db/db-service').Ats_Type} Ats_Type
+ * @typedef {import('../../src/db/db-service').Ts_Category} Ts_Category
+ * @typedef {import('../../src/db/db-service').Engine_Type} Engine_Type
+ * @typedef {import('../../src/db/db-service').Owner_Type} Owner_Type
+ * @typedef {import('../../src/db/db-service').Ts_Doc_Type} Ts_Doc_Type
+ * @typedef {import('../../src/db/db-service').Ts} Ts
+ * @typedef {import('../../src/db/db-service').TS_Doc} TS_Doc
+ * @typedef {import('../../src/db/db-service').Owner} Owner
+ */
+
 var hasChanged = false;
 
 RPC.bind({
+    /**
+     * @param {string} msg 
+     */
     databaseError: (msg) => {
         alert('ОШИБКА !!!\n\n' + msg);
     },
-    tsForEdit: (data) => {
-        if (!data) {
+
+    /**
+     * @param {Ts} ts 
+     */
+    tsForEdit: (ts) => {
+        if (!ts) {
             console.log('Открыто для добавления ТС');
             return;
         }
         ELEM.ui.caption.innerText = 'Редактировать транспортное средство';
     },
-    tsCategory: (data) => {
-        fillList(ELEM.ts.ts_category, data);
+
+    /**
+     * @param {Ts_Category[]} tsCategoryArray
+     */
+    tsCategory: (tsCategoryArray) => {
+        fillList(ELEM.ts.ts_category, tsCategoryArray);
     },
-    atsType: (data) => {
-        fillList(ELEM.ts.ats_type, data);
+
+    /**
+     * @param {Ats_Type[]} atsTypeArray
+     */
+    atsType: (atsTypeArray) => {
+        fillList(ELEM.ts.ats_type, atsTypeArray);
     },
-    tsEngineType: (data) => {
-        fillList(ELEM.ts.engine_type, data);
+
+    /**
+     * @param {Engine_Type[]} engineTypeArray
+     */
+    tsEngineType: (engineTypeArray) => {
+        fillList(ELEM.ts.engine_type, engineTypeArray);
     },
-    ownerType: (data) => {
-        fillList(ELEM.owner.type, data);
+
+    /**
+     * @param {Owner_Type[]} ownerTypeArray
+     */
+    ownerType: (ownerTypeArray) => {
+        fillList(ELEM.owner.type, ownerTypeArray);
     },
-    docType: (data) => {
-        fillList(ELEM.doc.type, data);
+
+    /**
+     * @param {Ts_Doc_Type[]} tsDocTypeArray
+     */
+    docType: (tsDocTypeArray) => {
+        fillList(ELEM.doc.type, tsDocTypeArray);
     },
-    tsSavedSuccess: () => {
+
+    /**
+     * @param {number} tsId
+     */
+    tsSavedSuccess: (tsId) => {
+        console.log('tsSavedSuccess: ' + tsId);
         alert('Сохранено успешно!');
     }
 });
@@ -100,7 +143,7 @@ function prepareElements() {
 
     //category + type
     ELEM.ts.ts_category.onchange = () => {
-        RPC.getAtsType(ELEM.ts.ts_category.value);
+        RPC.getAtsType(valueOrNull(ELEM.ts.ts_category.value));
     }
 
     //FIO
@@ -122,6 +165,9 @@ function prepareElements() {
     ELEM.doc.date.onkeyup = refreshDocFullName;
 }
 
+/**
+ * @param {Object} object - object whos fields id HTMLElements
+ */
 function bindHasChanged(object) {
     for (let elem in object) {
         object[elem].addEventListener('change', () => {
@@ -157,8 +203,12 @@ function refreshVin() {
     markAsBad(ELEM.ts.vin, !isValid);
 }
 
-function validateVin(vin, date) {
-    if (date > 1980) {
+/**
+ * @param {string} vin 
+ * @param {number} year 
+ */
+function validateVin(vin, year) {
+    if (year > 1980) {
         var re = new RegExp("^[A-HJ-NPR-Z\\d]{8}[\\dX][A-HJ-NPR-Z\\d]{2}\\d{6}$");
         return vin.match(re);
     } else {
@@ -178,19 +228,25 @@ function refreshDocFullName() {
 }
 
 function save() {
+    /** @type Ts */
     const ts = {
+        id: -1,
+        ts_doc_id: -1,
+        owner_id: -1,
         doc: {
-            type_id: valueOrNull(ELEM.doc.type.value),
+            id: -1,
+            ts_doc_type_id: valueOrNull(ELEM.doc.type.value),
             series: valueOrNull(ELEM.doc.series.value),
             number: valueOrNull(ELEM.doc.number.value),
             issuer: valueOrNull(ELEM.doc.issuer.value),
             date: valueOrNull(ELEM.doc.date.value),
         },
         owner: {
+            id: -1,
             first_name: valueOrNull(ELEM.owner.first_name.value),
             second_name: valueOrNull(ELEM.owner.second_name.value),
             midle_name: valueOrNull(ELEM.owner.midle_name.value),
-            type_id: valueOrNull(ELEM.owner.type.value),
+            owner_type_id: valueOrNull(ELEM.owner.type.value),
         },
         plate: valueOrNull(ELEM.ts.plate.value),
         no_grz: ELEM.ts.no_grz.checked,
@@ -209,6 +265,10 @@ function save() {
     RPC.saveTs(ts);
 }
 
+/**
+ * @param {any} val
+ * @returns any
+ */
 function valueOrNull(val) {
     if (!val) {
         return null;

@@ -9,6 +9,10 @@ module.exports = {
     getSelector: getSelector,
     getDate: getDate,
 
+    /**
+     * @param {HTMLSelectElement} element 
+     * @param {{id: number, name: string}[]} data 
+     */
     fillList: (element, data) => {
         let rows = `<option value=-1>-</option>`;
         for (let i = 0; i < data.length; i++) {
@@ -18,7 +22,10 @@ module.exports = {
         element.innerHTML = rows;
     },
 
-    bindUpperValue: (/** @type { HTMLInputElement } */ element) => {
+    /**
+     * @param {HTMLInputElement} element 
+     */
+    bindUpperValue: (element) => {
         element.addEventListener('keyup', () => {
             element.value = element.value.toUpperCase();
         });
@@ -27,7 +34,11 @@ module.exports = {
         });
     },
 
-    markAsBad: (/** @type { HTMLElement } */ elem, /** @type {boolean} */ isBad) => {
+    /**
+     * @param {HTMLElement} elem 
+     * @param {boolean} isBad 
+     */
+    markAsBad: (elem, isBad) => {
         if (isBad) {
             if (!elem.classList.contains(STYLE_BAD)) {
                 elem.classList.add(STYLE_BAD);

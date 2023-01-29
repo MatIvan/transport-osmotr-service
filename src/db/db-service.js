@@ -5,22 +5,18 @@ const dbInit = require('./db-init')
 const SQL = require('./db-sql')
 
 /**
- * @callback InsertCallback
- * @param {any} err
- * @param {number | null} id
- */
-
-/**
  * @typedef {Object} Owner 
+ * @property {number} id
  * @property {string} first_name
  * @property {string} second_name
  * @property {string} midle_name
- * @property {number} type_id
+ * @property {number} owner_type_id
  */
 
 /**
- * @typedef {Object} Doc 
- * @property {number} type_id
+ * @typedef {Object} TS_Doc 
+ * @property {number} id
+ * @property {number} ts_doc_type_id
  * @property {string} series
  * @property {string} number
  * @property {string} issuer
@@ -29,7 +25,7 @@ const SQL = require('./db-sql')
 
 /**
  * @typedef {Object} Ts
- * @property {number} type_id
+ * @property {number} id 
  * @property {string} plate
  * @property {boolean} no_grz
  * @property {string} brand
@@ -43,25 +39,93 @@ const SQL = require('./db-sql')
  * @property {number} ats_type_id
  * @property {number} engine_type_id
  * @property {number} odometer
- * @property {number} ownerId
- * @property {number} docId
+ * @property {number} owner_id
+ * @property {number} ts_doc_id
+ * @property {Owner} owner
+ * @property {TS_Doc} doc
  */
 
+/**
+ * @typedef {Object} Ts_Category
+ * @property {number} id
+ * @property {string} name
+ */
 
-function processError(err, sql, param) {
+/**
+ * @typedef {Object} Ats_Type
+ * @property {number} id
+ * @property {string} name
+ * @property {number} ts_category_id
+ */
+
+/**
+ * @typedef {Object} Engine_Type
+ * @property {number} id
+ * @property {string} name
+ */
+
+/**
+ * @typedef {Object} Owner_Type
+ * @property {number} id
+ * @property {string} name
+ */
+
+/**
+ * @typedef {Object} Ts_Doc_Type
+ * @property {number} id
+ * @property {string} name
+ */
+
+/**
+ * @param {Error} err
+ */
+function processError(err) {
     dbInit.getDB().run(SQL.rollback);
-    console.error('Database select error:', err);
-    console.error('sql: ', sql);
-    console.error('param: ', param);
+    console.error('Database select error:', JSON.stringify(err));
     events.emit(events.DB.ERROR, err);
 }
 
-function select(sql, param, callback) {
+/**
+ * @param {string} sql 
+ * @param {any} param 
+ * @param {(data:any[])=>void} callback 
+ */
+function selectAll(sql, param, callback) {
+    console.log(`selectAll: ${sql}, params=${param}`);
     dbInit.getDB().all(sql, param, (err, data) => {
-        if (err) {
-            return processError(err, sql, param);
-        }
+        console.log(`selectAll result: err=${!!err}, data=${data}`);
+        if (err) return processError(err);
         callback(data);
+    });
+}
+
+/**
+ * @param {string} sql 
+ * @param {any} param 
+ * @param {(data:any)=>void} callback 
+ */
+function selectOne(sql, param, callback) {
+    console.log(`selectOne: ${sql}, params=${param}`);
+    dbInit.getDB().get(sql, param, function (err, data) {
+        console.log(`selectOne result: err=${!!err}, data=${data}`);
+        if (err) return processError(err);
+        if (!data) return processError(new Error("Not found."));
+        callback(data);
+    });
+}
+
+/**
+ * @param {string} sql 
+ * @param {any} param 
+ * @param {(id:number)=>void} callback 
+ */
+function insert(sql, param, callback) {
+    console.log(`insert: ${sql}, params=${param}`);
+    dbInit.getDB().run(sql, param, function (err) {
+        const id = this.lastID;
+        console.log(`insert result: err=${!!err}, id=${id}`);
+        if (err) return processError(err);
+        callback(id);
     });
 }
 
@@ -69,49 +133,80 @@ module.exports = {
     open: dbInit.open,
     close: dbInit.close,
 
-    selectAllCars: function (callback) {
-        select(SQL.selectAllCars, [], callback);
-    },
-
+    /**
+     * @param {(data:Ts_Category[])=>void} callback 
+     */
     selectAllTsCategory: function (callback) {
-        select(SQL.selectAllTsCategory, [], callback);
+        selectAll(SQL.selectAllTsCategory, [], callback);
     },
 
+    /**
+     * @param {number} tsCategoryId 
+     * @param {(data:Ats_Type[])=>void} callback 
+     */
     selectAtsTypeByCategory: function (tsCategoryId, callback) {
-        select(SQL.selectAtsTypeByCategory, [tsCategoryId], callback);
+        selectAll(SQL.selectAtsTypeByCategory, [tsCategoryId], callback);
     },
 
+    /**
+     * @param {number} tsId 
+     * @param {(ts:Ts)=>void} callback 
+    */
     selectTS: function (tsId, callback) {
-        select(SQL.selectTS, [tsId], callback);
-    },
-
-    selectAllEngineType: function (callback) {
-        select(SQL.selectAllEngineType, [], callback);
-    },
-
-    selectAllOwnerType: function (callback) {
-        select(SQL.selectAllOwnerType, [], callback);
-    },
-
-    selectAllDocType: function (callback) {
-        select(SQL.selectAllDocType, [], callback);
-    },
-
-    saveTs: function (ts, callback) {
         dbInit.getDB().run(SQL.beginTransaction, () => {
 
-            insertOwner(ts.owner, (err, ownerId) => {
-                if (err) return processError(err, 'insertOwner', ts.owner);
+            console.log(`selectTsById id=${tsId} ...`);
+            selectOne(SQL.selectTsById, [tsId], function (/** @type {Ts} */ ts) {
+                selectOne(SQL.selectOwnerById, [ts.owner_id], function (/** @type {Owner} */owner) {
+                    selectOne(SQL.selectDocById, [ts.ts_doc_id], function (/** @type {TS_Doc} */doc) {
+                        /** @type {Ts} */
+                        const resultTs = {
+                            ...ts,
+                            owner: owner,
+                            doc: doc,
+                        }
+                        console.log(`selectTS result: ${JSON.stringify(resultTs)}`);
+                        callback(resultTs);
+                    });
+                });
+            });
+        });
+    },
 
-                insertDoc(ts.doc, (err, docId) => {
-                    if (err) return processError(err, 'insertDoc', ts.doc);
+    /**
+     * @param {(data:Engine_Type[])=>void} callback 
+     */
+    selectAllEngineType: function (callback) {
+        selectAll(SQL.selectAllEngineType, [], callback);
+    },
 
-                    ts.ownerId = ownerId;
-                    ts.docId = docId;
-                    insertTs(ts, (err, tsId) => {
-                        if (err) return processError(err, 'insertTs', ts);
-                        dbInit.getDB().run("COMMIT;");
-                        callback();
+    /**
+     * @param {(data:Owner_Type[])=>void} callback 
+     */
+    selectAllOwnerType: function (callback) {
+        selectAll(SQL.selectAllOwnerType, [], callback);
+    },
+
+    /**
+     * @param {(data:Ts_Doc_Type[])=>void} callback 
+     */
+    selectAllDocType: function (callback) {
+        selectAll(SQL.selectAllDocType, [], callback);
+    },
+
+    /**
+     * @param {Ts} ts 
+     * @param {(tsId:number)=>void} callback 
+     */
+    saveTs: function (ts, callback) {
+        dbInit.getDB().run(SQL.beginTransaction, () => {
+            insertOwner(ts.owner, (ownerId) => {
+                ts.owner_id = ownerId;
+                insertDoc(ts.doc, (docId) => {
+                    ts.ts_doc_id = docId;
+                    insertTs(ts, (tsId) => {
+                        dbInit.getDB().run(SQL.commit);
+                        callback(tsId);
                     });
                 });
             });
@@ -121,49 +216,38 @@ module.exports = {
 
 /**
  * @param {Owner} owner
- * @param {InsertCallback} callback
+ * @param {(ownerId:number)=>void} callback
  */
 function insertOwner(owner, callback) {
-    console.log('insertOwner...', JSON.stringify(owner));
     const ownerParams = [
         owner.first_name,
         owner.second_name,
         owner.midle_name,
-        owner.type_id
+        owner.owner_type_id
     ];
-    dbInit.getDB().run(SQL.sqlInsertOwner, ownerParams, function (err) {
-        const id = this.lastID;
-        console.log(`insertOwner result: err=${!!err}, id=${id}`);
-        callback(err, id);
-    });
+    insert(SQL.sqlInsertOwner, ownerParams, callback);
 }
 
 /**
- * @param {Doc} doc
- * @param {InsertCallback} callback
+ * @param {TS_Doc} doc
+ * @param {(docId:number)=>void} callback
  */
 function insertDoc(doc, callback) {
-    console.log('insertDoc...', JSON.stringify(doc));
     const docParams = [
-        doc.type_id,
+        doc.ts_doc_type_id,
         doc.series,
         doc.number,
         doc.issuer,
         doc.date
     ];
-    dbInit.getDB().run(SQL.sqlInsertDoc, docParams, function (err) {
-        const id = this.lastID;
-        console.log(`insertDoc result: err=${!!err}, id=${id}`);
-        callback(err, id);
-    });
+    insert(SQL.sqlInsertDoc, docParams, callback);
 }
 
 /**
  * @param {Ts} ts
- * @param {InsertCallback} callback
+ * @param {(tsId:number)=>void} callback
  */
 function insertTs(ts, callback) {
-    console.log('insertTs...', JSON.stringify(ts));
     const tsParams = [
         ts.plate,
         ts.no_grz,
@@ -178,12 +262,8 @@ function insertTs(ts, callback) {
         ts.ats_type_id,
         ts.engine_type_id,
         ts.odometer,
-        ts.ownerId,
-        ts.docId
+        ts.owner_id,
+        ts.ts_doc_id
     ];
-    dbInit.getDB().run(SQL.sqlInsertTs, tsParams, function (err) {
-        const id = this.lastID;
-        console.log(`insertTs result: err=${!!err}, id=${id}`);
-        callback(err, id);
-    });
+    insert(SQL.sqlInsertTs, tsParams, callback);
 }

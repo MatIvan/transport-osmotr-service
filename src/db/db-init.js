@@ -3,6 +3,7 @@
 
 const sqLite3 = require('sqlite3').verbose();
 const { Database } = require('sqlite3');
+const SQL = require('./db-sql');
 const fs = require("fs");
 const path = require('path');
 const events = require('../local-events')
@@ -10,6 +11,9 @@ const events = require('../local-events')
 /** @type {Database} */
 var db;
 
+/**
+ * @param {Error} err 
+ */
 const onErrorHandler = function (err) {
     if (err) {
         console.error('Database error:', err)
@@ -63,10 +67,16 @@ function init() {
     });
 }
 
+/**
+ * @param {(err: Error | null, rows: any[])=>void} callback 
+ */
 function getTables(callback) {
-    db.all("select name from sqlite_master where type='table'", callback);
+    db.all(SQL.sqliteMaster, callback);
 }
 
+/**
+ * @param {(err: Error | null)=>void} callback 
+ */
 function createSchema(callback) {
     console.log('Create schema');
     const schemaFile = path.join(__dirname, 'schema.sql');
@@ -77,6 +87,10 @@ function createSchema(callback) {
     });
 }
 
+/**
+ * @param {string} file 
+ * @param {(err: Error | null )=>void} callback 
+ */
 function load(file, callback) {
     console.log('Load file: ', file);
 
@@ -84,8 +98,8 @@ function load(file, callback) {
     const dataArr = dataSql.toString().split(";");
 
     db.serialize(() => {
-        db.run("PRAGMA foreign_keys=OFF;");
-        db.run("BEGIN TRANSACTION;");
+        db.run(SQL.pragma);
+        db.run(SQL.beginTransaction);
         try {
             dataArr.forEach(query => {
                 if (query && query.length > 2) {
@@ -96,11 +110,11 @@ function load(file, callback) {
                     });
                 }
             });
-            db.run("COMMIT;");
+            db.run(SQL.commit);
         } catch (err) {
-            db.run("ROLLBACK;");
+            db.run(SQL.rollback);
             callback(err);
         }
-        callback();
+        callback(null);
     });
 }
