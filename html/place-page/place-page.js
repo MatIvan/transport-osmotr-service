@@ -4,7 +4,7 @@
 const RPC = require('../rpc');
 const ELEM = require('./elements');
 const ALL_TABLE = require('./all-place-table');
-
+const EDIT_WIN = require('./edit-win');
 /**
  * @typedef {import('../../src/db/db-service').Place} Place
  */
@@ -22,15 +22,28 @@ RPC.bind({
      */
     allPlace: (placeArray) => {
         ALL_TABLE.setData(placeArray);
+    },
+
+    placeSavedSuccess: () => {
+        RPC.getAllPlace();
     }
 });
 
 ALL_TABLE.onPlaceClick((place) => {
-    console.log("MATIV onPlaceClick: ", place);
+    EDIT_WIN.show(place);
 });
 
-RPC.getAllPlace();
+EDIT_WIN.bind();
+EDIT_WIN.onSave((place) => {
+    console.log("onSave: ", place); //TODO
+});
 
 ELEM.ui.btnCancel.onclick = () => {
     RPC.showStartPage();
 }
+
+ELEM.ui.btnAddPlace.onclick = () => {
+    EDIT_WIN.show(null);
+}
+
+RPC.getAllPlace();

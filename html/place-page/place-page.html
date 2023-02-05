@@ -11,6 +11,7 @@
     <title>-=TOS=-</title>
     <link rel="stylesheet" href="../common.css">
     <link rel="stylesheet" href="../table.css">
+    <link rel="stylesheet" href="../form.css">
     <link rel="stylesheet" href="place-page-style.css">
 </head>
 
@@ -19,7 +20,6 @@
         <div id="caption">Организации</div>
         <div class="body-box grow">
 
-            <!-- список всех -->
             <div class="table place-table">
                 <div class="table-head">
                     <div class="table-row-head">
@@ -42,6 +42,34 @@
             <div id="btnAddPlace" class="button"> Добавить организацию </div>
         </div>
     </div>
+
+    <div id="edit-lay" class="modality-lay hide">
+        <div class="modality-window ver-panel main-box edit-win">
+            <div id="caption">Редактировать организацию</div>
+            <div class="body-box grow">
+                <div class="form-box">
+                    <div class="form-row">
+                        <i>Наименование:</i>
+                        <input type="text" id="place.name">
+                    </div>
+                    <div class="form-row">
+                        <i>Адрес:</i>
+                        <input type="text" id="place.address">
+                    </div>
+                    <div class="form-row">
+                        <i>№ в реестре ОТО:</i>
+                        <input type="text" id="place.oto_number">
+                    </div>
+                </div>
+            </div>
+            <div class="ui-panel">
+                <div id="btnEditCancel" class="button"> Отмена </div>
+                <div id="btnEditSave" class="button"> Сохранить </div>
+            </div>
+
+        </div>
+    </div>
+
     <script src="../renderers/place-page-renderer.js"></script>
 </body>
 

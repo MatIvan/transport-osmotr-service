@@ -4,6 +4,7 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 .hor-panel {
@@ -66,4 +67,28 @@ body {
     flex-direction: column;
     flex-wrap: wrap;
     overflow: auto;
+}
+
+.modality-lay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ffffffaa;
+    box-sizing: border-box;
+    display: flex;
+}
+
+.modality-window {
+    width: 60%;
+    height: 70%;
+    border: solid;
+    border-radius: 8px;
+    margin: auto;
+    background-color: white;
+}
+
+.hide {
+    display: none;
 }

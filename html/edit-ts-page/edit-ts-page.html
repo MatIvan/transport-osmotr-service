@@ -10,6 +10,7 @@
 
     <title>-=TOS=-</title>
     <link rel="stylesheet" href="../common.css">
+    <link rel="stylesheet" href="../form.css">
     <link rel="stylesheet" href="edit-ts-page-style.css">
 </head>
 
@@ -21,44 +22,44 @@
             <!-- Реквизиты -->
             <div class="block">
                 <div class="block-child block-child-req">
-                    <div class="table ver-panel">
-                        <div class="row hor-panel">
+                    <div class="form-box">
+                        <div class="form-row">
                             <i>Гос. номер:</i>
                             <input type="text" id="ts.plate">
                         </div>
-                        <div class="row hor-panel">
+                        <div class="form-row">
                             <i></i>
                             <input type="checkbox" id="ts.no_grz"><i>Отсутствует ГРЗ</i>
                         </div>
-                        <div class="row hor-panel grey">
+                        <div class="form-row grey">
                             <i>Марка, модель:</i>
                             <div class="multiline-text grow" id="ts.brand-model" disabled></div>
                         </div>
-                        <div class="row hor-panel">
+                        <div class="form-row">
                             <i>Марка ТС:</i>
                             <input type="text" id="ts.brand">
                         </div>
-                        <div class="row hor-panel">
+                        <div class="form-row">
                             <i>Модель ТС:</i>
                             <input type="text" id="ts.model">
                         </div>
-                        <div class="row hor-panel">
+                        <div class="form-row">
                             <i>Год выпуска:</i>
                             <input type="number" min="1900" max="2099" step="1" id="ts.year">
                         </div>
-                        <div class="row hor-panel">
+                        <div class="form-row">
                             <i>Номер VIN:</i>
                             <input type="text" id="ts.vin">
                         </div>
-                        <div class="row hor-panel">
+                        <div class="form-row">
                             <i></i>
                             <input type="checkbox" id="ts.no_vin"><i>VIN отсутствует</i>
                         </div>
-                        <div class="row hor-panel">
+                        <div class="form-row">
                             <i>Номер шасси:</i>
                             <input type="text" id="ts.chassis">
                         </div>
-                        <div class="row hor-panel">
+                        <div class="form-row">
                             <i>Номер кузова:</i>
                             <input type="text" id="ts.body">
                             <div class="button btn-vin" id="ts.btnBodyCopyVin">VIN</div>
@@ -70,26 +71,26 @@
             <!-- Харакеристики -->
             <div class="block">
                 <div class="block-child block-child-xar">
-                    <div class="table ver-panel">
-                        <div class="row hor-panel">
+                    <div class="form-box">
+                        <div class="form-row">
                             <i>Категория ТС:</i>
                             <select id="ts.ts_category">
                                 <option value=-1>-</option>
                             </select>
                         </div>
-                        <div class="row hor-panel">
+                        <div class="form-row">
                             <i>Тип АТС:</i>
                             <select id="ts.ats_type">
                                 <option value=-1>-</option>
                             </select>
                         </div>
-                        <div class="row hor-panel">
+                        <div class="form-row">
                             <i>Тип двигателя:</i>
                             <select id="ts.engine_type">
                                 <option value=-1>-</option>
                             </select>
                         </div>
-                        <div class="row hor-panel">
+                        <div class="form-row">
                             <i>Пробег:</i>
                             <input type="number" min="1900" step="1" id="ts.odometer">
                         </div>
@@ -100,20 +101,20 @@
             <!-- Представитель -->
             <div class="block">
                 <div class="block-child block-child-own">
-                    <div class="table ver-panel">
-                        <div class="row hor-panel">
+                    <div class="form-box">
+                        <div class="form-row">
                             <i>Фамилия:</i>
                             <input type="text" id="owner.second_name">
                         </div>
-                        <div class="row hor-panel">
+                        <div class="form-row">
                             <i>Имя:</i>
                             <input type="text" id="owner.first_name">
                         </div>
-                        <div class="row hor-panel">
+                        <div class="form-row">
                             <i>Отчество:</i>
                             <input type="text" id="owner.midle_name">
                         </div>
-                        <div class="row hor-panel">
+                        <div class="form-row">
                             <i>Статус:</i>
                             <select id="owner.owner_type">
                                 <option value=-1>-</option>
@@ -126,30 +127,30 @@
             <!-- Документы -->
             <div class="block">
                 <div class="block-child block-child-doc">
-                    <div class="table ver-panel">
-                        <div class="row hor-panel">
+                    <div class="form-box">
+                        <div class="form-row">
                             <i>Вид документа:</i>
                             <select id="ts_doc.type">
                                 <option value=-1>-</option>
                             </select>
                         </div>
-                        <div class="row hor-panel">
+                        <div class="form-row">
                             <i>Серия СВ о рег.:</i>
                             <input type="text" id="ts_doc.series">
                         </div>
-                        <div class="row hor-panel">
+                        <div class="form-row">
                             <i>Номер документа:</i>
                             <input type="text" id="ts_doc.number">
                         </div>
-                        <div class="row hor-panel">
+                        <div class="form-row">
                             <i>Кем выдан:</i>
                             <input type="text" id="ts_doc.issuer">
                         </div>
-                        <div class="row hor-panel">
+                        <div class="form-row">
                             <i>Дата документа:</i>
                             <input type="date" id="ts_doc.date">
                         </div>
-                        <div class="row hor-panel grey">
+                        <div class="form-row grey">
                             <i>Полный номер:</i>
                             <div class="multiline-text grow" id="ts_doc.full" disabled></div>
                         </div>

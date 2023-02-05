@@ -1,0 +1,32 @@
+.form-box {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.form-row {
+    width: 100%;
+    margin-top: 6px;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+.form-row i {
+    width: 40%;
+    display: block;
+    font: small-caption;
+}
+
+.form-row input[type="text"] {
+    flex-grow: 1;
+}
+
+.form-row input[type="number"] {
+    flex-grow: 1;
+}
+
+.form-row select {
+    flex-grow: 1;
+}

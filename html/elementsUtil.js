@@ -57,6 +57,11 @@ module.exports = {
         elem.className = className;
         return elem;
     },
+
+    setChangeHandler: (element, handler) => {
+        element.onchange = handler;
+        element.onkeyup = handler;
+    }
 }
 
 /**

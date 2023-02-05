@@ -1,7 +1,7 @@
 //@ts-check
 'use strict';
 
-const { fillList, markAsBad, bindUpperValue } = require('../elementsUtil');
+const { fillList, markAsBad, bindUpperValue, setChangeHandler } = require('../elementsUtil');
 const ELEM = require('./elements');
 
 /**
@@ -78,11 +78,6 @@ function refreshAll(ts) {
 
     const isVinValid = ts.no_vin || validateVin(ts.vin, ts.year);
     markAsBad(ELEM.ts.vin, !isVinValid);
-}
-
-function setChangeHandler(element, handler) {
-    element.onchange = handler;
-    element.onkeyup = handler;
 }
 
 function prepareElements() {
