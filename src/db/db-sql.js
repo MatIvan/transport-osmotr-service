@@ -6,7 +6,7 @@ module.exports = {
     sqliteMaster:"select name from sqlite_master where type='table'",
     selectAllCars: "SELECT id, uid, marka FROM 'car';",
     selectAllTsCategory: "SELECT id, name FROM ts_category;",
-    selectAtsTypeByCategory: "SELECT id, ts_category_id, name FROM ats_type WHERE ts_category_id = ?;",
+    selectAllAtsType: "SELECT id, ts_category_id, name FROM ats_type;",
     selectTsById: `SELECT * FROM ts WHERE id = ?;`,
     selectAllEngineType: "SELECT id, name FROM engine_type;",
     selectAllOwnerType: "SELECT id, name FROM owner_type;",

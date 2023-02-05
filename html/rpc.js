@@ -31,10 +31,7 @@ module.exports = {
     showStartPage: () => channels.sendToMainChannel('showStartPage'),
 
     // common DB
-    /**
-     * @param {number} categoryId 
-     */
-    getAtsType: (categoryId) => channels.sendToDataBaseChannel('getAtsType', categoryId),
+    getAtsType: () => channels.sendToDataBaseChannel('getAtsType'),
     getTsCategory: () => channels.sendToDataBaseChannel('getTsCategory'),
     getTsEngineType: () => channels.sendToDataBaseChannel('getTsEngineType'),
     getOwnerType: () => channels.sendToDataBaseChannel('getOwnerType'),

@@ -91,9 +91,9 @@ function processError(err) {
  * @param {(data:any[])=>void} callback 
  */
 function selectAll(sql, param, callback) {
-    console.log(`selectAll: ${sql}, params=${param}`);
+    console.log(`selectAll: ${sql}, params=${JSON.stringify(param)}`);
     dbInit.getDB().all(sql, param, (err, data) => {
-        console.log(`selectAll result: err=${!!err}, data=${data}`);
+        console.log(`selectAll result: err=${!!err}, data=${JSON.stringify(data)}`);
         if (err) return processError(err);
         callback(data);
     });
@@ -105,9 +105,9 @@ function selectAll(sql, param, callback) {
  * @param {(data:any)=>void} callback 
  */
 function selectOne(sql, param, callback) {
-    console.log(`selectOne: ${sql}, params=${param}`);
+    console.log(`selectOne: ${sql}, params=${JSON.stringify(param)}`);
     dbInit.getDB().get(sql, param, function (err, data) {
-        console.log(`selectOne result: err=${!!err}, data=${data}`);
+        console.log(`selectOne result: err=${!!err}, data=${JSON.stringify(data)}`);
         if (err) return processError(err);
         if (!data) return processError(new Error("Not found."));
         callback(data);
@@ -120,7 +120,7 @@ function selectOne(sql, param, callback) {
  * @param {(id:number)=>void} callback 
  */
 function insert(sql, param, callback) {
-    console.log(`insert: ${sql}, params=${param}`);
+    console.log(`insert: ${sql}, params=${JSON.stringify(param)}`);
     dbInit.getDB().run(sql, param, function (err) {
         const id = this.lastID;
         console.log(`insert result: err=${!!err}, id=${id}`);
@@ -141,11 +141,10 @@ module.exports = {
     },
 
     /**
-     * @param {number} tsCategoryId 
      * @param {(data:Ats_Type[])=>void} callback 
      */
-    selectAtsTypeByCategory: function (tsCategoryId, callback) {
-        selectAll(SQL.selectAtsTypeByCategory, [tsCategoryId], callback);
+    selectAtsTypeByCategory: function (callback) {
+        selectAll(SQL.selectAllAtsType, [], callback);
     },
 
     /**
@@ -196,17 +195,20 @@ module.exports = {
 
     /**
      * @param {Ts} ts 
-     * @param {(tsId:number)=>void} callback 
+     * @param {(ts:Ts)=>void} callback 
      */
     saveTs: function (ts, callback) {
         dbInit.getDB().run(SQL.beginTransaction, () => {
             insertOwner(ts.owner, (ownerId) => {
                 ts.owner_id = ownerId;
+                ts.owner.id = ownerId;
                 insertDoc(ts.doc, (docId) => {
                     ts.ts_doc_id = docId;
+                    ts.doc.id = docId;
                     insertTs(ts, (tsId) => {
+                        ts.id = tsId;
                         dbInit.getDB().run(SQL.commit);
-                        callback(tsId);
+                        callback(ts);
                     });
                 });
             });

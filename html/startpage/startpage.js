@@ -8,7 +8,7 @@ const appVers = RPC.appVersions;
 ELEM.versionInfo.innerText = `Chrome ${appVers.chrome()}; Node.js ${appVers.node()}; Electron ${appVers.electron()}`;
 
 ELEM.btnEditTS.onclick = () => {
-    RPC.onEditTs(2);
+    RPC.onEditTs(6);
 }
 
 RPC.bind({

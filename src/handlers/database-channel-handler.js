@@ -17,8 +17,8 @@ module.exports = {
     getTsCategory: (params, callback) => {
         dbService.selectAllTsCategory(wrapCallback('tsCategory', callback));
     },
-    getAtsType: (tsCategoryId, callback) => {
-        dbService.selectAtsTypeByCategory(tsCategoryId, wrapCallback('atsType', callback));
+    getAtsType: (params, callback) => {
+        dbService.selectAtsTypeByCategory(wrapCallback('atsType', callback));
     },
     getTsEngineType: (params, callback) => {
         dbService.selectAllEngineType(wrapCallback('tsEngineType', callback));
