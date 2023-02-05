@@ -3,7 +3,7 @@ module.exports = {
     rollback: "ROLLBACK;",
     commit: "COMMIT;",
     pragma: "PRAGMA foreign_keys=OFF;",
-    sqliteMaster:"select name from sqlite_master where type='table'",
+    sqliteMaster: "select name from sqlite_master where type='table'",
     selectAllCars: "SELECT id, uid, marka FROM 'car';",
     selectAllTsCategory: "SELECT id, name FROM ts_category;",
     selectAllAtsType: "SELECT id, ts_category_id, name FROM ats_type;",
@@ -37,4 +37,37 @@ module.exports = {
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);`,
     selectOwnerById: `SELECT * FROM owner WHERE id = ?;`,
     selectDocById: `SELECT * FROM ts_doc WHERE id = ?;`,
+    sqlUpdateOwner: `
+        UPDATE owner
+        SET first_name = ?,
+            second_name = ?,
+            midle_name = ?,
+            owner_type_id = ?
+        WHERE id  = ?;`,
+    sqlUpdateDoc: `
+        UPDATE ts_doc
+        SET ts_doc_type_id = ?,
+            series = ?,
+            number = ?,
+            issuer = ?,
+            date = ?
+        WHERE id = ?;`,
+    sqlUpdateTs: `
+        UPDATE ts
+        SET plate = ?,
+            no_grz = ?,
+            brand = ?,
+            model = ?,
+            year = ?,
+            vin = ?,
+            no_vin = ?,
+            chassis = ?,
+            body = ?,
+            ts_category_id = ?,
+            ats_type_id = ?,
+            engine_type_id = ?,
+            odometer = ?,
+            owner_id = ?,
+            ts_doc_id = ?
+        WHERE id = ?;`,
 }

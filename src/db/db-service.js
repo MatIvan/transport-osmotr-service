@@ -129,6 +129,20 @@ function insert(sql, param, callback) {
     });
 }
 
+/**
+ * @param {string} sql 
+ * @param {any} param 
+ * @param {()=>void} callback 
+ */
+function update(sql, param, callback) {
+    console.log(`update: ${sql}, params=${JSON.stringify(param)}`);
+    dbInit.getDB().run(sql, param, function (err) {
+        console.log(`update result: err=${!!err}`);
+        if (err) return processError(err);
+        callback();
+    });
+}
+
 module.exports = {
     open: dbInit.open,
     close: dbInit.close,
@@ -198,29 +212,73 @@ module.exports = {
      * @param {(ts:Ts)=>void} callback 
      */
     saveTs: function (ts, callback) {
-        dbInit.getDB().run(SQL.beginTransaction, () => {
-            insertOwner(ts.owner, (ownerId) => {
-                ts.owner_id = ownerId;
-                ts.owner.id = ownerId;
-                insertDoc(ts.doc, (docId) => {
-                    ts.ts_doc_id = docId;
-                    ts.doc.id = docId;
-                    insertTs(ts, (tsId) => {
-                        ts.id = tsId;
-                        dbInit.getDB().run(SQL.commit);
-                        callback(ts);
-                    });
+        if (ts.id > 0) {
+            updateTsFull(ts, callback);
+            return;
+        }
+        insetrTsFull(ts, callback);
+    }
+}
+
+/**
+ * @param {Ts} ts 
+ * @param {(ts:Ts)=>void} callback 
+ */
+function updateTsFull(ts, callback) {
+    dbInit.getDB().run(SQL.beginTransaction, () => {
+        updateOwnerOnly(ts.owner, () => {
+            updateDocOnly(ts.doc, () => {
+                updateTsOnly(ts, () => {
+                    dbInit.getDB().run(SQL.commit);
+                    callback(ts);
                 });
             });
         });
-    }
+    });
+}
+
+/**
+ * @param {Ts} ts 
+ * @param {(ts:Ts)=>void} callback 
+ */
+function insetrTsFull(ts, callback) {
+    dbInit.getDB().run(SQL.beginTransaction, () => {
+        insertOwnerOnly(ts.owner, (ownerId) => {
+            ts.owner_id = ownerId;
+            ts.owner.id = ownerId;
+            insertDocOnly(ts.doc, (docId) => {
+                ts.ts_doc_id = docId;
+                ts.doc.id = docId;
+                insertTsOnly(ts, (tsId) => {
+                    ts.id = tsId;
+                    dbInit.getDB().run(SQL.commit);
+                    callback(ts);
+                });
+            });
+        });
+    });
+}
+
+/**
+ * @param {Owner} owner
+ * @param {()=>void} callback
+ */
+function updateOwnerOnly(owner, callback) {
+    const ownerParams = [
+        owner.first_name,
+        owner.second_name,
+        owner.midle_name,
+        owner.owner_type_id,
+        owner.id
+    ];
+    update(SQL.sqlUpdateOwner, ownerParams, callback);
 }
 
 /**
  * @param {Owner} owner
  * @param {(ownerId:number)=>void} callback
  */
-function insertOwner(owner, callback) {
+function insertOwnerOnly(owner, callback) {
     const ownerParams = [
         owner.first_name,
         owner.second_name,
@@ -232,9 +290,25 @@ function insertOwner(owner, callback) {
 
 /**
  * @param {TS_Doc} doc
+ * @param {()=>void} callback
+ */
+function updateDocOnly(doc, callback) {
+    const docParams = [
+        doc.ts_doc_type_id,
+        doc.series,
+        doc.number,
+        doc.issuer,
+        doc.date,
+        doc.id
+    ];
+    update(SQL.sqlUpdateDoc, docParams, callback);
+}
+
+/**
+ * @param {TS_Doc} doc
  * @param {(docId:number)=>void} callback
  */
-function insertDoc(doc, callback) {
+function insertDocOnly(doc, callback) {
     const docParams = [
         doc.ts_doc_type_id,
         doc.series,
@@ -247,9 +321,35 @@ function insertDoc(doc, callback) {
 
 /**
  * @param {Ts} ts
+ * @param {()=>void} callback
+ */
+function updateTsOnly(ts, callback) {
+    const tsParams = [
+        ts.plate,
+        ts.no_grz,
+        ts.brand,
+        ts.model,
+        ts.year,
+        ts.vin,
+        ts.no_vin,
+        ts.chassis,
+        ts.body,
+        ts.ts_category_id,
+        ts.ats_type_id,
+        ts.engine_type_id,
+        ts.odometer,
+        ts.owner_id,
+        ts.ts_doc_id,
+        ts.id
+    ];
+    update(SQL.sqlUpdateTs, tsParams, callback);
+}
+
+/**
+ * @param {Ts} ts
  * @param {(tsId:number)=>void} callback
  */
-function insertTs(ts, callback) {
+function insertTsOnly(ts, callback) {
     const tsParams = [
         ts.plate,
         ts.no_grz,

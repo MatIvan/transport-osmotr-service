@@ -31,7 +31,7 @@ var currentTs = {
         ts_doc_type_id: -1,
         series: '',
         number: '',
-        issuer: '',
+        issuer: 'Код ГИБДД: ',
         date: '',
     },
     owner: {
@@ -69,7 +69,6 @@ RPC.bind({
      */
     tsForEdit: (ts) => {
         currentTs = ts;
-        console.log("tsForEdit: ", ts);
         refreshAll();
     },
 
@@ -114,7 +113,6 @@ RPC.bind({
     tsSavedSuccess: (ts) => {
         currentTs = ts;
         hasChanged = false;
-        console.log('tsSavedSuccess: ' + ts);
         refreshAll();
         alert('Сохранено успешно!');
     },
@@ -275,7 +273,6 @@ ELEM.ui.btnCancel.onclick = () => {
 RPC.getTsForEdit();
 
 function refreshAll() {
-    console.log("refreshAll");
     VIEW.refreshAll(currentTs);
 }
 
@@ -290,7 +287,7 @@ function loadLists() {
 function save() {
     if (!hasChanged) {
         alert('Изменений нет.');
+        return;
     }
-    console.log("SAVE: ", currentTs);
     RPC.saveTs(currentTs);
 }
