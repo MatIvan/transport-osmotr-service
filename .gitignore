@@ -132,3 +132,5 @@ dist
 
 database.sqlite
 html/renderers/*
+
+secret.sql

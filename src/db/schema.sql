@@ -59,3 +59,59 @@ CREATE TABLE ts_doc (
 	'issuer' TEXT,
 	'date' TEXT --"YYYY-MM-DD"
 );
+
+CREATE TABLE gto (
+	'id' INTEGER PRIMARY KEY,
+	'ts_id' INTEGER NOT NULL,
+	'date' TEXT --"YYYY-MM-DD",
+	'place_id' INTEGER NOT NULL,
+	'staff_id' INTEGER NOT NULL,
+	'test_type_id' INTEGER NOT NULL,
+	'result_id' INTEGER NOT NULL,
+	'process_id' INTEGER NOT NULL,
+	'period_id' INTEGER NOT NULL,
+	'stop_date' TEXT --"YYYY-MM-DD",
+	'cost' INTEGER NOT NULL, --количество копеек
+	'cost_type_id' INTEGER NOT NULL
+);
+
+CREATE TABLE place (
+	'id' INTEGER PRIMARY KEY,
+	'name' TEXT NOT NULL,
+	'address' TEXT NOT NULL,
+	'oto_number' TEXT NOT NULL 
+);
+
+CREATE TABLE staff (
+	'id' INTEGER PRIMARY KEY,
+	'full_name' TEXT NOT NULL,
+	'code' TEXT NOT NULL,
+	'place_id' INTEGER NOT NULL,
+	'active' INTEGER DEFAULT TRUE
+);
+
+CREATE TABLE test_type (
+	'id' INTEGER PRIMARY KEY,
+	'name' TEXT NOT NULL
+);
+
+CREATE TABLE result (
+	'id' INTEGER PRIMARY KEY,
+	'name' TEXT NOT NULL
+);
+
+CREATE TABLE process (
+	'id' INTEGER PRIMARY KEY,
+	'name' TEXT NOT NULL
+);
+
+CREATE TABLE period (
+	'id' INTEGER PRIMARY KEY,
+	'name' TEXT NOT NULL,
+	'months' INTEGER NOT NULL 
+);
+
+CREATE TABLE cost_type (
+	'id' INTEGER PRIMARY KEY,
+	'name' TEXT NOT NULL
+);
