@@ -36,6 +36,7 @@ module.exports = {
     getTsEngineType: () => channels.sendToDataBaseChannel('getTsEngineType'),
     getOwnerType: () => channels.sendToDataBaseChannel('getOwnerType'),
     getDocType: () => channels.sendToDataBaseChannel('getDocType'),
+    getAllPlace: () => channels.sendToDataBaseChannel('getAllPlace'),
     // @ts-ignore
     appVersions: window.versions,
 }

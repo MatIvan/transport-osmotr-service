@@ -70,4 +70,5 @@ module.exports = {
             owner_id = ?,
             ts_doc_id = ?
         WHERE id = ?;`,
+    selectAllPlace: `SELECT id, name, address, oto_number FROM place;`,
 }

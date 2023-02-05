@@ -3,7 +3,11 @@
 
 const RPC = require('../rpc');
 const ELEM = require('./elements');
-const VIEW = require('./place-page-view');
+const ALL_TABLE = require('./all-place-table');
+
+/**
+ * @typedef {import('../../src/db/db-service').Place} Place
+ */
 
 RPC.bind({
     /**
@@ -13,20 +17,20 @@ RPC.bind({
         alert('ОШИБКА !!!\n\n' + msg);
     },
 
+    /**
+     * @param {Place[]} placeArray
+     */
+    allPlace: (placeArray) => {
+        ALL_TABLE.setData(placeArray);
+    }
 });
 
-VIEW.prepareElements();
+ALL_TABLE.onPlaceClick((place) => {
+    console.log("MATIV onPlaceClick: ", place);
+});
 
-loadLists();
+RPC.getAllPlace();
 
 ELEM.ui.btnCancel.onclick = () => {
     RPC.showStartPage();
-}
-
-function refreshAll() {
-    VIEW.refreshAll();
-}
-
-function loadLists() {
-
 }

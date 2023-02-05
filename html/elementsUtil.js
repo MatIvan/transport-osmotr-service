@@ -46,7 +46,17 @@ module.exports = {
         } else {
             elem.classList.remove(STYLE_BAD);
         }
-    }
+    },
+
+    /**
+     * @param {string} className
+     * @returns {HTMLElement}
+     */
+    createDiv: (className) => {
+        const elem = document.createElement('div');
+        elem.className = className;
+        return elem;
+    },
 }
 
 /**

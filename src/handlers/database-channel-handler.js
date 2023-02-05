@@ -32,4 +32,7 @@ module.exports = {
     saveTs: (params, callback) => {
         dbService.saveTs(params, wrapCallback('tsSavedSuccess', callback));
     },
+    getAllPlace:(params, callback) => {
+        dbService.getAllPlace( wrapCallback('allPlace', callback));
+    },
 }

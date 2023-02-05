@@ -77,6 +77,14 @@ const SQL = require('./db-sql')
  */
 
 /**
+ * @typedef {Object} Place
+ * @property {number} id
+ * @property {string} name
+ * @property {string} address
+ * @property {string} oto_number
+ */
+
+/**
  * @param {Error} err
  */
 function processError(err) {
@@ -217,7 +225,14 @@ module.exports = {
             return;
         }
         insetrTsFull(ts, callback);
-    }
+    },
+
+    /**
+     * @param {(data:Place[])=>void} callback 
+     */
+    getAllPlace: function (callback) {
+        selectAll(SQL.selectAllPlace, [], callback);
+    },
 }
 
 /**
