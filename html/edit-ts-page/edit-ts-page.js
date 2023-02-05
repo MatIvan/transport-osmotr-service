@@ -1,7 +1,6 @@
 //@ts-check
 'use strict';
 
-const { fillList, bindUpperValue, markAsBad } = require('../elementsUtil');
 const RPC = require('../rpc');
 const ELEM = require('./elements');
 const VIEW = require('./edit-ts-page-view');

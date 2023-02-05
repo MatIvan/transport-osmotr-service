@@ -20,8 +20,16 @@ class StartWindow extends AbstractWin {
         browserWindow.loadFile(pages.startPage);
     }
 
-    onEditTs(menuItem, browserWindow, event) {
+    onMenuAddTs(menuItem, browserWindow, event) {
         browserWindow.loadFile(pages.editTs);
+    }
+
+    onMenuStaff(menuItem, browserWindow, event) {
+        browserWindow.loadFile(pages.staff);
+    }
+
+    onMenuPlace(menuItem, browserWindow, event) {
+        browserWindow.loadFile(pages.place);
     }
 }
 

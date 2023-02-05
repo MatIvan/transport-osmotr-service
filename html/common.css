@@ -40,3 +40,30 @@ body {
 .button:active {
     background-color: #6d6d6d;
 }
+
+.main-box {
+    align-items: center;
+    height: 100%;
+}
+
+.ui-panel {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 10px;
+}
+
+#caption {
+    font: caption;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.body-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    overflow: auto;
+}

@@ -14,13 +14,25 @@ function onClick(menuItem, browserWindow, event) {
 
 const template = [
     {
-        label: "Menu",
+        label: "Меню",
         submenu: [
             { id: 'onReturnToMainPage', label: "На главную", click: onClick },
-            { id: 'onEditTs', label: "Добавить ТС", click: onClick },
             { role: "quit" }
         ],
     },
+    {
+        label: "Данные",
+        submenu: [
+            { id: 'onMenuAddTs', label: "Добавить ТС", click: onClick },
+        ],
+    },
+    {
+        label: "Настройки",
+        submenu: [
+            { id: 'onMenuStaff', label: "Сотрудники", click: onClick },
+            { id: 'onMenuPlace', label: "Организации", click: onClick },
+        ],
+    }
 ];
 
 module.exports = {
