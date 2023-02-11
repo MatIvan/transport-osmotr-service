@@ -1,0 +1,34 @@
+.staff-table {
+    width: 80%;
+    align-self: center;
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+.col1 {
+    width: 35%;
+}
+
+.col2 {
+    width: 15%;
+}
+
+.col3 {
+    width: 40%;
+}
+
+.col4 {
+    width: 10%;
+}
+
+.edit-win {
+    height: 40%;
+}
+
+.center {
+    text-align: center;
+}
+
+.form-row i {
+    width: 30%;
+}

@@ -9,6 +9,7 @@ const TYPES_REPO = require('./repository/types-repo');
 const OWNER_REPO = require('./repository/owner-repo');
 const DOC_REPO = require('./repository/doc-repo');
 const TS_REPO = require('./repository/ts-repo');
+const STAFF_REPO = require('./repository/staff-repo');
 
 /**
  * @typedef {import('./repository/ts-repo').Ts} Ts
@@ -21,6 +22,7 @@ module.exports = {
     close: dbInit.close,
 
     place: PLACE_REPO,
+    staff: STAFF_REPO,
     types: TYPES_REPO,
 
     getTs: selectTsById,

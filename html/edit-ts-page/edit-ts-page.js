@@ -23,8 +23,6 @@ var hasChanged = false;
  */
 var currentTs = {
     id: -1,
-    ts_doc_id: -1,
-    owner_id: -1,
     doc: {
         id: -1,
         ts_doc_type_id: -1,

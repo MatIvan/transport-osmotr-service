@@ -10,6 +10,8 @@
 
     <title>-=TOS=-</title>
     <link rel="stylesheet" href="../common.css">
+    <link rel="stylesheet" href="../table.css">
+    <link rel="stylesheet" href="../form.css">
     <link rel="stylesheet" href="staff-page-style.css">
 </head>
 
@@ -18,13 +20,63 @@
         <div id="caption">Сотрудники</div>
         <div class="body-box grow">
 
-            <!-- список всех -->
+            <div class="table staff-table">
+                <div class="table-head">
+                    <div class="table-row-head">
+                        <div class="table-col col1">ФИО</div>
+                        <div class="table-col col2">Код</div>
+                        <div class="table-col col3">Место работы</div>
+                        <div class="table-col col4">Работает</div>
+                        <div class="table-col col-scroll"></div>
+                    </div>
+                </div>
+                <div class="table-body" id="all-staff-table">
+                    <div class="table-row">
+                        <div class="table-col col1">no data</div>
+                    </div>
+                </div>
+            </div>
 
         </div>
         <div class="ui-panel">
             <div id="btnCancel" class="button"> На главную </div>
+            <div id="btnAddStaff" class="button"> Добавить сотрудника </div>
         </div>
     </div>
+
+    <div id="edit-lay" class="modality-lay hide">
+        <div class="modality-window ver-panel main-box edit-win">
+            <div id="caption">Редактировать сотрудника</div>
+            <div class="body-box grow">
+                <div class="form-box">
+                    <div class="form-row">
+                        <i>ФИО:</i>
+                        <input type="text" id="staff.full_name">
+                    </div>
+                    <div class="form-row">
+                        <i>Код:</i>
+                        <input type="text" id="staff.code">
+                    </div>
+                    <div class="form-row">
+                        <i>Место работы:</i>
+                        <select id="staff.place_id">
+                            <option value=-1>-</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <i></i>
+                        <input type="checkbox" id="staff.active"><i>Работает</i>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-panel">
+                <div id="btnEditCancel" class="button"> Отмена </div>
+                <div id="btnEditSave" class="button"> Сохранить </div>
+            </div>
+
+        </div>
+    </div>
+
     <script src="../renderers/staff-page-renderer.js"></script>
 </body>
 

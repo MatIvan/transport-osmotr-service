@@ -6,6 +6,7 @@ const channels = require('./channels');
 /**
  * @typedef {import('../src/db/db-service').Ts} Ts
  * @typedef {import('../src/db/repository/place-repo').Place} Place
+ * @typedef {import('../src/db/repository/staff-repo').Staff} Staff
  */
 
 module.exports = {
@@ -32,6 +33,11 @@ module.exports = {
      */
     savePlace: (place) => channels.sendToDataBaseChannel('savePlace', place),
 
+    /**
+     * @param {Staff} staff
+     */
+    saveStaff: (staff) => channels.sendToDataBaseChannel('saveStaff', staff),
+
     // common
     showStartPage: () => channels.sendToMainChannel('showStartPage'),
 
@@ -42,6 +48,7 @@ module.exports = {
     getOwnerType: () => channels.sendToDataBaseChannel('getOwnerType'),
     getDocType: () => channels.sendToDataBaseChannel('getDocType'),
     getAllPlace: () => channels.sendToDataBaseChannel('getAllPlace'),
+    getAllStaff: () => channels.sendToDataBaseChannel('getAllStaff'),
     // @ts-ignore
     appVersions: window.versions,
 }

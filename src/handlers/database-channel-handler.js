@@ -37,4 +37,10 @@ module.exports = {
     savePlace: (params, callback) => {
         dbService.place.save(params, wrapCallback('placeSavedSuccess', callback));
     },
+    getAllStaff: (params, callback) => {
+        dbService.staff.getAll(wrapCallback('allStaff', callback));
+    },
+    saveStaff: (params, callback) => {
+        dbService.staff.save(params, wrapCallback('staffSavedSuccess', callback));
+    },
 }

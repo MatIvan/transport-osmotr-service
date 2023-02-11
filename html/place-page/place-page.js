@@ -4,7 +4,7 @@
 const RPC = require('../rpc');
 const ELEM = require('./elements');
 const ALL_TABLE = require('./all-place-table');
-const EDIT_WIN = require('./edit-win');
+const EDIT_WIN = require('./edit-place-win');
 
 /**
  * @typedef {import('../../src/db/repository/place-repo').Place} Place
