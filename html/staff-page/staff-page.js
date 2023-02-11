@@ -5,11 +5,14 @@ const RPC = require('../rpc');
 const ELEM = require('./elements');
 const ALL_TABLE = require('./all-staff-table');
 const EDIT_WIN = require('./edit-staff-win');
+const WAIT_WIN = require('../wait-win');
 
 /**
  * @typedef {import('../../src/db/repository/staff-repo').Staff} Staff
  * @typedef {import('../../src/db/repository/place-repo').Place} Place
  */
+
+WAIT_WIN.show();
 
 RPC.bind({
     /**
@@ -17,6 +20,7 @@ RPC.bind({
      */
     databaseError: (msg) => {
         alert('ОШИБКА !!!\n\n' + msg);
+        WAIT_WIN.hide();
     },
 
     /**
@@ -24,6 +28,7 @@ RPC.bind({
     */
     allStaff: (staffArray) => {
         ALL_TABLE.setData(staffArray);
+        WAIT_WIN.hide();
     },
 
     /**
@@ -35,6 +40,7 @@ RPC.bind({
     },
 
     staffSavedSuccess: () => {
+        WAIT_WIN.show();
         RPC.getAllStaff();
     }
 });
@@ -45,6 +51,7 @@ ALL_TABLE.onStaffClick((staff) => {
 
 EDIT_WIN.bind();
 EDIT_WIN.onSave((staff) => {
+    WAIT_WIN.show();
     RPC.saveStaff(staff);
 });
 

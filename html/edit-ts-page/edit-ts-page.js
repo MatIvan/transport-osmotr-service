@@ -4,6 +4,7 @@
 const RPC = require('../rpc');
 const ELEM = require('./elements');
 const VIEW = require('./edit-ts-page-view');
+const WAIT_WIN = require('../wait-win');
 
 /**
  * @typedef {import('../../src/db/repository/types-repo').Ats_Type} Ats_Type
@@ -21,37 +22,43 @@ var hasChanged = false;
 /**
  * @type Ts
  */
-var currentTs = {
-    id: -1,
-    doc: {
+var currentTs = getEmptyTs();
+
+function getEmptyTs() {
+    return {
         id: -1,
-        ts_doc_type_id: -1,
-        series: '',
-        number: '',
-        issuer: 'Код ГИБДД: ',
-        date: '',
-    },
-    owner: {
-        id: -1,
-        first_name: '',
-        second_name: '',
-        midle_name: '',
-        owner_type_id: -1,
-    },
-    plate: '',
-    no_grz: true,
-    brand: '',
-    model: '',
-    year: 1900,
-    vin: '',
-    no_vin: true,
-    chassis: '',
-    body: '',
-    ts_category_id: -1,
-    ats_type_id: -1,
-    engine_type_id: -1,
-    odometer: 0,
-};
+        doc: {
+            id: -1,
+            ts_doc_type_id: -1,
+            series: '',
+            number: '',
+            issuer: 'Код ГИБДД: ',
+            date: '',
+        },
+        owner: {
+            id: -1,
+            first_name: '',
+            second_name: '',
+            midle_name: '',
+            owner_type_id: -1,
+        },
+        plate: '',
+        no_grz: true,
+        brand: '',
+        model: '',
+        year: 1900,
+        vin: '',
+        no_vin: true,
+        chassis: '',
+        body: '',
+        ts_category_id: -1,
+        ats_type_id: -1,
+        engine_type_id: -1,
+        odometer: 0,
+    };
+}
+
+WAIT_WIN.show();
 
 RPC.bind({
     /**
@@ -59,14 +66,16 @@ RPC.bind({
      */
     databaseError: (msg) => {
         alert('ОШИБКА !!!\n\n' + msg);
+        WAIT_WIN.hide();
     },
 
     /**
      * @param {Ts} ts 
      */
     tsForEdit: (ts) => {
-        currentTs = ts;
+        currentTs = ts ? ts : getEmptyTs();
         refreshAll();
+        WAIT_WIN.hide();
     },
 
     /**
@@ -111,6 +120,7 @@ RPC.bind({
         currentTs = ts;
         hasChanged = false;
         refreshAll();
+        WAIT_WIN.hide();
         alert('Сохранено успешно!');
     },
 });
@@ -286,5 +296,6 @@ function save() {
         alert('Изменений нет.');
         return;
     }
+    WAIT_WIN.show();
     RPC.saveTs(currentTs);
 }

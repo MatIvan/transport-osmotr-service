@@ -89,6 +89,14 @@ body {
     background-color: white;
 }
 
+.wait-window{
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    margin: auto;
+    background-color: white;
+}
+
 .hide {
     display: none;
 }

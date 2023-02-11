@@ -35,7 +35,7 @@ function show(staff) {
     currentStaff = staff || emptyStaff();
     ELEM.edit.fullName.value = currentStaff.full_name;
     ELEM.edit.code.value = currentStaff.code;
-    ELEM.edit.place.value = String(currentStaff.id);
+    ELEM.edit.place.value = String(currentStaff.place_id);
     ELEM.edit.active.checked = currentStaff.active;
 }
 

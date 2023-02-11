@@ -20,6 +20,8 @@ module.exports = {
                 callback('tsForEdit', data);
             });
             tsIdForEdit = null;
+        } else {
+            callback('tsForEdit', null);
         }
     },
 
