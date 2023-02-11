@@ -115,8 +115,8 @@ function prepareElements() {
     setChangeHandler(ELEM.doc.issuer, () => { HANDLER.onDocIssuer(ELEM.doc.issuer.value) });
     setChangeHandler(ELEM.doc.date, () => { HANDLER.onDocDate(ELEM.doc.date.value) });
 
-    ELEM.ts.no_grz.onclick = () => { HANDLER.onNoGrz(!!ELEM.ts.no_grz.value) };
-    ELEM.ts.no_vin.onclick = () => { HANDLER.onNoVin(!!ELEM.ts.no_vin.value) };
+    ELEM.ts.no_grz.onclick = () => { HANDLER.onNoGrz(ELEM.ts.no_grz.checked) };
+    ELEM.ts.no_vin.onclick = () => { HANDLER.onNoVin(ELEM.ts.no_vin.checked) };
     ELEM.ts.btnBodyCopyVin.onclick = () => { HANDLER.onBody(ELEM.ts.vin.value) };
 }
 
