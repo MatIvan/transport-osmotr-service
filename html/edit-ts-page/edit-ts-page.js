@@ -6,14 +6,14 @@ const ELEM = require('./elements');
 const VIEW = require('./edit-ts-page-view');
 
 /**
- * @typedef {import('../../src/db/db-service').Ats_Type} Ats_Type
- * @typedef {import('../../src/db/db-service').Ts_Category} Ts_Category
- * @typedef {import('../../src/db/db-service').Engine_Type} Engine_Type
- * @typedef {import('../../src/db/db-service').Owner_Type} Owner_Type
- * @typedef {import('../../src/db/db-service').Ts_Doc_Type} Ts_Doc_Type
- * @typedef {import('../../src/db/db-service').Ts} Ts
- * @typedef {import('../../src/db/db-service').TS_Doc} TS_Doc
- * @typedef {import('../../src/db/db-service').Owner} Owner
+ * @typedef {import('../../src/db/repository/types-repo').Ats_Type} Ats_Type
+ * @typedef {import('../../src/db/repository/types-repo').Ts_Category} Ts_Category
+ * @typedef {import('../../src/db/repository/types-repo').Engine_Type} Engine_Type
+ * @typedef {import('../../src/db/repository/types-repo').Owner_Type} Owner_Type
+ * @typedef {import('../../src/db/repository/types-repo').Ts_Doc_Type} Ts_Doc_Type
+ * @typedef {import('../../src/db/repository/ts-repo').Ts} Ts
+ * @typedef {import('../../src/db/repository/doc-repo').Doc} Doc
+ * @typedef {import('../../src/db/repository/owner-repo').Owner} Owner
  */
 
 var hasChanged = false;

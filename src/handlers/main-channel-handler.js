@@ -16,7 +16,7 @@ module.exports = {
 
     getTsForEdit: (params, callback) => {
         if (tsIdForEdit) {
-            dbService.selectTS(tsIdForEdit, (data) => {
+            dbService.getTs(tsIdForEdit, (data) => {
                 callback('tsForEdit', data);
             });
             tsIdForEdit = null;

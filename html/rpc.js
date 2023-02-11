@@ -5,6 +5,7 @@ const channels = require('./channels');
 
 /**
  * @typedef {import('../src/db/db-service').Ts} Ts
+ * @typedef {import('../src/db/repository/place-repo').Place} Place
  */
 
 module.exports = {
@@ -20,12 +21,16 @@ module.exports = {
      */
     onEditTs: (tsId) => channels.sendToMainChannel('onEditTs', tsId),
 
-    // from edit-ts-page
     getTsForEdit: () => channels.sendToMainChannel('getTsForEdit'),
     /**
      * @param {Ts} ts 
      */
     saveTs: (ts) => channels.sendToDataBaseChannel('saveTs', ts),
+
+    /**
+     * @param {Place} place
+     */
+    savePlace: (place) => channels.sendToDataBaseChannel('savePlace', place),
 
     // common
     showStartPage: () => channels.sendToMainChannel('showStartPage'),

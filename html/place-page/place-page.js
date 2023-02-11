@@ -5,8 +5,9 @@ const RPC = require('../rpc');
 const ELEM = require('./elements');
 const ALL_TABLE = require('./all-place-table');
 const EDIT_WIN = require('./edit-win');
+
 /**
- * @typedef {import('../../src/db/db-service').Place} Place
+ * @typedef {import('../../src/db/repository/place-repo').Place} Place
  */
 
 RPC.bind({
@@ -35,7 +36,7 @@ ALL_TABLE.onPlaceClick((place) => {
 
 EDIT_WIN.bind();
 EDIT_WIN.onSave((place) => {
-    console.log("onSave: ", place); //TODO
+    RPC.savePlace(place);
 });
 
 ELEM.ui.btnCancel.onclick = () => {

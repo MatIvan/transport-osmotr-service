@@ -3,7 +3,7 @@
 const { setChangeHandler } = require('../elementsUtil');
 const ELEM = require('./elements');
 /**
- * @typedef {import('../../src/db/db-service').Place} Place
+ * @typedef {import('../../src/db/repository/place-repo').Place} Place
  */
 
 /**

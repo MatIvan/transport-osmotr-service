@@ -71,4 +71,13 @@ module.exports = {
             ts_doc_id = ?
         WHERE id = ?;`,
     selectAllPlace: `SELECT id, name, address, oto_number FROM place;`,
+    sqlUpdatePlace: `
+        UPDATE place
+        SET name = ?,
+            address = ?,
+            oto_number = ?
+        WHERE id  = ?;`,
+    sqlInsertPlace: `
+        INSERT INTO place (name, address, oto_number)
+        VALUES (?, ?, ?);`,
 }

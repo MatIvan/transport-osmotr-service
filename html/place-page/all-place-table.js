@@ -5,7 +5,7 @@ const ELEM = require('./elements');
 const { createDiv } = require('../elementsUtil');
 
 /**
- * @typedef {import('../../src/db/db-service').Place} Place
+ * @typedef {import('../../src/db/repository/place-repo').Place} Place
  */
 
 /**

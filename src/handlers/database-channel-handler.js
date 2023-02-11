@@ -10,29 +10,31 @@ function wrapCallback(cmd, callback) {
     }
 }
 
-
 module.exports = {
     name: 'database-channel',
 
     getTsCategory: (params, callback) => {
-        dbService.selectAllTsCategory(wrapCallback('tsCategory', callback));
+        dbService.types.getTsCategory(wrapCallback('tsCategory', callback));
     },
     getAtsType: (params, callback) => {
-        dbService.selectAtsTypeByCategory(wrapCallback('atsType', callback));
+        dbService.types.getAtsTypeByCategory(wrapCallback('atsType', callback));
     },
     getTsEngineType: (params, callback) => {
-        dbService.selectAllEngineType(wrapCallback('tsEngineType', callback));
+        dbService.types.getEngineType(wrapCallback('tsEngineType', callback));
     },
     getOwnerType: (params, callback) => {
-        dbService.selectAllOwnerType(wrapCallback('ownerType', callback));
+        dbService.types.getOwnerType(wrapCallback('ownerType', callback));
     },
     getDocType: (params, callback) => {
-        dbService.selectAllDocType(wrapCallback('docType', callback));
+        dbService.types.getDocType(wrapCallback('docType', callback));
     },
     saveTs: (params, callback) => {
         dbService.saveTs(params, wrapCallback('tsSavedSuccess', callback));
     },
-    getAllPlace:(params, callback) => {
-        dbService.getAllPlace( wrapCallback('allPlace', callback));
+    getAllPlace: (params, callback) => {
+        dbService.place.getAll(wrapCallback('allPlace', callback));
+    },
+    savePlace: (params, callback) => {
+        dbService.place.save(params, wrapCallback('placeSavedSuccess', callback));
     },
 }
