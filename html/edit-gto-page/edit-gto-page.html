@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self' 'unsafe-eval'; script-src 'self' 'unsafe-eval'" />
+    <meta http-equiv="X-Content-Security-Policy"
+        content="default-src 'self' 'unsafe-eval'; script-src 'self' 'unsafe-eval'" />
+
+    <title>-=TOS=-</title>
+    <link rel="stylesheet" href="../icons.css">
+    <link rel="stylesheet" href="../common.css">
+    <link rel="stylesheet" href="../table.css">
+    <link rel="stylesheet" href="../form.css">
+    <link rel="stylesheet" href="edit-gto-page-style.css">
+</head>
+
+<body>
+    <div class="ver-panel main-box">
+        <div id="caption">Все ГТО транспортного средства</div>
+        <div id="subcaption">NUMBER</div>
+        <div class="body-box grow">
+
+            <div class="table gto-table">
+                <div class="table-head">
+                    <div class="table-row-head">
+                        <div class="table-col col1">Дата</div>
+                        <div class="table-col col2">Срок действия ДК</div>
+                        <div class="table-col col3">Вид проверки</div>
+                        <div class="table-col col4">Решение</div>
+                        <div class="table-col col5">Статус</div>
+                        <div class="table-col col6">Тех. эксперт</div>
+                        <div class="table-col col-scroll"></div>
+                    </div>
+                </div>
+                <div class="table-body" id="all-gto-table">
+                    <div class="table-row">
+                        <div class="table-col col1">no data</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="ui-panel">
+            <div id="btnCancel" class="button"> На главную </div>
+            <div id="btnAddGto" class="button"> Добавить ГТО </div>
+        </div>
+    </div>
+
+    <div id="edit-lay" class="modality-lay hide">
+        <div class="modality-window ver-panel main-box edit-win">
+            <div id="caption">Редактировать ГТО</div>
+            <div id="subcaption">NUMBER</div>
+            <div class="body-box grow">
+
+                <!-- Данные для проведения ГТО -->
+                <div class="block">
+                    <div class="block-child block-child-data">
+                        <div class="form-box">
+                            <div class="form-row">
+                                <i>Дата ГТО:</i>
+                                <input type="date" id="gto.date">
+                            </div>
+                            <div class="form-row">
+                                <i>СТО:</i>
+                                <select id="gto.place_id">
+                                    <option value=-1>-</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <i>Тех. эксперт:</i>
+                                <select id="gto.staff_id">
+                                    <option value=-1>-</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <i>Вид проверки:</i>
+                                <select id="gto.test_type_id">
+                                    <option value=-1>-</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <i>Решение:</i>
+                                <select id="gto.result_id">
+                                    <option value=-1>-</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <i>Управление осмотром:</i>
+                                <select id="gto.process_id">
+                                    <option value=-1>-</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <i>Срок действия ДК:</i>
+                                <select id="gto.period_id">
+                                    <option value=-1>-</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <i>Дата окончания ДК:</i>
+                                <input type="date" id="gto.stop_date">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Оплата -->
+                <div class="block">
+                    <div class="block-child block-child-cost">
+                        <div class="form-box">
+                            <div class="form-row">
+                                <i>Стоимость:</i>
+                                <input type="text" id="gto.cost">
+                            </div>
+                            <div class="form-row">
+                                <i>Оплата:</i>
+                                <select id="gto.cost_type_id">
+                                    <option value=-1>-</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="ui-panel">
+                <div id="btnEditCancel" class="button"> Отмена </div>
+                <div id="btnEditSave" class="button"> Сохранить </div>
+            </div>
+
+        </div>
+
+    </div>
+    <script src="../renderers/edit-gto-page-renderer.js"></script>
+</body>
+
+</html>

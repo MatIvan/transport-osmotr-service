@@ -10,6 +10,7 @@ const OWNER_REPO = require('./repository/owner-repo');
 const DOC_REPO = require('./repository/doc-repo');
 const TS_REPO = require('./repository/ts-repo');
 const STAFF_REPO = require('./repository/staff-repo');
+const GTO_REPO = require('./repository/gto-repo');
 
 /**
  * @typedef {import('./repository/ts-repo').Ts} Ts
@@ -24,14 +25,15 @@ module.exports = {
     place: PLACE_REPO,
     staff: STAFF_REPO,
     types: TYPES_REPO,
+    gto: GTO_REPO,
 
     getTs: selectTsById,
     saveTs: saveTs,
 }
 
 /**
- * @param {number} id 
- * @param {(ts:Ts)=>void} callback 
+ * @param {number} id
+ * @param {(ts:Ts)=>void} callback
 */
 function selectTsById(id, callback) {
     UTIL.transaction(() => {
@@ -54,8 +56,8 @@ function selectTsById(id, callback) {
 }
 
 /**
- * @param {Ts} ts 
- * @param {(ts:Ts)=>void} callback 
+ * @param {Ts} ts
+ * @param {(ts:Ts)=>void} callback
 */
 function saveTs(ts, callback) {
     UTIL.transaction(() => {

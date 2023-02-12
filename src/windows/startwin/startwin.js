@@ -31,6 +31,10 @@ class StartWindow extends AbstractWin {
     onMenuPlace(menuItem, browserWindow, event) {
         browserWindow.loadFile(pages.place);
     }
+
+    onMenuAddGto(menuItem, browserWindow, event) {
+        browserWindow.loadFile(pages.editGto);
+    }
 }
 
 module.exports = StartWindow

@@ -61,6 +61,12 @@ body {
     margin: 10px;
 }
 
+#subcaption{
+    font: small-caption;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
 .body-box {
     width: 100%;
     display: flex;

@@ -43,4 +43,25 @@ module.exports = {
     saveStaff: (params, callback) => {
         dbService.staff.save(params, wrapCallback('staffSavedSuccess', callback));
     },
+    getGtoTestType: (params, callback) => {
+        dbService.types.getGtoTestType(wrapCallback('gtoTestType', callback));
+    },
+    getGtoResult: (params, callback) => {
+        dbService.types.getGtoResult(wrapCallback('gtoResult', callback));
+    },
+    getGtoProcess: (params, callback) => {
+        dbService.types.getGtoProcess(wrapCallback('gtoProcess', callback));
+    },
+    getGtoPeriod: (params, callback) => {
+        dbService.types.getGtoPeriod(wrapCallback('gtoPeriod', callback));
+    },
+    getGtoCostType: (params, callback) => {
+        dbService.types.getGtoCostType(wrapCallback('gtoCostType', callback));
+    },
+    getGtoByTsId: (params, callback) => {
+        dbService.gto.getByTs(params, wrapCallback('gtoByTsId', callback));
+    },
+    saveGto: (params, callback) => {
+        dbService.gto.save(params, wrapCallback('gtoSavedSuccess', callback));
+    },
 }

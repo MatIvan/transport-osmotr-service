@@ -91,4 +91,37 @@ module.exports = {
     sqlInsertStaff: `
         INSERT INTO staff (full_name, code, place_id, active)
         VALUES (?, ?, ?, ?);`,
+    selectGtoByTs: `SELECT * FROM gto WHERE ts_id = ?`,
+    sqlUpdateGto: `
+        UPDATE gto
+        SET date = ?,
+            place_id = ?,
+            staff_id = ?,
+            test_type_id = ?,
+            result_id = ?,
+            process_id = ?,
+            period_id = ?,
+            stop_date = ?,
+            cost = ?,
+            cost_type_id = ?
+        WHERE id  = ?;`,
+    sqlInsertGto: `
+        INSERT INTO gto (
+            ts_id,
+            date,
+            place_id,
+            staff_id,
+            test_type_id,
+            result_id,
+            process_id,
+            period_id,
+            stop_date,
+            cost,
+            cost_type_id)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
+    selectGtoTestType: "SELECT id, name FROM test_type;",
+    selectGtoResult: "SELECT id, name FROM result;",
+    selectGtoProcess: "SELECT id, name FROM process;",
+    selectGtoPeriod: "SELECT id, name, months FROM period;",
+    selectGtoCostType: "SELECT id, name FROM cost_type;",
 }

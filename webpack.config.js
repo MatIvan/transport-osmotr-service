@@ -8,6 +8,7 @@ module.exports = {
         'edit-ts-page': './html/edit-ts-page/edit-ts-page.js',
         'place-page': './html/place-page/place-page.js',
         'staff-page': './html/staff-page/staff-page.js',
+        'edit-gto-page': './html/edit-gto-page/edit-gto-page.js',
     },
     output: {
         path: path.resolve(__dirname, 'html', 'renderers'),

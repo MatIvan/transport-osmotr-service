@@ -1,0 +1,81 @@
+.block {
+    width: 100%;
+}
+
+.block-child {
+    border: solid 2px #a7a7a7;
+    margin: 8px;
+    position: relative;
+}
+
+.block-child::before {
+    position: absolute;
+    top: -10px;
+    left: 8px;
+    background-color: white;
+    padding: 0px 4px;
+    color: #a7a7a7;
+}
+
+.block-child-data::before {
+    content: "Данные для проведения ГТО: ";
+}
+
+.block-child-cost::before {
+    content: "Оплата: ";
+}
+
+.grey {
+    color: grey;
+}
+
+.readonly-text {
+    padding: 1px 2px;
+    border: solid 1px #a7a7a7;
+    border-radius: 1px;
+    font-size: 1em;
+    min-height: 17px;
+}
+
+.staff-table {
+    width: 80%;
+    align-self: center;
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+.col1 {
+    width: 16%;
+}
+
+.col2 {
+    width: 16%;
+}
+
+.col3 {
+    width: 16%;
+}
+
+.col4 {
+    width: 16%;
+}
+
+.col5 {
+    width: 16%;
+}
+
+.col6 {
+    width: 16%;
+}
+
+.edit-win {
+    height: 88%;
+}
+
+.center {
+    text-align: center;
+}
+
+.form-row i {
+    width: 40%;
+}

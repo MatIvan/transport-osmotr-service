@@ -35,12 +35,48 @@ const SQL = require('../db-sql')
  * @property {string} name
  */
 
+/**
+ * @typedef {Object} GtoTestType
+ * @property {number} id
+ * @property {string} name
+ */
+
+/**
+ * @typedef {Object} GtoResult
+ * @property {number} id
+ * @property {string} name
+ */
+
+/**
+ * @typedef {Object} GtoProcess
+ * @property {number} id
+ * @property {string} name
+ */
+
+/**
+ * @typedef {Object} GtoPeriod
+ * @property {number} id
+ * @property {string} name
+ * @property {number} months
+ */
+
+/**
+ * @typedef {Object} GtoCostType
+ * @property {number} id
+ * @property {string} name
+ */
+
 module.exports = {
     getTsCategory: selectAllTsCategory,
     getAtsTypeByCategory: selectAtsTypeByCategory,
     getEngineType: selectAllEngineType,
     getOwnerType: selectAllOwnerType,
     getDocType: selectAllDocType,
+    getGtoTestType: selectGtoTestType,
+    getGtoResult: selectGtoResult,
+    getGtoProcess: selectGtoProcess,
+    getGtoPeriod: selectGtoPeriod,
+    getGtoCostType: selectGtoCostType,
 }
 
 /**
@@ -76,4 +112,39 @@ function selectAllOwnerType(callback) {
  */
 function selectAllDocType(callback) {
     UTIL.selectAll(SQL.selectAllDocType, [], callback);
+}
+
+/**
+ * @param {(data:GtoTestType[])=>void} callback 
+ */
+function selectGtoTestType(callback) {
+    UTIL.selectAll(SQL.selectGtoTestType, [], callback);
+}
+
+/**
+ * @param {(data:GtoResult[])=>void} callback 
+ */
+function selectGtoResult(callback) {
+    UTIL.selectAll(SQL.selectGtoResult, [], callback);
+}
+
+/**
+ * @param {(data:GtoProcess[])=>void} callback 
+ */
+function selectGtoProcess(callback) {
+    UTIL.selectAll(SQL.selectGtoProcess, [], callback);
+}
+
+/**
+ * @param {(data:GtoPeriod[])=>void} callback 
+ */
+function selectGtoPeriod(callback) {
+    UTIL.selectAll(SQL.selectGtoPeriod, [], callback);
+}
+
+/**
+ * @param {(data:GtoCostType[])=>void} callback 
+ */
+function selectGtoCostType(callback) {
+    UTIL.selectAll(SQL.selectGtoCostType, [], callback);
 }

@@ -13,4 +13,5 @@ module.exports = {
     editTs: getAbdolutePath('edit-ts-page'),
     place: getAbdolutePath('place-page'),
     staff: getAbdolutePath('staff-page'),
+    editGto: getAbdolutePath('edit-gto-page'),
 }
