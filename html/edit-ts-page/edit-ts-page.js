@@ -276,6 +276,9 @@ ELEM.ui.btnCancel.onclick = () => {
         RPC.showStartPage();
     }
 }
+ELEM.ui.btnGtoList.onclick = () => {
+    RPC.onGtoListForTs(currentTs.id);
+}
 
 RPC.getTsForEdit();
 

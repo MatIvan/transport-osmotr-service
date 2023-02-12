@@ -78,7 +78,6 @@ function bind() {
     ELEM.edit.active.onclick = () => {
         hasChanged = true;
         currentStaff.active = ELEM.edit.active.checked;
-        console.log("MATIV: ", currentStaff.active);
     };
 }
 

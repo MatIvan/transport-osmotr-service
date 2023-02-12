@@ -8,7 +8,7 @@ module.exports = {
         caption: getDiv('caption'),
         subcaption: getDiv('subcaption'),
         btnCancel: getDiv('btnCancel'),
-        btnAddStaff: getDiv('btnAddGto'),
+        btnAddGto: getDiv('btnAddGto'),
         btnEditCancel: getDiv('btnEditCancel'),
         btnEditSave: getDiv('btnEditSave'),
     },

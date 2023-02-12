@@ -48,16 +48,24 @@ function emptyGto() {
 var onSaveHandler = (gto) => { };
 
 /**
+ * @param {number} tsId
  * @param {Gto | null} gto
  */
-function show(gto) {
+function show(tsId, gto) {
     ELEM.editLay.classList.remove("hide");
     currentGto = gto || emptyGto();
-    MATIV
-    ELEM.edit.fullName.value = currentGto.full_name;
-    ELEM.edit.code.value = currentGto.code;
-    ELEM.edit.place.value = String(currentGto.place_id);
-    ELEM.edit.active.checked = currentGto.active;
+    currentGto.ts_id = tsId;
+
+    ELEM.edit.date.value = currentGto.date;
+    ELEM.edit.place_id.value = String(currentGto.place_id);
+    ELEM.edit.staff_id.value = String(currentGto.staff_id);
+    ELEM.edit.test_type_id.value = String(currentGto.test_type_id);
+    ELEM.edit.result_id.value = String(currentGto.result_id);
+    ELEM.edit.process_id.value = String(currentGto.process_id);
+    ELEM.edit.period_id.value = String(currentGto.period_id);
+    ELEM.edit.stop_date.value = currentGto.stop_date;
+    ELEM.edit.cost.value = String(currentGto.cost);
+    ELEM.edit.cost_type_id.value = String(currentGto.cost_type_id);
 }
 
 function hide() {
@@ -81,32 +89,61 @@ function bind() {
         hide();
     }
 
-    setChangeHandler(ELEM.edit.fullName, () => {
+    setChangeHandler(ELEM.edit.date, () => {
         hasChanged = true;
-        currentGto.full_name = ELEM.edit.fullName.value;
+        currentGto.date = ELEM.edit.date.value;
     });
 
-    setChangeHandler(ELEM.edit.code, () => {
+    setChangeHandler(ELEM.edit.place_id, () => {
         hasChanged = true;
-        currentGto.code = ELEM.edit.code.value;
+        currentGto.place_id = Number(ELEM.edit.place_id.value);
     });
 
-    setChangeHandler(ELEM.edit.place, () => {
+    setChangeHandler(ELEM.edit.staff_id, () => {
         hasChanged = true;
-        currentGto.place_id = Number(ELEM.edit.place.value);
+        currentGto.staff_id = Number(ELEM.edit.staff_id.value);
     });
 
-    ELEM.edit.active.onclick = () => {
+    setChangeHandler(ELEM.edit.test_type_id, () => {
         hasChanged = true;
-        currentGto.active = ELEM.edit.active.checked;
-        console.log("MATIV: ", currentGto.active);
-    };
+        currentGto.test_type_id = Number(ELEM.edit.test_type_id.value);
+    });
+
+    setChangeHandler(ELEM.edit.result_id, () => {
+        hasChanged = true;
+        currentGto.result_id = Number(ELEM.edit.result_id.value);
+    });
+
+    setChangeHandler(ELEM.edit.process_id, () => {
+        hasChanged = true;
+        currentGto.process_id = Number(ELEM.edit.process_id.value);
+    });
+
+    setChangeHandler(ELEM.edit.period_id, () => {
+        hasChanged = true;
+        currentGto.period_id = Number(ELEM.edit.period_id.value);
+    });
+
+    setChangeHandler(ELEM.edit.stop_date, () => {
+        hasChanged = true;
+        currentGto.stop_date = ELEM.edit.stop_date.value;
+    });
+
+    setChangeHandler(ELEM.edit.cost, () => {
+        hasChanged = true;
+        currentGto.cost = Number(ELEM.edit.cost.value);
+    });
+
+    setChangeHandler(ELEM.edit.cost_type_id, () => {
+        hasChanged = true;
+        currentGto.cost_type_id = Number(ELEM.edit.cost_type_id.value);
+    });
 }
 
 module.exports = {
     bind: bind,
     show: show,
-    onSave: (/** @type {(staff: Staff) => void} */ handler) => onSaveHandler = handler,
+    onSave: (/** @type {(gto: Gto) => void} */ handler) => onSaveHandler = handler,
 
     /**
      * @param {Place[]} placeArray
@@ -118,7 +155,54 @@ module.exports = {
                 name: place.name + ' ' + place.address
             };
         });
-        fillList(ELEM.edit.place, placeList);
-    }
+        fillList(ELEM.edit.place_id, placeList);
+    },
 
+    /**
+     * @param {Staff[]} staffArray
+     */
+    setStaffList: (staffArray) => {
+        const staffList = staffArray.map(staff => {
+            return {
+                id: staff.id,
+                name: staff.full_name + ' ' + staff.full_name
+            };
+        });
+        fillList(ELEM.edit.staff_id, staffList);
+    },
+
+    /**
+     * @param {GtoTestType[]} testTypeArray
+     */
+    setTestTypeList: (testTypeArray) => {
+        fillList(ELEM.edit.test_type_id, testTypeArray);
+    },
+
+    /**
+     * @param {GtoResult[]} resultTypeArray
+     */
+    setResultTypeList: (resultTypeArray) => {
+        fillList(ELEM.edit.result_id, resultTypeArray);
+    },
+
+    /**
+     * @param {GtoProcess[]} processTypeArray
+     */
+    setProcessTypeList: (processTypeArray) => {
+        fillList(ELEM.edit.process_id, processTypeArray);
+    },
+
+    /**
+     * @param {GtoPeriod[]} periodTypeArray
+     */
+    setPeriodTypeList: (periodTypeArray) => {
+        fillList(ELEM.edit.period_id, periodTypeArray);
+    },
+
+    /**
+     * @param {GtoCostType[]} costTypeArray
+     */
+    setCostTypeList: (costTypeArray) => {
+        fillList(ELEM.edit.cost_type_id, costTypeArray);
+    },
 }

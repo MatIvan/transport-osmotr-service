@@ -8,6 +8,7 @@ module.exports = {
         caption: getDiv('caption'),
         btnCancel: getDiv('btnCancel'),
         btnSave: getDiv('btnSave'),
+        btnGtoList: getDiv('btnGtoList'),
     },
     ts: {
         plate: getInput('ts.plate'),

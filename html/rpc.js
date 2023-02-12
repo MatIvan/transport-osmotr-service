@@ -7,6 +7,7 @@ const channels = require('./channels');
  * @typedef {import('../src/db/db-service').Ts} Ts
  * @typedef {import('../src/db/repository/place-repo').Place} Place
  * @typedef {import('../src/db/repository/staff-repo').Staff} Staff
+ * @typedef {import('../src/db/repository/gto-repo').Gto} Gto
  */
 
 module.exports = {
@@ -38,6 +39,23 @@ module.exports = {
      */
     saveStaff: (staff) => channels.sendToDataBaseChannel('saveStaff', staff),
 
+    /**
+     * @param {number} tsId
+     */
+    getGtoByTsId: (tsId) => channels.sendToDataBaseChannel('getGtoByTsId', tsId),
+
+    getTsForGtoList: () => channels.sendToMainChannel('getTsForGtoList'),
+
+    /**
+     * @param {Gto} gto
+     */
+    saveGto: (gto) => channels.sendToDataBaseChannel('saveGto', gto),
+
+    /**
+     * @param {number} tsId
+     */
+    onGtoListForTs: (tsId) => channels.sendToMainChannel('onGtoListForTs', tsId),
+
     // common
     showStartPage: () => channels.sendToMainChannel('showStartPage'),
 
@@ -47,6 +65,13 @@ module.exports = {
     getTsEngineType: () => channels.sendToDataBaseChannel('getTsEngineType'),
     getOwnerType: () => channels.sendToDataBaseChannel('getOwnerType'),
     getDocType: () => channels.sendToDataBaseChannel('getDocType'),
+
+    getGtoTestType: () => channels.sendToDataBaseChannel('getGtoTestType'),
+    getGtoResult: () => channels.sendToDataBaseChannel('getGtoResult'),
+    getGtoProcess: () => channels.sendToDataBaseChannel('getGtoProcess'),
+    getGtoPeriod: () => channels.sendToDataBaseChannel('getGtoPeriod'),
+    getGtoCostType: () => channels.sendToDataBaseChannel('getGtoCostType'),
+
     getAllPlace: () => channels.sendToDataBaseChannel('getAllPlace'),
     getAllStaff: () => channels.sendToDataBaseChannel('getAllStaff'),
     // @ts-ignore
