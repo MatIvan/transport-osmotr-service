@@ -42,8 +42,8 @@ function setData(gtoArray) {
         const row = createDiv('table-row');
         row.onclick = () => { onGtoClickHandler(gto); };
         row.innerHTML = `
-            <div class="table-col col1">${gto.date}</div>
-            <div class="table-col col2">${gto.stop_date}</div>
+            <div class="table-col col1">${normDateString(gto.date)}</div>
+            <div class="table-col col2">${normDateString(gto.stop_date)}</div>
             <div class="table-col col3">${getNameFromList(testTypeList, gto.test_type_id)}</div>
             <div class="table-col col4">${getNameFromList(resultTypeList, gto.result_id)}</div>
             <div class="table-col col5">${getNameFromList(processTypeList, gto.process_id)}</div>
@@ -51,6 +51,19 @@ function setData(gtoArray) {
         `;
         ELEM.allGtoTable.appendChild(row);
     }
+}
+
+
+/**
+ * @param {string} dateStr
+ * @returns {string}
+ */
+function normDateString(dateStr) {
+    const date = new Date(dateStr);
+    if (date.toString() === 'Invalid Date') {
+        return '-';
+    }
+    return date.toLocaleDateString();
 }
 
 /**

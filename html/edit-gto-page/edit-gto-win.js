@@ -25,13 +25,23 @@ var currentGto = emptyGto();
 var hasChanged = false;
 
 /**
+ * @type {Staff[]}
+ */
+var allStaffList = [];
+
+/**
+ * @type {GtoPeriod[]}
+ */
+var allPeriodTypeList = [];
+
+/**
  * @returns {Gto}
  */
 function emptyGto() {
     return {
         id: -1,
         ts_id: -1,
-        date: '',
+        date: new Date().toISOString().substring(0, 10),
         place_id: -1,
         staff_id: -1,
         test_type_id: -1,
@@ -111,6 +121,7 @@ function bind() {
     setChangeHandler(ELEM.edit.place_id, () => {
         hasChanged = true;
         currentGto.place_id = Number(ELEM.edit.place_id.value);
+        refreshStaff();
     });
 
     setChangeHandler(ELEM.edit.staff_id, () => {
@@ -136,6 +147,12 @@ function bind() {
     setChangeHandler(ELEM.edit.period_id, () => {
         hasChanged = true;
         currentGto.period_id = Number(ELEM.edit.period_id.value);
+
+        const months = allPeriodTypeList.find(per => per.id === currentGto.period_id)?.months || 0;
+        const start = new Date(currentGto.date);
+        const stop = new Date(start.setMonth(start.getMonth() + months));
+        currentGto.stop_date = stop.toISOString().substring(0, 10);
+        ELEM.edit.stop_date.value = currentGto.stop_date;
     });
 
     setChangeHandler(ELEM.edit.stop_date, () => {
@@ -152,6 +169,21 @@ function bind() {
         hasChanged = true;
         currentGto.cost_type_id = Number(ELEM.edit.cost_type_id.value);
     });
+}
+
+function refreshStaff() {
+    let staffList = [];
+    if (allStaffList.length !== 0 && currentGto.place_id > 0) {
+        staffList = allStaffList
+            .filter(staff => staff.place_id === currentGto.place_id)
+            .map(staff => {
+                return {
+                    id: staff.id,
+                    name: staff.full_name
+                };
+            });
+    }
+    fillList(ELEM.edit.staff_id, staffList);
 }
 
 module.exports = {
@@ -176,13 +208,8 @@ module.exports = {
      * @param {Staff[]} staffArray
      */
     setStaffList: (staffArray) => {
-        const staffList = staffArray.map(staff => {
-            return {
-                id: staff.id,
-                name: staff.full_name
-            };
-        });
-        fillList(ELEM.edit.staff_id, staffList);
+        allStaffList = staffArray;
+        refreshStaff();
     },
 
     /**
@@ -210,7 +237,8 @@ module.exports = {
      * @param {GtoPeriod[]} periodTypeArray
      */
     setPeriodTypeList: (periodTypeArray) => {
-        fillList(ELEM.edit.period_id, periodTypeArray);
+        allPeriodTypeList = periodTypeArray;
+        fillList(ELEM.edit.period_id, allPeriodTypeList);
     },
 
     /**
