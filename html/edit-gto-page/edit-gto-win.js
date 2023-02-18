@@ -4,6 +4,7 @@ const { fillList, setChangeHandler } = require('../elementsUtil');
 const ELEM = require('./elements');
 const ALERT_WIN = require('../alert');
 const CONFIRM_WIN = require('../confirm');
+const COST_UTIL = require('../cost-util');
 
 /**
  * @typedef {import('../../src/db/repository/ts-repo').Ts} Ts
@@ -85,6 +86,7 @@ function refresh() {
     ELEM.edit.stop_date.value = currentGto.stop_date;
     ELEM.edit.cost.value = String(currentGto.cost);
     ELEM.edit.cost_type_id.value = String(currentGto.cost_type_id);
+    COST_UTIL.valid(ELEM.edit.cost, currentGto.cost);
 }
 
 function hide() {
@@ -162,7 +164,9 @@ function bind() {
 
     setChangeHandler(ELEM.edit.cost, () => {
         hasChanged = true;
-        currentGto.cost = Number(ELEM.edit.cost.value);
+        COST_UTIL.normalize(ELEM.edit.cost);
+        currentGto.cost = COST_UTIL.parse(ELEM.edit.cost);
+        COST_UTIL.valid(ELEM.edit.cost, currentGto.cost);
     });
 
     setChangeHandler(ELEM.edit.cost_type_id, () => {

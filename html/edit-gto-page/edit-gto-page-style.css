@@ -79,3 +79,7 @@
 .form-row i {
     width: 40%;
 }
+
+.bad {
+    background-color: #ffbfbf;
+}
