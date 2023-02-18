@@ -15,13 +15,17 @@ module.exports = {
 function show(message, okCallback) {
     visible(true);
     let msgElem = document.getElementById('confirm-window-message');
-    msgElem.innerHTML = message;
+    if (msgElem) {
+        msgElem.innerHTML = message;
+    }
 
     let btnOk = document.getElementById('btnConfirmOk');
-    btnOk.onclick = () => {
-        visible(false);
-        okCallback();
-    };
+    if (btnOk) {
+        btnOk.onclick = () => {
+            visible(false);
+            okCallback();
+        };
+    }
 }
 
 function get() {
@@ -32,9 +36,11 @@ function get() {
         body.appendChild(win);
 
         let btnClose = document.getElementById('btnConfirmClose');
-        btnClose.onclick = () => {
-            visible(false);
-        };
+        if (btnClose) {
+            btnClose.onclick = () => {
+                visible(false);
+            };
+        }
     }
     return win;
 }
@@ -57,7 +63,9 @@ function visible(isVisible) {
         get().classList.add("hide");
 
         let btnOk = document.getElementById('btnConfirmOk');
-        btnOk.onclick = () => { };
+        if (btnOk) {
+            btnOk.onclick = () => { };
+        }
     }
 }
 

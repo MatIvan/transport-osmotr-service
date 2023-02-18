@@ -5,7 +5,9 @@ module.exports = {
     show: (message) => {
         visible(true);
         let msgElem = document.getElementById('alert-window-message');
-        msgElem.innerHTML = message;
+        if (msgElem) {
+            msgElem.innerHTML = message;
+        }
     },
     hide: () => {
         visible(false);
@@ -21,9 +23,11 @@ function get() {
         body.appendChild(win);
 
         let btn = document.getElementById('btnAlertClose');
-        btn.onclick = () => {
-            visible(false);
-        };
+        if (btn) {
+            btn.onclick = () => {
+                visible(false);
+            };
+        }
 
     }
     return win;
