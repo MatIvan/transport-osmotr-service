@@ -53,9 +53,16 @@ var onSaveHandler = (gto) => { };
  */
 function show(tsId, gto) {
     ELEM.editLay.classList.remove("hide");
-    currentGto = gto || emptyGto();
+    if (gto) {
+        currentGto = JSON.parse(JSON.stringify(gto));//deep copy
+    } else {
+        currentGto = emptyGto();
+    }
     currentGto.ts_id = tsId;
+    refresh();
+}
 
+function refresh() {
     ELEM.edit.date.value = currentGto.date;
     ELEM.edit.place_id.value = String(currentGto.place_id);
     ELEM.edit.staff_id.value = String(currentGto.staff_id);
@@ -71,6 +78,7 @@ function show(tsId, gto) {
 function hide() {
     hasChanged = false;
     currentGto = emptyGto();
+    refresh();
     ELEM.editLay.classList.add("hide");
 }
 
@@ -165,7 +173,7 @@ module.exports = {
         const staffList = staffArray.map(staff => {
             return {
                 id: staff.id,
-                name: staff.full_name + ' ' + staff.full_name
+                name: staff.full_name
             };
         });
         fillList(ELEM.edit.staff_id, staffList);

@@ -59,7 +59,7 @@ RPC.bind({
     /**
     * @param {Staff[]} staffArray
     */
-    getAllStaff: (staffArray) => {
+    allStaff: (staffArray) => {
         ALL_TABLE.setStaffList(staffArray);
         EDIT_WIN.setStaffList(staffArray);
     },
@@ -67,7 +67,7 @@ RPC.bind({
     /**
     * @param {Place[]} placeArray
     */
-    getAllPlace: (placeArray) => {
+    allPlace: (placeArray) => {
         EDIT_WIN.setPlaceList(placeArray);
     },
 
@@ -126,7 +126,7 @@ ELEM.ui.btnCancel.onclick = () => {
 }
 
 ELEM.ui.btnAddGto.onclick = () => {
-    EDIT_WIN.show(-1, null);
+    EDIT_WIN.show(currentTs ? currentTs.id : -1, null);
 }
 
 RPC.getAllPlace();

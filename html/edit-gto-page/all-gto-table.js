@@ -49,7 +49,7 @@ function setData(gtoArray) {
             <div class="table-col col5">${getNameFromList(processTypeList, gto.process_id)}</div>
             <div class="table-col col6">${getStaffText(gto.staff_id)}</div>
         `;
-        ELEM.allStaffTable.appendChild(row);
+        ELEM.allGtoTable.appendChild(row);
     }
 }
 

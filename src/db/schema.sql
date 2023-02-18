@@ -63,14 +63,14 @@ CREATE TABLE ts_doc (
 CREATE TABLE gto (
 	'id' INTEGER PRIMARY KEY,
 	'ts_id' INTEGER NOT NULL,
-	'date' TEXT --"YYYY-MM-DD",
+	'date' TEXT, --"YYYY-MM-DD"
 	'place_id' INTEGER NOT NULL,
 	'staff_id' INTEGER NOT NULL,
 	'test_type_id' INTEGER NOT NULL,
 	'result_id' INTEGER NOT NULL,
 	'process_id' INTEGER NOT NULL,
 	'period_id' INTEGER NOT NULL,
-	'stop_date' TEXT --"YYYY-MM-DD",
+	'stop_date' TEXT, --"YYYY-MM-DD"
 	'cost' INTEGER NOT NULL, --количество копеек
 	'cost_type_id' INTEGER NOT NULL
 );

@@ -37,35 +37,35 @@
     min-height: 17px;
 }
 
-.staff-table {
-    width: 80%;
+.gto-table {
+    width: 98%;
     align-self: center;
     overflow: hidden;
     flex-grow: 1;
 }
 
 .col1 {
-    width: 16%;
+    width: 11%;
 }
 
 .col2 {
-    width: 16%;
+    width: 11%;
 }
 
 .col3 {
-    width: 16%;
+    width: 20%;
 }
 
 .col4 {
-    width: 16%;
+    width: 12%;
 }
 
 .col5 {
-    width: 16%;
+    width: 19%;
 }
 
 .col6 {
-    width: 16%;
+    width: 27%;
 }
 
 .edit-win {
