@@ -276,6 +276,7 @@ ELEM.ui.btnSave.onclick = save;
 ELEM.ui.btnCancel.onclick = () => {
     if (!hasChanged) {
         RPC.showStartPage();
+        return;
     }
     CONFIRM_WIN.show('Данные будут потеряны!<br>Выйти?', () => {
         RPC.showStartPage();

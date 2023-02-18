@@ -40,8 +40,13 @@ RPC.bind({
     * @param {Ts} ts
     */
     tsForGtoList: (ts) => {
+        console.log("tsForGtoList", ts);
         currentTs = ts;
-        RPC.getGtoByTsId(currentTs.id);
+        if (currentTs) {
+            RPC.getGtoByTsId(currentTs.id);
+        } else {
+            ALERT_WIN.show('ОШИБКА !!!<br>Не указано транспортное средство.');
+        }
     },
 
     /**

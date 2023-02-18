@@ -51,6 +51,7 @@ function bind() {
     ELEM.ui.btnEditCancel.onclick = () => {
         if (!hasChanged) {
             hide();
+            return;
         }
         CONFIRM_WIN.show('Данные будут потеряны!<br>Выйти?', () => {
             hide();
