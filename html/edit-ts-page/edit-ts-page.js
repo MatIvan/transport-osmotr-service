@@ -5,6 +5,8 @@ const RPC = require('../rpc');
 const ELEM = require('./elements');
 const VIEW = require('./edit-ts-page-view');
 const WAIT_WIN = require('../wait-win');
+const ALERT_WIN = require('../alert');
+const CONFIRM_WIN = require('../confirm');
 
 /**
  * @typedef {import('../../src/db/repository/types-repo').Ats_Type} Ats_Type
@@ -65,7 +67,7 @@ RPC.bind({
      * @param {string} msg
      */
     databaseError: (msg) => {
-        alert('ОШИБКА !!!\n\n' + msg);
+        ALERT_WIN.show('ОШИБКА !!!<br><br>' + msg);
         WAIT_WIN.hide();
     },
 
@@ -121,7 +123,7 @@ RPC.bind({
         hasChanged = false;
         refreshAll();
         WAIT_WIN.hide();
-        alert('Сохранено успешно!');
+        ALERT_WIN.show('Сохранено успешно!');
     },
 });
 
@@ -272,9 +274,12 @@ loadLists();
 
 ELEM.ui.btnSave.onclick = save;
 ELEM.ui.btnCancel.onclick = () => {
-    if (!hasChanged || confirm('Данные будут потеряны!\nВыйти?')) {
+    if (!hasChanged) {
         RPC.showStartPage();
     }
+    CONFIRM_WIN.show('Данные будут потеряны!<br>Выйти?', () => {
+        RPC.showStartPage();
+    });
 }
 ELEM.ui.btnGtoList.onclick = () => {
     RPC.onGtoListForTs(currentTs.id);
@@ -296,7 +301,7 @@ function loadLists() {
 
 function save() {
     if (!hasChanged) {
-        alert('Изменений нет.');
+        ALERT_WIN.show('Изменений нет.');
         return;
     }
     WAIT_WIN.show();

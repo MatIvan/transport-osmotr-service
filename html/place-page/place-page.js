@@ -6,6 +6,7 @@ const ELEM = require('./elements');
 const ALL_TABLE = require('./all-place-table');
 const EDIT_WIN = require('./edit-place-win');
 const WAIT_WIN = require('../wait-win');
+const ALERT_WIN = require('../alert');
 
 /**
  * @typedef {import('../../src/db/repository/place-repo').Place} Place
@@ -18,7 +19,7 @@ RPC.bind({
      * @param {string} msg
      */
     databaseError: (msg) => {
-        alert('ОШИБКА !!!\n\n' + msg);
+        ALERT_WIN.show('ОШИБКА !!!<br><br>' + msg);
         WAIT_WIN.hide();
     },
 

@@ -1,4 +1,3 @@
-
 .modality-lay {
     position: absolute;
     top: 0;
@@ -20,20 +19,44 @@
     background-color: white;
 }
 
-.wait-window{
+.wait-window {
     width: 40px;
     height: 40px;
     border-radius: 8px;
     margin: auto;
     background-color: white;
-    z-index: 1000010;
 }
 
-.ask-window{
-    width: 40px;
-    height: 40px;
+.alert-window {
+    width: 40%;
+    height: 20%;
     border-radius: 8px;
     margin: auto;
     background-color: white;
-    z-index: 1000010;
+    z-index: 2000000;
+}
+
+.alert-window-message {
+    flex-grow: 1;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px;
+    font-weight: bold;
+}
+
+.confirm-window {
+    width: 40%;
+    height: 20%;
+    border-radius: 8px;
+    margin: auto;
+    background-color: white;
+    z-index: 2000000;
+}
+
+.confirm-window-message {
+    flex-grow: 1;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px;
+    font-weight: bold;
 }

@@ -6,6 +6,7 @@ const ELEM = require('./elements');
 const ALL_TABLE = require('./all-gto-table');
 const EDIT_WIN = require('./edit-gto-win');
 const WAIT_WIN = require('../wait-win');
+const ALERT_WIN = require('../alert');
 
 /**
  * @typedef {import('../../src/db/repository/ts-repo').Ts} Ts
@@ -31,7 +32,7 @@ RPC.bind({
      * @param {string} msg
      */
     databaseError: (msg) => {
-        alert('ОШИБКА !!!\n\n' + msg);
+        ALERT_WIN.show('ОШИБКА !!!<br><br>' + msg);
         WAIT_WIN.hide();
     },
 

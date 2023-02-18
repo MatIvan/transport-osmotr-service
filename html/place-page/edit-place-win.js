@@ -2,6 +2,9 @@
 'use strict';
 const { setChangeHandler } = require('../elementsUtil');
 const ELEM = require('./elements');
+const ALERT_WIN = require('../alert');
+const CONFIRM_WIN = require('../confirm');
+
 /**
  * @typedef {import('../../src/db/repository/place-repo').Place} Place
  */
@@ -44,13 +47,16 @@ function hide() {
 
 function bind() {
     ELEM.ui.btnEditCancel.onclick = () => {
-        if (!hasChanged || confirm('Данные будут потеряны!\nВыйти?')) {
+        if (!hasChanged) {
             hide();
         }
+        CONFIRM_WIN.show('Данные будут потеряны!<br>Выйти?', () => {
+            hide();
+        });
     }
     ELEM.ui.btnEditSave.onclick = () => {
         if (!hasChanged) {
-            alert('Изменений нет.');
+            ALERT_WIN.show('Изменений нет.');
             return;
         }
         onSaveHandler(JSON.parse(JSON.stringify(currentPlace)));//deep copy
