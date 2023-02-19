@@ -47,7 +47,9 @@ RPC.bind({
             RPC.getGtoByTsId(currentTs.id);
         } else {
             ELEM.ui.subcaption.innerText = 'НЕТ';
-            ALERT_WIN.show('ОШИБКА !!!<br>Не указано транспортное средство.');
+            ALERT_WIN.show('ОШИБКА !!!<br>Не указано транспортное средство.', () => {
+                RPC.showStartPage();
+            });
         }
     },
 

@@ -2,11 +2,19 @@
 'use strict';
 
 module.exports = {
-    show: (message) => {
+    show: (message, callback) => {
         visible(true);
         let msgElem = document.getElementById('alert-window-message');
         if (msgElem) {
             msgElem.innerHTML = message;
+        }
+
+        let btn = document.getElementById('btnAlertClose');
+        if (btn) {
+            btn.onclick = () => {
+                visible(false);
+                if (callback) callback();
+            };
         }
     },
     hide: () => {
@@ -14,21 +22,12 @@ module.exports = {
     }
 }
 
-
 function get() {
     let win = document.getElementById('alert-lay');
     if (!win) {
         win = create();
         let body = document.getElementsByTagName('body')[0];
         body.appendChild(win);
-
-        let btn = document.getElementById('btnAlertClose');
-        if (btn) {
-            btn.onclick = () => {
-                visible(false);
-            };
-        }
-
     }
     return win;
 }
