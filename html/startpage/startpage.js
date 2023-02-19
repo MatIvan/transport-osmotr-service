@@ -3,7 +3,8 @@
 
 const ELEM = require('./elements');
 const RPC = require('../rpc');
-const { setChangeHandler } = require('../elementsUtil');
+const WAIT_WIN = require('../wait-win');
+const { bindUpperValue, setChangeHandler } = require('../elementsUtil');
 
 /**
  * @typedef {import('../../properties').Properties} Properties
@@ -38,14 +39,34 @@ RPC.bind({
         const place = placeArray.find(place => place.id === props.placeId);
         if (place) {
             ELEM.ui.caption.innerText = place.name + ' ' + place.address;
-            
+        }
+        WAIT_WIN.hide();
+    },
+
+    /**
+    * @param {number} tsId
+    */
+    tsIdByPlate: (tsId) => {
+        WAIT_WIN.hide();
+        if (tsId < 0) {
+
+        } else {
+
         }
     },
 });
+WAIT_WIN.show();
+
+bindUpperValue(ELEM.ui.searchPlate);
 
 ELEM.ui.filterDate.value = selectedDate;
 setChangeHandler(ELEM.ui.filterDate, () => {
     selectedDate = ELEM.ui.filterDate.value;
 });
+
+ELEM.ui.btnSearchPlate.onclick = () => {
+    WAIT_WIN.show();
+    RPC.getTsIdByPlate(ELEM.ui.searchPlate.value);
+}
 
 RPC.startpageReady();

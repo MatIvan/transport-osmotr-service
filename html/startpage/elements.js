@@ -7,6 +7,8 @@ module.exports = {
     ui: {
         caption: getDiv('caption'),
         filterDate: getDate('filter.date'),
+        searchPlate: getInput('search-plate'),
+        btnSearchPlate: getDiv('btn-search-plate'),
     },
     versionInfo: getDiv('info'),
 }

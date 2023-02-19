@@ -59,7 +59,7 @@ function selectOne(sql, param, callback) {
     dbInit.getDB().get(sql, param, function (err, data) {
         console.log(`selectOne result: err=${!!err}, data=${JSON.stringify(data)}`);
         if (err) return processError(err);
-        if (!data) return processError(new Error("Not found."));
+        //if (!data) return processError(new Error("Not found."));
         callback(data);
     });
 }

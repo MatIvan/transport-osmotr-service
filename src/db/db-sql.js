@@ -124,4 +124,5 @@ module.exports = {
     selectGtoProcess: "SELECT id, name FROM process;",
     selectGtoPeriod: "SELECT id, name, months FROM period;",
     selectGtoCostType: "SELECT id, name FROM cost_type;",
+    selectTsIdByPlate: "SELECT id FROM ts WHERE plate=?;",
 }

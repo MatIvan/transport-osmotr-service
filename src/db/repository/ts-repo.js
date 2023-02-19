@@ -31,6 +31,7 @@ const SQL = require('../db-sql')
 
 module.exports = {
     getById: selectById,
+    getTsIdByPlate: selectTsIdByPlate,
     save: save,
 }
 
@@ -113,4 +114,14 @@ function insert(ts, callback) {
         ts.doc?.id
     ];
     UTIL.insert(SQL.sqlInsertTs, tsParams, callback);
+}
+
+/**
+ * @param {string} plate
+ * @param {(tsId:number)=>void} callback
+*/
+function selectTsIdByPlate(plate, callback) {
+    UTIL.selectOne(SQL.selectTsIdByPlate, [plate], function (/** @type {number} */tsId) {
+        callback(tsId ? tsId : -1);
+    });
 }

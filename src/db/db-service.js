@@ -29,6 +29,15 @@ module.exports = {
 
     getTs: selectTsById,
     saveTs: saveTs,
+    getTsIdByPlate: getTsIdByPlate,
+}
+
+/**
+ * @param {string} plate
+ * @param {(tsId:number)=>void} callback
+*/
+function getTsIdByPlate(plate, callback) {
+    TS_REPO.getTsIdByPlate(plate, callback);
 }
 
 /**

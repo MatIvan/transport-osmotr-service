@@ -56,6 +56,11 @@ module.exports = {
      */
     onGtoListForTs: (tsId) => channels.sendToMainChannel('onGtoListForTs', tsId),
 
+    /**
+     * @param {string} plate
+     */
+    getTsIdByPlate: (plate) => channels.sendToDataBaseChannel('getTsIdByPlate', plate),
+
     // common
     showStartPage: () => channels.sendToMainChannel('showStartPage'),
 
