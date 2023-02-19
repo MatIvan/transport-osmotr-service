@@ -12,12 +12,12 @@
     position: relative;
     display: block;
     transform: scale(var(--ggs, 1));
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     border: 2px solid;
     border-radius: 100%;
-    margin-top: 2px;
-    margin-left: 3px;
+    margin-top: 1px;
+    margin-left: 1px;
 }
 
 .gg-search-loading::after,
@@ -32,17 +32,17 @@
 
 .gg-search-loading::after {
     border-radius: 3px;
-    height: 8px;
+    height: 6px;
     transform: rotate(-45deg);
-    top: 10px;
-    left: 12px
+    top: 8px;
+    left: 10px
 }
 
 .gg-search-loading::before {
     height: 2px;
     border-radius: 100%;
-    top: 5px;
-    left: 5px;
+    top: 4px;
+    left: 4px;
     box-shadow: -3px 0 0, 3px 0 0
 }
 

@@ -87,3 +87,9 @@
 .bad {
     background-color: #ffbfbf;
 }
+
+.data-label {
+    font: small-caption;
+    font-weight: bold;
+    margin-right: 10px;
+}
