@@ -2,11 +2,88 @@
     font-size: 9px;
 }
 
-.startpage-box {
-    align-items: center;
-    height: 100%;
+.block {
+    width: 100%;
 }
 
-.body-box {
-    width: 100%;
+.block-child {
+    border: solid 2px #a7a7a7;
+    margin: 8px;
+    position: relative;
+}
+
+.block-child::before {
+    position: absolute;
+    top: -10px;
+    left: 8px;
+    background-color: white;
+    padding: 0px 4px;
+    color: #a7a7a7;
+}
+
+.block-child-data::before {
+    content: "Данные для проведения ГТО: ";
+}
+
+.block-child-cost::before {
+    content: "Оплата: ";
+}
+
+.grey {
+    color: grey;
+}
+
+.readonly-text {
+    padding: 1px 2px;
+    border: solid 1px #a7a7a7;
+    border-radius: 1px;
+    font-size: 1em;
+    min-height: 17px;
+}
+
+.start-table {
+    width: 98%;
+    align-self: center;
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+.col1 {
+    width: 11%;
+}
+
+.col2 {
+    width: 11%;
+}
+
+.col3 {
+    width: 20%;
+}
+
+.col4 {
+    width: 12%;
+}
+
+.col5 {
+    width: 19%;
+}
+
+.col6 {
+    width: 27%;
+}
+
+.edit-win {
+    height: 88%;
+}
+
+.center {
+    text-align: center;
+}
+
+.form-row i {
+    width: 40%;
+}
+
+.bad {
+    background-color: #ffbfbf;
 }

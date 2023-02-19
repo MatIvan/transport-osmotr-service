@@ -3,53 +3,67 @@
 
 <head>
     <meta charset="UTF-8" />
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-eval'; script-src 'self' 'unsafe-eval'" />
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self' 'unsafe-eval'; script-src 'self' 'unsafe-eval'" />
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self' 'unsafe-eval'; script-src 'self' 'unsafe-eval'" />
+    <meta http-equiv="X-Content-Security-Policy"
+        content="default-src 'self' 'unsafe-eval'; script-src 'self' 'unsafe-eval'" />
 
     <title>-=TOS=-</title>
     <link rel="stylesheet" href="../icons.css">
     <link rel="stylesheet" href="../common.css">
     <link rel="stylesheet" href="../modality.css">
+    <link rel="stylesheet" href="../table.css">
+    <link rel="stylesheet" href="../form.css">
     <link rel="stylesheet" href="startpage-style.css">
 </head>
 
 <body>
-    <div class="ver-panel startpage-box">
-        <h1>-= T O S =-</h1>
+    <div class="ver-panel main-box">
+        <div id="caption">TO</div>
         <div class="body-box grow">
             <!-- SEARCH -->
-            <div class="hor-panel col-3">
-                <input id="input-search" class="input grow" type="text" placeholder="Введите номер">
-                <div class="ml4 icon button">
-                    <i class="gg-search-loading"></i>
+            <div class="ui-panel">
+                <div class="hor-panel">
+                    <input id="input-search" class="input grow" type="text" placeholder="Введите номер">
+                    <div class="icon-button">
+                        <i class="gg-search-loading"></i>
+                    </div>
+                </div>
+                <div class="hor-panel">
+                    filters
                 </div>
             </div>
-            
-            <br><br>
-            <div id="btnEditTS" class="button">
-                Edit TS
-            </div>
-            <br><br>
 
-            <!-- CARS TABLE -->
-            <table>
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>Номер</th>
-                        <th>Марка</th>
-                    </tr>
-                </thead>
-                <tbody id="cars-table-body">
-                    <tr>
-                        <td>no data</td>
-                    </tr>
-                </tbody>
-            </table>
+            <!-- TABLE -->
+            <div class="table start-table">
+                <div class="table-head">
+                    <div class="table-row-head">
+                        <div class="table-col col1">Дата</div>
+                        <div class="table-col col2">Срок действия</div>
+                        <div class="table-col col3">Вид проверки</div>
+                        <div class="table-col col4">Решение</div>
+                        <div class="table-col col5">Статус</div>
+                        <div class="table-col col6">Тех. эксперт</div>
+                        <div class="table-col col-scroll"></div>
+                    </div>
+                </div>
+                <div class="table-body" id="start-table">
+                    <div class="table-row">
+                        <div class="table-col col1">no data</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REPORT -->
+            <div class="ui-panel">
+                <div id="btnReport" class="button">Отчет</div>
+            </div>
 
         </div>
         <div id="info" class="versions"></div>
+    </div>
+    <div id="edit-lay" class="modality-lay hide">
+        <!-- Окно редактора ГТО -->
     </div>
     <script src="../renderers/startpage-renderer.js"></script>
 </body>

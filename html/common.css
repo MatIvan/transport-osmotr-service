@@ -51,8 +51,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    width: 100%;
-    margin: 10px;
+    margin: 6px;
 }
 
 #caption {
@@ -61,7 +60,7 @@ body {
     margin: 10px;
 }
 
-#subcaption{
+#subcaption {
     font: small-caption;
     font-weight: bold;
     margin-bottom: 10px;
@@ -77,4 +76,24 @@ body {
 
 .hide {
     display: none !important;
+}
+
+.icon-button {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    cursor: default;
+    border: solid 1px;
+    margin-left: 2px;
+    user-select: none;
+}
+
+.icon-button:hover {
+    background-color: #a7a7a7;
+    cursor: pointer;
+}
+
+.icon-button:active {
+    background-color: #6d6d6d;
 }

@@ -4,6 +4,8 @@
 const { getDiv, getInput } = require('../elementsUtil');
 
 module.exports = {
-    btnEditTS: getDiv('btnEditTS'),
+    ui: {
+        caption: getDiv('caption'),
+    },
     versionInfo: getDiv('info'),
 }

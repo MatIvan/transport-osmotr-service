@@ -3,6 +3,8 @@
 const path = require('path');
 global.appRoot = path.resolve(__dirname);
 
+const PROPS = require('./properties');
+
 const { app } = require('electron');
 if (require('electron-squirrel-startup')) app.quit();
 
@@ -10,11 +12,12 @@ const events = require('./src/local-events');
 const dbService = require('./src/db/db-service');
 const controller = require('./src/controller');
 
-
 controller.bind();
 
 app.whenReady().then(() => {
-    events.emit(events.APP.READY);
+    PROPS.load(() => {
+        events.emit(events.APP.READY);
+    });
 });
 
 app.on('window-all-closed', () => {

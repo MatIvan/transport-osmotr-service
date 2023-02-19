@@ -4,6 +4,7 @@
 const dbService = require('../db/db-service');
 const controller = require('../controller');
 const pages = require('../pages');
+const PROPS = require('../../properties');
 
 let tsIdForEdit = null;
 let tsIdForGtoList = null;
@@ -13,6 +14,7 @@ module.exports = {
 
     startpageReady: (params, callback) => {
         dbService.open();
+        callback('properties', PROPS.get());
     },
 
     getTsForEdit: (params, callback) => {
@@ -51,5 +53,4 @@ module.exports = {
             callback('tsForGtoList', null);
         }
     },
-
 }
