@@ -43,8 +43,10 @@ RPC.bind({
         console.log("tsForGtoList", ts);
         currentTs = ts;
         if (currentTs) {
+            ELEM.ui.subcaption.innerText = currentTs.plate;
             RPC.getGtoByTsId(currentTs.id);
         } else {
+            ELEM.ui.subcaption.innerText = 'НЕТ';
             ALERT_WIN.show('ОШИБКА !!!<br>Не указано транспортное средство.');
         }
     },
