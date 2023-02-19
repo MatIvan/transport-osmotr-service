@@ -4,7 +4,7 @@
 const RPC = require('../rpc');
 const ELEM = require('./elements');
 const ALL_TABLE = require('./all-gto-table');
-const EDIT_WIN = require('./edit-gto-win');
+const EDIT_WIN = require('./ts-gto-win');
 const WAIT_WIN = require('../wait-win');
 const ALERT_WIN = require('../alert');
 
