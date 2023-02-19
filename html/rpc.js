@@ -8,6 +8,7 @@ const channels = require('./channels');
  * @typedef {import('../src/db/repository/place-repo').Place} Place
  * @typedef {import('../src/db/repository/staff-repo').Staff} Staff
  * @typedef {import('../src/db/repository/gto-repo').Gto} Gto
+ * @typedef {import('../src/handlers/main-channel-handler').TsBeanForEdit} TsBeanForEdit
  */
 
 module.exports = {
@@ -19,9 +20,9 @@ module.exports = {
     // from startpage
     startpageReady: () => channels.sendToMainChannel('startpageReady'),
     /**
-     * @param {number} tsId 
+     * @param {TsBeanForEdit} tsBeanForEdit 
      */
-    onEditTs: (tsId) => channels.sendToMainChannel('onEditTs', tsId),
+    onEditTs: (tsBeanForEdit) => channels.sendToMainChannel('onEditTs', tsBeanForEdit),
 
     getTsForEdit: () => channels.sendToMainChannel('getTsForEdit'),
     /**
@@ -57,9 +58,9 @@ module.exports = {
     onGtoListForTs: (tsId) => channels.sendToMainChannel('onGtoListForTs', tsId),
 
     /**
-     * @param {string} plate
+     * @param {TsBeanForEdit} plate
      */
-    getTsIdByPlate: (plate) => channels.sendToDataBaseChannel('getTsIdByPlate', plate),
+    getTsBeanForEditByPlate: (plate) => channels.sendToDataBaseChannel('getTsBeanForEditByPlate', plate),
 
     // common
     showStartPage: () => channels.sendToMainChannel('showStartPage'),

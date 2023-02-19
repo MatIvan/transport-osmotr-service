@@ -39,12 +39,21 @@ function show(staff) {
     ELEM.edit.code.value = currentStaff.code;
     ELEM.edit.place.value = String(currentStaff.place_id);
     ELEM.edit.active.checked = currentStaff.active;
+    refreshUiState();
 }
 
 function hide() {
     hasChanged = false;
     currentStaff = emptyStaff();
     ELEM.editLay.classList.add("hide");
+}
+
+function refreshUiState() {
+    if (hasChanged) {
+        ELEM.ui.btnEditSave.removeAttribute('disabled');
+    } else {
+        ELEM.ui.btnEditSave.setAttribute('disabled', "true");
+    }
 }
 
 function bind() {
@@ -69,21 +78,25 @@ function bind() {
     setChangeHandler(ELEM.edit.fullName, () => {
         hasChanged = true;
         currentStaff.full_name = ELEM.edit.fullName.value;
+        refreshUiState();
     });
 
     setChangeHandler(ELEM.edit.code, () => {
         hasChanged = true;
         currentStaff.code = ELEM.edit.code.value;
+        refreshUiState();
     });
 
     setChangeHandler(ELEM.edit.place, () => {
         hasChanged = true;
         currentStaff.place_id = Number(ELEM.edit.place.value);
+        refreshUiState();
     });
 
     ELEM.edit.active.onclick = () => {
         hasChanged = true;
         currentStaff.active = ELEM.edit.active.checked;
+        refreshUiState();
     };
 }
 

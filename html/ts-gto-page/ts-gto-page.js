@@ -130,7 +130,11 @@ EDIT_WIN.onSave((gto) => {
 });
 
 ELEM.ui.btnCancel.onclick = () => {
-    RPC.onEditTs(currentTs ? currentTs.id : -1);
+    const tsBeanForEdit = {
+        id: currentTs ? currentTs.id : -1,
+        plate: currentTs ? currentTs.plate : '',
+    }
+    RPC.onEditTs(tsBeanForEdit);
 }
 
 ELEM.ui.btnAddGto.onclick = () => {

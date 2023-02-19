@@ -42,6 +42,13 @@ body {
     background-color: #6d6d6d;
 }
 
+.button[disabled] {
+    cursor: pointer;
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+
 .main-box {
     align-items: center;
     height: 100%;
@@ -52,6 +59,7 @@ body {
     flex-direction: row;
     justify-content: space-evenly;
     margin: 6px;
+    align-self: stretch;
 }
 
 #caption {

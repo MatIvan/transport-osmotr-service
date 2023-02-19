@@ -6,8 +6,24 @@ const controller = require('../controller');
 const pages = require('../pages');
 const PROPS = require('../../properties');
 
-let tsIdForEdit = null;
+/**
+ * @typedef {Object} TsBeanForEdit
+ * @property {number} id 
+ * @property {string} plate
+ */
+
+/**
+ * @type {TsBeanForEdit}
+ */
+let tsBeanForEdit = getEmptyTsBeanForEdit();
 let tsIdForGtoList = null;
+
+function getEmptyTsBeanForEdit() {
+    return {
+        id: -1,
+        plate: ''
+    }
+}
 
 module.exports = {
     name: 'main-channel',
@@ -18,23 +34,27 @@ module.exports = {
     },
 
     getTsForEdit: (params, callback) => {
-        if (tsIdForEdit) {
-            dbService.getTs(tsIdForEdit, (data) => {
+        if (tsBeanForEdit.id > 0) {
+            dbService.getTs(tsBeanForEdit.id, (data) => {
                 callback('tsForEdit', data);
             });
-            tsIdForEdit = null;
+            tsBeanForEdit = getEmptyTsBeanForEdit();
         } else {
-            callback('tsForEdit', null);
+            callback('tsForEdit', tsBeanForEdit);
         }
     },
 
+    /**
+     * @param {TsBeanForEdit} params 
+     * @param {()=>void} callback 
+     */
     onEditTs: (params, callback) => {
-        tsIdForEdit = params;
+        tsBeanForEdit = params;
         controller.windows.startwin().loadFile(pages.editTs);
     },
 
     showStartPage: (params, callback) => {
-        tsIdForEdit = null;
+        tsBeanForEdit = getEmptyTsBeanForEdit();
         controller.windows.startwin().loadFile(pages.startPage);
     },
 

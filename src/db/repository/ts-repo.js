@@ -121,7 +121,7 @@ function insert(ts, callback) {
  * @param {(tsId:number)=>void} callback
 */
 function selectTsIdByPlate(plate, callback) {
-    UTIL.selectOne(SQL.selectTsIdByPlate, [plate], function (/** @type {number} */tsId) {
-        callback(tsId ? tsId : -1);
+    UTIL.selectOne(SQL.selectTsIdByPlate, [plate], function (/** @type {{id:number}} */tsId) {
+        callback(tsId ? tsId.id : -1);
     });
 }

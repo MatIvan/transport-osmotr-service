@@ -1,14 +1,16 @@
 //@ts-check
 'use strict';
 
+const { bindUpperValue, setChangeHandler } = require('../elementsUtil');
 const ELEM = require('./elements');
 const RPC = require('../rpc');
 const WAIT_WIN = require('../wait-win');
-const { bindUpperValue, setChangeHandler } = require('../elementsUtil');
+const CONFIRM = require('../confirm');
 
 /**
  * @typedef {import('../../properties').Properties} Properties
  * @typedef {import('../../src/db/repository/place-repo').Place} Place
+ * @typedef {import('../../src/handlers/main-channel-handler').TsBeanForEdit} TsBeanForEdit
  */
 
 const appVers = RPC.appVersions;
@@ -44,15 +46,16 @@ RPC.bind({
     },
 
     /**
-    * @param {number} tsId
+    * @param {TsBeanForEdit} tsBeanForEdit
     */
-    tsIdByPlate: (tsId) => {
+    tsBeanForEditByPlate: (tsBeanForEdit) => {
         WAIT_WIN.hide();
-        if (tsId < 0) {
-
-        } else {
-
+        if (tsBeanForEdit.id > 0) {
+            return RPC.onEditTs(tsBeanForEdit);
         }
+        CONFIRM.show(`Номер ${tsBeanForEdit.plate} не найде.<br>Создать новое ТС?`, () => {
+            RPC.onEditTs(tsBeanForEdit);
+        });
     },
 });
 WAIT_WIN.show();
@@ -66,7 +69,7 @@ setChangeHandler(ELEM.ui.filterDate, () => {
 
 ELEM.ui.btnSearchPlate.onclick = () => {
     WAIT_WIN.show();
-    RPC.getTsIdByPlate(ELEM.ui.searchPlate.value);
+    RPC.getTsBeanForEditByPlate({ id: -1, plate: ELEM.ui.searchPlate.value });
 }
 
 RPC.startpageReady();

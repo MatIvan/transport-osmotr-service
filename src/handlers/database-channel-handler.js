@@ -64,7 +64,7 @@ module.exports = {
     saveGto: (params, callback) => {
         dbService.gto.save(params, wrapCallback('gtoSavedSuccess', callback));
     },
-    getTsIdByPlate: (params, callback) => {
-        dbService.getTsIdByPlate(params, wrapCallback('tsIdByPlate', callback));
+    getTsBeanForEditByPlate: (params, callback) => {
+        dbService.getTsBeanForEditByPlate(params, wrapCallback('tsBeanForEditByPlate', callback));
     },
 }

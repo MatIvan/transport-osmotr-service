@@ -87,6 +87,15 @@ function refresh() {
     ELEM.edit.cost.value = String(currentGto.cost);
     ELEM.edit.cost_type_id.value = String(currentGto.cost_type_id);
     COST_UTIL.valid(ELEM.edit.cost, currentGto.cost);
+    refreshUiState();
+}
+
+function refreshUiState() {
+    if (hasChanged) {
+        ELEM.ui.btnEditSave.removeAttribute('disabled');
+    } else {
+        ELEM.ui.btnEditSave.setAttribute('disabled', "true");
+    }
 }
 
 function hide() {
@@ -118,32 +127,38 @@ function bind() {
     setChangeHandler(ELEM.edit.date, () => {
         hasChanged = true;
         currentGto.date = ELEM.edit.date.value;
+        refreshUiState();
     });
 
     setChangeHandler(ELEM.edit.place_id, () => {
         hasChanged = true;
         currentGto.place_id = Number(ELEM.edit.place_id.value);
         refreshStaff();
+        refreshUiState();
     });
 
     setChangeHandler(ELEM.edit.staff_id, () => {
         hasChanged = true;
         currentGto.staff_id = Number(ELEM.edit.staff_id.value);
+        refreshUiState();
     });
 
     setChangeHandler(ELEM.edit.test_type_id, () => {
         hasChanged = true;
         currentGto.test_type_id = Number(ELEM.edit.test_type_id.value);
+        refreshUiState();
     });
 
     setChangeHandler(ELEM.edit.result_id, () => {
         hasChanged = true;
         currentGto.result_id = Number(ELEM.edit.result_id.value);
+        refreshUiState();
     });
 
     setChangeHandler(ELEM.edit.process_id, () => {
         hasChanged = true;
         currentGto.process_id = Number(ELEM.edit.process_id.value);
+        refreshUiState();
     });
 
     setChangeHandler(ELEM.edit.period_id, () => {
@@ -155,11 +170,14 @@ function bind() {
         const stop = new Date(start.setMonth(start.getMonth() + months));
         currentGto.stop_date = stop.toISOString().substring(0, 10);
         ELEM.edit.stop_date.value = currentGto.stop_date;
+
+        refreshUiState();
     });
 
     setChangeHandler(ELEM.edit.stop_date, () => {
         hasChanged = true;
         currentGto.stop_date = ELEM.edit.stop_date.value;
+        refreshUiState();
     });
 
     setChangeHandler(ELEM.edit.cost, () => {
@@ -167,11 +185,13 @@ function bind() {
         COST_UTIL.normalize(ELEM.edit.cost);
         currentGto.cost = COST_UTIL.parse(ELEM.edit.cost);
         COST_UTIL.valid(ELEM.edit.cost, currentGto.cost);
+        refreshUiState();
     });
 
     setChangeHandler(ELEM.edit.cost_type_id, () => {
         hasChanged = true;
         currentGto.cost_type_id = Number(ELEM.edit.cost_type_id.value);
+        refreshUiState();
     });
 }
 

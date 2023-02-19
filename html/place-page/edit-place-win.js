@@ -37,12 +37,21 @@ function show(place) {
     ELEM.edit.name.value = currentPlace.name;
     ELEM.edit.address.value = currentPlace.address;
     ELEM.edit.otoNumber.value = currentPlace.oto_number;
+    refreshUiState();
 }
 
 function hide() {
     hasChanged = false;
     currentPlace = emptyPlace();
     ELEM.editLay.classList.add("hide");
+}
+
+function refreshUiState() {
+    if (hasChanged) {
+        ELEM.ui.btnEditSave.removeAttribute('disabled');
+    } else {
+        ELEM.ui.btnEditSave.setAttribute('disabled', "true");
+    }
 }
 
 function bind() {
@@ -67,16 +76,19 @@ function bind() {
     setChangeHandler(ELEM.edit.name, () => {
         hasChanged = true;
         currentPlace.name = ELEM.edit.name.value;
+        refreshUiState();
     });
 
     setChangeHandler(ELEM.edit.address, () => {
         hasChanged = true;
         currentPlace.address = ELEM.edit.address.value;
+        refreshUiState();
     });
 
     setChangeHandler(ELEM.edit.otoNumber, () => {
         hasChanged = true;
         currentPlace.oto_number = ELEM.edit.otoNumber.value;
+        refreshUiState();
     });
 }
 

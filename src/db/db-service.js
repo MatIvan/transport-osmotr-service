@@ -16,6 +16,7 @@ const GTO_REPO = require('./repository/gto-repo');
  * @typedef {import('./repository/ts-repo').Ts} Ts
  * @typedef {import('./repository/owner-repo').Owner} Owner
  * @typedef {import('./repository/doc-repo').Doc} Doc
+ * @typedef {import('../handlers/main-channel-handler').TsBeanForEdit } TsBeanForEdit
  */
 
 module.exports = {
@@ -29,15 +30,20 @@ module.exports = {
 
     getTs: selectTsById,
     saveTs: saveTs,
-    getTsIdByPlate: getTsIdByPlate,
+    getTsBeanForEditByPlate: getTsBeanForEditByPlate,
 }
 
 /**
- * @param {string} plate
- * @param {(tsId:number)=>void} callback
+ * @param {TsBeanForEdit} tsBeanForEdit
+ * @param {(tsBeanForEditByPlate:TsBeanForEdit)=>void} callback
 */
-function getTsIdByPlate(plate, callback) {
-    TS_REPO.getTsIdByPlate(plate, callback);
+function getTsBeanForEditByPlate(tsBeanForEdit, callback) {
+    TS_REPO.getTsIdByPlate(tsBeanForEdit.plate, (tsId) => {
+        callback({
+            id: tsId,
+            plate: tsBeanForEdit.plate
+        });
+    });
 }
 
 /**

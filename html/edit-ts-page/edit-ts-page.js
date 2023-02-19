@@ -17,6 +17,7 @@ const CONFIRM_WIN = require('../confirm');
  * @typedef {import('../../src/db/repository/ts-repo').Ts} Ts
  * @typedef {import('../../src/db/repository/doc-repo').Doc} Doc
  * @typedef {import('../../src/db/repository/owner-repo').Owner} Owner
+ * @typedef {import('../../src/handlers/main-channel-handler').TsBeanForEdit} TsBeanForEdit
  */
 
 var hasChanged = false;
@@ -72,10 +73,21 @@ RPC.bind({
     },
 
     /**
-     * @param {Ts} ts 
+     * @param {Ts | TsBeanForEdit} ts 
      */
     tsForEdit: (ts) => {
-        currentTs = ts ? ts : getEmptyTs();
+        if (!ts) {
+            ALERT_WIN.show('Шобика загрузки ТС !');
+            return;
+        }
+        if (ts.id > 0) {
+            // @ts-ignore
+            currentTs = ts;
+        } else {
+            currentTs = getEmptyTs();
+            currentTs.plate = ts.plate
+            currentTs.no_grz = !currentTs.plate;
+        }
         refreshAll();
         WAIT_WIN.hide();
     },
@@ -124,6 +136,7 @@ RPC.bind({
         refreshAll();
         WAIT_WIN.hide();
         ALERT_WIN.show('Сохранено успешно!');
+        refreshUiState();
     },
 });
 
@@ -283,13 +296,18 @@ ELEM.ui.btnCancel.onclick = () => {
     });
 }
 ELEM.ui.btnGtoList.onclick = () => {
-    RPC.onGtoListForTs(currentTs.id);
+    if (currentTs.id > 0) {
+        RPC.onGtoListForTs(currentTs.id);
+    } else {
+        ALERT_WIN.show('Необходимо сохранить ТС.');
+    }
 }
 
 RPC.getTsForEdit();
 
 function refreshAll() {
     VIEW.refreshAll(currentTs);
+    refreshUiState();
 }
 
 function loadLists() {
@@ -307,4 +325,17 @@ function save() {
     }
     WAIT_WIN.show();
     RPC.saveTs(currentTs);
+}
+
+function refreshUiState() {
+    if (hasChanged) {
+        ELEM.ui.btnSave.removeAttribute('disabled');
+    } else {
+        ELEM.ui.btnSave.setAttribute('disabled', "true");
+    }
+    if (currentTs.id > 0) {
+        ELEM.ui.btnGtoList.removeAttribute('disabled');
+    } else {
+        ELEM.ui.btnGtoList.setAttribute('disabled', "true");
+    }
 }
