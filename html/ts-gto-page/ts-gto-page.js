@@ -4,7 +4,7 @@
 const RPC = require('../rpc');
 const ELEM = require('./elements');
 const ALL_TABLE = require('./all-gto-table');
-const EDIT_WIN = require('./ts-gto-win');
+const EDIT_WIN = require('../edit-gto-win/edit-gto-win');
 const WAIT_WIN = require('../wait-win');
 const ALERT_WIN = require('../alert');
 
@@ -122,10 +122,13 @@ RPC.bind({
 });
 
 ALL_TABLE.onGtoClick((gto) => {
-    EDIT_WIN.show(currentTs ? currentTs.id : -1, gto);
+    EDIT_WIN.show(
+        currentTs ? currentTs.id : -1,
+        currentTs ? currentTs.plate : '-',
+        gto);
 });
 
-EDIT_WIN.bind();
+EDIT_WIN.bind(ELEM.editLay);
 EDIT_WIN.onSave((gto) => {
     WAIT_WIN.show();
     RPC.saveGto(gto);
@@ -140,7 +143,10 @@ ELEM.ui.btnCancel.onclick = () => {
 }
 
 ELEM.ui.btnAddGto.onclick = () => {
-    EDIT_WIN.show(currentTs ? currentTs.id : -1, null);
+    EDIT_WIN.show(
+        currentTs ? currentTs.id : -1,
+        currentTs ? currentTs.plate : '-',
+        null);
 }
 
 RPC.getAllPlace();

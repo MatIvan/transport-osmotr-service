@@ -1,10 +1,10 @@
 //@ts-check
 'use strict';
 const { fillList, setChangeHandler } = require('../elementsUtil');
-const ELEM = require('./elements');
 const ALERT_WIN = require('../alert');
 const CONFIRM_WIN = require('../confirm');
 const COST_UTIL = require('../cost-util');
+const VIEW = require('./edit-gto-view.js');
 
 /**
  * @typedef {import('../../src/db/repository/ts-repo').Ts} Ts
@@ -36,6 +36,13 @@ var allStaffList = [];
 var allPeriodTypeList = [];
 
 /**
+ * @type {HTMLElement | null}
+ */
+var container = null;
+
+var ELEM;
+
+/**
  * @returns {Gto}
  */
 function emptyGto() {
@@ -62,20 +69,25 @@ var onSaveHandler = (gto) => { };
 
 /**
  * @param {number} tsId
+ * @param {string} tsPlate
  * @param {Gto | null} gto
  */
-function show(tsId, gto) {
-    ELEM.editLay.classList.remove("hide");
+function show(tsId, tsPlate, gto) {
+    if (container) {
+        container.classList.remove("hide");
+    }
     if (gto) {
         currentGto = JSON.parse(JSON.stringify(gto));//deep copy
     } else {
         currentGto = emptyGto();
     }
     currentGto.ts_id = tsId;
+    ELEM.ui.subcaption.innerText = tsPlate;
     refresh();
 }
 
 function refresh() {
+    refreshStaff();
     ELEM.edit.date.value = currentGto.date;
     ELEM.edit.place_id.value = String(currentGto.place_id);
     ELEM.edit.staff_id.value = String(currentGto.staff_id);
@@ -102,10 +114,19 @@ function hide() {
     hasChanged = false;
     currentGto = emptyGto();
     refresh();
-    ELEM.editLay.classList.add("hide");
+    if (container) {
+        container.classList.add("hide");
+    }
 }
 
-function bind() {
+/**
+ * @param {HTMLElement} winContainer
+ */
+function bind(winContainer) {
+    container = winContainer;
+    container.innerHTML = VIEW.HTML;
+    ELEM = VIEW.init();
+
     ELEM.ui.btnEditCancel.onclick = () => {
         if (!hasChanged) {
             hide();
@@ -210,6 +231,7 @@ function refreshStaff() {
             });
     }
     fillList(ELEM.edit.staff_id, staffList);
+    ELEM.edit.staff_id.value = String(currentGto.staff_id);
 }
 
 module.exports = {
@@ -228,6 +250,7 @@ module.exports = {
             };
         });
         fillList(ELEM.edit.place_id, placeList);
+        refreshStaff();
     },
 
     /**

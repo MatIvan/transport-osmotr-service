@@ -62,13 +62,13 @@ body {
     align-self: stretch;
 }
 
-#caption {
+.caption {
     font: caption;
     font-weight: bold;
     margin: 10px;
 }
 
-#subcaption {
+.subcaption {
     font: small-caption;
     font-weight: bold;
     margin-bottom: 10px;
