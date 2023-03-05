@@ -96,7 +96,7 @@ function refresh() {
     ELEM.edit.process_id.value = String(currentGto.process_id);
     ELEM.edit.period_id.value = String(currentGto.period_id);
     ELEM.edit.stop_date.value = currentGto.stop_date;
-    ELEM.edit.cost.value = String(currentGto.cost);
+    ELEM.edit.cost.value = COST_UTIL.toString(currentGto.cost);
     ELEM.edit.cost_type_id.value = String(currentGto.cost_type_id);
     COST_UTIL.valid(ELEM.edit.cost, currentGto.cost);
     refreshUiState();
