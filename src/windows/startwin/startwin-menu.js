@@ -24,12 +24,6 @@ const template = [
         label: "Данные",
         submenu: [
             { id: 'onMenuAddTs', label: "Добавить ТС", click: onClick },
-            //{ id: 'onMenuAddGto', label: "Новой ГТО", click: onClick },
-        ],
-    },
-    {
-        label: "Настройки",
-        submenu: [
             { id: 'onMenuStaff', label: "Сотрудники", click: onClick },
             { id: 'onMenuPlace', label: "Организации", click: onClick },
         ],
