@@ -199,7 +199,9 @@ function refreshStaff() {
     let staffList = [];
     if (allStaffList.length !== 0 && currentGto.place_id > 0) {
         staffList = allStaffList
-            .filter(staff => staff.place_id === currentGto.place_id)
+            .filter(staff => {
+                return (staff.place_id === currentGto.place_id) && staff.active
+            })
             .map(staff => {
                 return {
                     id: staff.id,
