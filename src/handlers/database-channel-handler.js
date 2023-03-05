@@ -67,4 +67,7 @@ module.exports = {
     getTsBeanForEditByPlate: (params, callback) => {
         dbService.getTsBeanForEditByPlate(params, wrapCallback('tsBeanForEditByPlate', callback));
     },
+    getStartpageTableByDate: (params, callback) => {
+        dbService.getStartpageTableByDate(params, wrapCallback('startpageTable', callback));
+    },
 }

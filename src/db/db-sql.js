@@ -125,4 +125,19 @@ module.exports = {
     selectGtoPeriod: "SELECT id, name, months FROM period;",
     selectGtoCostType: "SELECT id, name FROM cost_type;",
     selectTsIdByPlate: "SELECT id FROM ts WHERE plate=?;",
+    selectStartpageTableByDate: `
+        SELECT 
+            g.id                        AS gtoId,
+            t.plate                     AS plate,
+            t.brand || ' ' || t.model   AS tsFullName,
+            tc.name                     AS category,
+            tt.name                     AS test,
+            r.name                      AS resultName
+        FROM gto g
+        LEFT JOIN ts t ON t.id = g.ts_id 
+        LEFT JOIN ts_category tc ON tc.id = t.ts_category_id
+        LEFT JOIN test_type tt ON tt.id = g.test_type_id
+        LEFT JOIN "result" r ON r.id = g.result_id 
+        WHERE g.date like ?;
+    `,
 }

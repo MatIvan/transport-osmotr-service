@@ -11,4 +11,6 @@ module.exports = {
         btnSearchPlate: getDiv('btn-search-plate'),
     },
     versionInfo: getDiv('info'),
+    editLay: getDiv('edit-lay'),
+    table: getDiv('start-table'),
 }

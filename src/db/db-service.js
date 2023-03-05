@@ -11,12 +11,14 @@ const DOC_REPO = require('./repository/doc-repo');
 const TS_REPO = require('./repository/ts-repo');
 const STAFF_REPO = require('./repository/staff-repo');
 const GTO_REPO = require('./repository/gto-repo');
+const STARTPAGE_REPO = require('./repository/startpage-repo');
 
 /**
  * @typedef {import('./repository/ts-repo').Ts} Ts
  * @typedef {import('./repository/owner-repo').Owner} Owner
  * @typedef {import('./repository/doc-repo').Doc} Doc
  * @typedef {import('../handlers/main-channel-handler').TsBeanForEdit } TsBeanForEdit
+ * @typedef {import('./repository/gto-repo').Gto} Gto
  */
 
 module.exports = {
@@ -31,6 +33,7 @@ module.exports = {
     getTs: selectTsById,
     saveTs: saveTs,
     getTsBeanForEditByPlate: getTsBeanForEditByPlate,
+    getStartpageTableByDate: STARTPAGE_REPO.getStartpageTableByDate,
 }
 
 /**

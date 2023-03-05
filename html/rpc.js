@@ -80,6 +80,12 @@ module.exports = {
 
     getAllPlace: () => channels.sendToDataBaseChannel('getAllPlace'),
     getAllStaff: () => channels.sendToDataBaseChannel('getAllStaff'),
+
+    /**
+    * @param {string} date
+    */
+    getStartpageTableByDate: (date) => channels.sendToDataBaseChannel('getStartpageTableByDate', date),
+
     // @ts-ignore
     appVersions: window.versions,
 }
