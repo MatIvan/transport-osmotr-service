@@ -140,4 +140,5 @@ module.exports = {
         LEFT JOIN "result" r ON r.id = g.result_id 
         WHERE g.date like ?;
     `,
+    selectGtoById: `SELECT * FROM gto WHERE id = ?`,
 }

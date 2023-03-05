@@ -70,4 +70,7 @@ module.exports = {
     getStartpageTableByDate: (params, callback) => {
         dbService.getStartpageTableByDate(params, wrapCallback('startpageTable', callback));
     },
+    getGtoById: (params, callback) => {
+        dbService.gto.getById(params, wrapCallback('setGto', callback));
+    },
 }

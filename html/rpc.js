@@ -86,6 +86,11 @@ module.exports = {
     */
     getStartpageTableByDate: (date) => channels.sendToDataBaseChannel('getStartpageTableByDate', date),
 
+    /**
+     * @param {number} gtoId
+     */
+    getGtoById: (gtoId) => channels.sendToDataBaseChannel('getGtoById', gtoId),
+
     // @ts-ignore
     appVersions: window.versions,
 }

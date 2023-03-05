@@ -9,6 +9,11 @@ const { createDiv } = require('../elementsUtil');
  */
 
 /**
+ * @type {StartTableBean | null}
+ */
+var selectedBean = null;
+
+/**
  * @param {StartTableBean[]} startTable
  */
 function setData(startTable) {
@@ -17,7 +22,10 @@ function setData(startTable) {
     for (let i = 0; i < startTable.length; i++) {
         const bean = startTable[i];
         const row = createDiv('table-row');
-        row.onclick = () => { onRowClickHandler(bean); };
+        row.onclick = () => {
+            selectedBean = bean;
+            onRowClickHandler(bean);
+        };
         row.innerHTML = `
             <div class="table-col col1">${normStr(bean.plate)}</div>
             <div class="table-col col2">${normStr(bean.tsFullName)}</div>
@@ -41,4 +49,5 @@ var onRowClickHandler = (bean) => { };
 module.exports = {
     setData: setData,
     onRowClick: (/** @type {(bean: StartTableBean) => void} */ handler) => onRowClickHandler = handler,
+    selectedBean: () => { return selectedBean; },
 }

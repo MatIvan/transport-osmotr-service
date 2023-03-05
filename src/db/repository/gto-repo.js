@@ -23,6 +23,7 @@ const SQL = require('../db-sql')
 module.exports = {
     getByTs: selectByTs,
     save: save,
+    getById: selectById,
 }
 
 /**
@@ -89,4 +90,12 @@ function insert(gto, callback) {
  */
 function selectByTs(tsId, callback) {
     UTIL.selectAll(SQL.selectGtoByTs, [tsId], callback);
+}
+
+/**
+ * @param {number} gtoId
+ * @param {(gto: Gto) => void} callback
+ */
+function selectById(gtoId, callback) {
+    UTIL.selectOne(SQL.selectGtoById, [gtoId], callback);
 }
