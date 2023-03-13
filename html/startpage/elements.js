@@ -10,6 +10,10 @@ module.exports = {
         searchPlate: getInput('search-plate'),
         btnSearchPlate: getDiv('btn-search-plate'),
     },
+    report: {
+        btnReportDay: getDiv('btnReportDay'),
+        btnReportMonth: getDiv('btnReportMonth'),
+    },
     versionInfo: getDiv('info'),
     editLay: getDiv('edit-lay'),
     table: getDiv('start-table'),

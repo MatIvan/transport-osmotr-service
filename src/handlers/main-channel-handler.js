@@ -73,4 +73,12 @@ module.exports = {
             callback('tsForGtoList', null);
         }
     },
+
+    report: (params, callback) => {
+        dbService.getReport(params, (data) => {
+            //TODO
+            callback('reportReady',null);
+        });
+    },
+
 }

@@ -8,8 +8,10 @@ const WAIT_WIN = require('../wait-win');
 const CONFIRM = require('../confirm');
 const EDIT_WIN = require('../edit-gto-win/edit-gto-win');
 const START_TABLE = require('./start-table');
+const DATE_UTIL = require('../date-util');
 
 /**
+ * @typedef {import('../date-util').DatePeriod} DatePeriod
  * @typedef {import('../../properties').Properties} Properties
  * @typedef {import('../../src/handlers/main-channel-handler').TsBeanForEdit} TsBeanForEdit
  * @typedef {import('../../src/db/repository/startpage-repo').StartTableBean} StartTableBean
@@ -151,6 +153,14 @@ RPC.bind({
 });
 
 WAIT_WIN.show();
+
+ELEM.report.btnReportDay.onclick = () => {
+    RPC.report(DATE_UTIL.getPeriodDay(selectedDate));
+}
+
+ELEM.report.btnReportMonth.onclick = () => {
+    RPC.report(DATE_UTIL.getPeriodDay(selectedDate));
+}
 
 EDIT_WIN.bind(ELEM.editLay);
 EDIT_WIN.onSave((bean) => {

@@ -18,6 +18,7 @@
     "@electron-forge/maker-squirrel": "^6.0.5",
     "@electron-forge/maker-zip": "^6.0.5",
     "electron": "^22.0.0",
+    "excel4node": "^1.8.0",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1"
   },

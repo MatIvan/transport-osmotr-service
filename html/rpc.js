@@ -9,6 +9,7 @@ const channels = require('./channels');
  * @typedef {import('../src/db/repository/staff-repo').Staff} Staff
  * @typedef {import('../src/db/repository/gto-repo').Gto} Gto
  * @typedef {import('../src/handlers/main-channel-handler').TsBeanForEdit} TsBeanForEdit
+ * @typedef {import('./date-util').DatePeriod} DatePeriod
  */
 
 module.exports = {
@@ -90,6 +91,11 @@ module.exports = {
      * @param {number} gtoId
      */
     getGtoById: (gtoId) => channels.sendToDataBaseChannel('getGtoById', gtoId),
+
+    /**
+     * @param {DatePeriod} period
+     */
+    report: (period) => channels.sendToMainChannel('report', period),
 
     // @ts-ignore
     appVersions: window.versions,

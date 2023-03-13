@@ -19,7 +19,16 @@ const STARTPAGE_REPO = require('./repository/startpage-repo');
  * @typedef {import('./repository/doc-repo').Doc} Doc
  * @typedef {import('../handlers/main-channel-handler').TsBeanForEdit } TsBeanForEdit
  * @typedef {import('./repository/gto-repo').Gto} Gto
+ * 
+ * @typedef {import('../../html/date-util').DatePeriod} DatePeriods
  */
+
+/**
+ * @typedef {Object} ReportData
+ * @property {number} id 
+ * @property {string} plate
+ */
+
 
 module.exports = {
     open: dbInit.open,
@@ -34,6 +43,8 @@ module.exports = {
     saveTs: saveTs,
     getTsBeanForEditByPlate: getTsBeanForEditByPlate,
     getStartpageTableByDate: STARTPAGE_REPO.getStartpageTableByDate,
+
+    getReport: getReport,
 }
 
 /**
@@ -94,4 +105,12 @@ function saveTs(ts, callback) {
             });
         });
     });
+}
+
+/**
+ * @param {DatePeriods} period
+ * @param {(reportData: ReportData)=>void} callback
+ */
+function getReport(period, callback) {
+    //TODO
 }
