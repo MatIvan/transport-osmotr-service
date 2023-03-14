@@ -141,4 +141,27 @@ module.exports = {
         WHERE g.date like ?;
     `,
     selectGtoById: `SELECT * FROM gto WHERE id = ?`,
+    selectReportData: `
+        SELECT 
+            gto.date    AS date,
+            s.full_name AS staff,
+            tt.name     AS test_type,
+            ts.plate    AS plate,
+            ts."year"   AS release_year,
+            atst.name   AS ats_type,
+            ts.brand || ' ' || ts.model AS marka,
+            o.first_name || ' ' || o.second_name || ' ' || o.midle_name AS owner,
+            p.name      AS period,
+            gto.cost    AS cost,
+            ct.name     AS cost_type
+        FROM gto
+        INNER JOIN staff s ON s.id = gto.staff_id
+        INNER JOIN test_type tt ON tt.id = gto.test_type_id 
+        INNER JOIN ts ON ts.id = gto.ts_id 
+        INNER JOIN ats_type atst ON atst.id = ts.ats_type_id
+        INNER JOIN owner o ON o.id = ts.owner_id 
+        INNER JOIN period p ON p.id = gto.period_id 
+        INNER JOIN cost_type ct ON ct.id = gto.cost_type_id  
+        WHERE gto.date BETWEEN ? AND ?;
+    `,
 }

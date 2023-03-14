@@ -8,22 +8,31 @@
  */
 
 module.exports = {
-    getPeriodDay: getPeriodDay,
-    getPeriodMonth: getPeriodMonth,
+    getPeriodDay,
+    getPeriodMonth,
 }
 
 /**
- * @param {string} data
+ * @param {string} date
  * @returns {DatePeriod}
  */
-function getPeriodDay(data) {
-    return period;
+function getPeriodDay(date) {
+    return {
+        from: date,
+        to: date
+    };
 }
 
 /**
- * @param {string} data
+ * @param {string} date
  * @returns {DatePeriod}
  */
-function getPeriodMonth(data) {
-    return period;
+function getPeriodMonth(date) {
+    let d = new Date(date);
+    const dateFrom = new Date(d.getFullYear(), d.getMonth(), 2); // first day of month
+    const dateTo = new Date(d.getFullYear(), d.getMonth() + 1, 1);// last day of month
+    return {
+        from: dateFrom.toISOString().substring(0, 10),
+        to: dateTo.toISOString().substring(0, 10)
+    };
 }

@@ -75,7 +75,7 @@ module.exports = {
     },
 
     report: (params, callback) => {
-        dbService.getReport(params, (data) => {
+        dbService.getReport(params.from, params.to, (data) => {
             //TODO
             callback('reportReady',null);
         });

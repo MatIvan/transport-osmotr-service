@@ -12,6 +12,7 @@ const TS_REPO = require('./repository/ts-repo');
 const STAFF_REPO = require('./repository/staff-repo');
 const GTO_REPO = require('./repository/gto-repo');
 const STARTPAGE_REPO = require('./repository/startpage-repo');
+const REPORT_REPO = require('./repository/report-repo');
 
 /**
  * @typedef {import('./repository/ts-repo').Ts} Ts
@@ -22,38 +23,6 @@ const STARTPAGE_REPO = require('./repository/startpage-repo');
  * 
  * @typedef {import('../../html/date-util').DatePeriod} DatePeriods
  */
-
-/**
- * @typedef {Object} ReportData
- * @property {number} id 
- * @property {string} plate
- */
-
-/*
-SELECT 
-	gto.date 	AS date,
-	s.full_name AS staff,
-	tt.name 	AS test_type,
-	ts.plate 	AS plate,
-	ts."year"   AS release_year,
-	atst.name 	AS ats_type,
-    ts.brand || ' ' || ts.model AS marka,
-    o.first_name || ' ' || o.second_name || ' ' || o.midle_name AS owner,
-    p.name 		AS period,
-    gto.cost 	AS cost,
-    ct.name 	AS cost_type,
-    ct.id
-FROM gto
-INNER JOIN staff s ON s.id = gto.staff_id
-INNER JOIN test_type tt ON tt.id = gto.test_type_id 
-INNER JOIN ts ON ts.id = gto.ts_id 
-INNER JOIN ats_type atst ON atst.id = ts.ats_type_id
-INNER JOIN owner o ON o.id = ts.owner_id 
-INNER JOIN period p ON gto.period_id 
-INNER JOIN cost_type ct ON gto.cost_type_id 
-WHERE gto.cost_type_id = 1;
-	  AND gto.date BETWEEN '2023-01-18' AND '2023-02-20';
-*/
 
 module.exports = {
     open: dbInit.open,
@@ -69,7 +38,7 @@ module.exports = {
     getTsBeanForEditByPlate: getTsBeanForEditByPlate,
     getStartpageTableByDate: STARTPAGE_REPO.getStartpageTableByDate,
 
-    getReport: getReport,
+    getReport: REPORT_REPO.selectReportData,
 }
 
 /**
@@ -130,12 +99,4 @@ function saveTs(ts, callback) {
             });
         });
     });
-}
-
-/**
- * @param {DatePeriods} period
- * @param {(reportData: ReportData)=>void} callback
- */
-function getReport(period, callback) {
-    //TODO
 }

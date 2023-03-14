@@ -150,6 +150,11 @@ RPC.bind({
             bean ? bean.plate : '',
             gto);
     },
+
+    reportReady: () => {
+        //TODO
+        console.log('report ready.');
+    }
 });
 
 WAIT_WIN.show();
@@ -159,7 +164,7 @@ ELEM.report.btnReportDay.onclick = () => {
 }
 
 ELEM.report.btnReportMonth.onclick = () => {
-    RPC.report(DATE_UTIL.getPeriodDay(selectedDate));
+    RPC.report(DATE_UTIL.getPeriodMonth(selectedDate));
 }
 
 EDIT_WIN.bind(ELEM.editLay);
