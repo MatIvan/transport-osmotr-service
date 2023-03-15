@@ -5,6 +5,7 @@ const dbService = require('../db/db-service');
 const controller = require('../controller');
 const pages = require('../pages');
 const PROPS = require('../../properties');
+const REPORT = require('../report/report-factory');
 
 /**
  * @typedef {Object} TsBeanForEdit
@@ -76,8 +77,9 @@ module.exports = {
 
     report: (params, callback) => {
         dbService.getReport(params.from, params.to, (data) => {
+            REPORT.create(params, data);
             //TODO
-            callback('reportReady',null);
+            callback('reportReady', null);
         });
     },
 

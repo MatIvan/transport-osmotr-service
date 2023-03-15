@@ -6,8 +6,17 @@ const SQL = require('../db-sql')
 
 /**
  * @typedef {Object} ReportData
- * @property {number} id 
+ * @property {string} date - YYYY-MM-DD
+ * @property {string} staff
+ * @property {string} test_type
  * @property {string} plate
+ * @property {number} release_year
+ * @property {string} ats_type
+ * @property {string} marka
+ * @property {string} owner
+ * @property {string} period
+ * @property {number} cost
+ * @property {string} cost_type
  */
 
 module.exports = {

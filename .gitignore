@@ -134,3 +134,4 @@ database.sqlite
 html/renderers/*
 
 secret.sql
+*.xlsx
