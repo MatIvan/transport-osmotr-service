@@ -15,6 +15,10 @@ const { dialog } = require('electron');
  */
 
 /**
+ * @typedef {import('../report/report-factory').ReportOptions} ReportOptions
+ */
+
+/**
  * @type {TsBeanForEdit}
  */
 let tsBeanForEdit = getEmptyTsBeanForEdit();
@@ -77,25 +81,32 @@ module.exports = {
     },
 
     report: (period, callback) => {
-        dbService.getReport(period.from, period.to, (data) => {
-            const fileName = dialog.showSaveDialogSync({
-                title: "Save report",
-                buttonLabel: "Save Report File",
-                defaultPath: period.to + "-report.xlsx",
-                filters: [
-                    { name: 'XLSX', extensions: ['xlsx'] },
-                ]
-            });
+        const fileName = dialog.showSaveDialogSync({
+            title: "Save report",
+            buttonLabel: "Save Report File",
+            defaultPath: period.from + "_" + period.to + "_report.xlsx",
+            filters: [
+                { name: 'XLSX', extensions: ['xlsx'] },
+            ]
+        });
 
-            if (!fileName) {
-                return;
-            }
+        if (!fileName) {
+            return;
+        }
 
-            REPORT.create(fileName, period, data, (error) => {
-                if (error) {
-                    return callback('reportError', error);
-                }
-                callback('reportReady', null);
+        dbService.place.getById(PROPS.get().placeId, (place) => {
+            dbService.getReport(period.from, period.to, (data) => {
+
+                /** @type {ReportOptions} */
+                const reportOptions = { fileName, place, period, data }
+                console.log("reportOptions:", reportOptions);
+
+                REPORT.create(reportOptions, (error) => {
+                    if (error) {
+                        return callback('reportError', error);
+                    }
+                    callback('reportReady', null);
+                });
             });
         });
     },

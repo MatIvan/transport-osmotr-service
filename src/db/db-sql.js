@@ -80,6 +80,10 @@ module.exports = {
     sqlInsertPlace: `
         INSERT INTO place (name, address, oto_number)
         VALUES (?, ?, ?);`,
+    selectPlace: `
+        SELECT id, name, address, oto_number 
+        FROM place 
+        WHERE id  = ?;`,
     selectAllStaff: `SELECT id, full_name, code, place_id, active FROM staff;`,
     sqlUpdateStaff: `
         UPDATE staff

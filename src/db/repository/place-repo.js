@@ -13,8 +13,9 @@ const SQL = require('../db-sql')
  */
 
 module.exports = {
-    getAll: selectAll,
-    save: save,
+    getById,
+    getAll,
+    save,
 }
 
 /**
@@ -63,6 +64,14 @@ function insert(place, callback) {
 /**
  * @param {(data:Place[])=>void} callback 
  */
-function selectAll(callback) {
+function getAll(callback) {
     UTIL.selectAll(SQL.selectAllPlace, [], callback);
+}
+
+/**
+ * @param {number} id
+ * @param {(data:Place)=>void} callback 
+ */
+function getById(id, callback) {
+    UTIL.selectOne(SQL.selectPlace, [id], callback);
 }
