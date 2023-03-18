@@ -15,7 +15,7 @@ const { dialog } = require('electron');
  */
 
 /**
- * @typedef {import('../report/report-factory').ReportOptions} ReportOptions
+ * @typedef {import('../report/types').ReportOptions} ReportOptions
  */
 
 /**
@@ -99,7 +99,6 @@ module.exports = {
 
                 /** @type {ReportOptions} */
                 const reportOptions = { fileName, place, period, data }
-                console.log("reportOptions:", reportOptions);
 
                 REPORT.create(reportOptions, (error) => {
                     if (error) {

@@ -2,131 +2,198 @@
 'use strict'
 
 const XL = require('excel4node'); //  https://www.npmjs.com/package/excel4node
+const OPT = require('./page-options');
+
 /**
  * @typedef {import('../db/repository/report-repo').ReportData} ReportData
- * @typedef {import('../../html/date-util').DatePeriod} DatePeriod
- * @typedef {import('../db/repository/place-repo').Place} Place
- */
-
-/**
- * @typedef {any} Workbook
- * @typedef {any} Worksheet
- */
-
-/**
- * @typedef {Object} Model
- * @property {Workbook} wb
- * @property {Worksheet} ws
- * @property {number} row
- */
-
-/**
- * @typedef {Object} ReportOptions
- * @param {string} fileName
- * @param {Place} place
- * @param {DatePeriod} period
- * @param {ReportData[]} data
+ * @typedef {import('./types').ReportOptions} ReportOptions
+ * @typedef {import('./types').Model} Model
+ * @typedef {import('./types').Column} Column
  */
 
 module.exports = {
     create
 }
 
+/** @type {Column[]} */
+const colunms = [
+    {
+        caption: '№№',
+        width: 5,
+        type: 'number',
+        style: OPT.cell(),
+        value: (row, data) => { return row },
+    },
+    {
+        caption: 'Дата ТО',
+        width: 12,
+        type: 'date',
+        style: OPT.cell(),
+        value: (row, data) => { return new Date(data.date) },
+    },
+    {
+        caption: 'Эксперт',
+        width: 19,
+        type: 'string',
+        style: OPT.cell(),
+        value: (row, data) => { return data.staff },
+    },
+    {
+        caption: 'Вид проверки',
+        width: 12,
+        type: 'string',
+        style: OPT.cell(),
+        value: (row, data) => { return data.test_type },
+    },
+    {
+        caption: 'Рег.знак',
+        width: 12,
+        type: 'string',
+        style: OPT.cell(),
+        value: (row, data) => { return data.plate },
+    },
+    {
+        caption: 'Тип ТС',
+        width: 7,
+        type: 'string',
+        style: OPT.cell(),
+        value: (row, data) => { return data.ats_type },
+    },
+    {
+        caption: 'Марки, модель',
+        width: 19,
+        type: 'string',
+        style: OPT.cell(),
+        value: (row, data) => { return data.marka },
+    },
+    {
+        caption: 'Год выпуска',
+        width: 8,
+        type: 'number',
+        style: OPT.cell(),
+        value: (row, data) => { return data.release_year },
+    },
+    {
+        caption: 'Владелец ТС',
+        width: 19,
+        type: 'string',
+        style: OPT.cell(),
+        value: (row, data) => { return data.owner },
+    },
+    {
+        caption: 'Срок действия',
+        width: 12,
+        type: 'string',
+        style: OPT.cell(),
+        value: (row, data) => { return data.period },
+    },
+    {
+        caption: 'Сумма',
+        width: 10,
+        type: 'number',
+        style: OPT.cell(),
+        value: (row, data) => { return data.cost },
+    },
+    {
+        caption: 'Способ оплаты',
+        width: 10,
+        type: 'string',
+        style: OPT.cell(),
+        value: (row, data) => { return data.cost_type },
+    },
+];
+
 /**
  * @param {ReportOptions} opt
  * @param {(err: string| null, path: string | null)=>void} callback
  */
 function create(opt, callback) {
-    let newWb = new XL.Workbook({
-        defaultFont: {
-            size: 10
-        },
-        dateFormat: 'dd.mm.yyyy',
-        author: 'TOS'
-    });
-
-    const wsOptions = {
-        'margins': { // Accepts a Double in Inches
-            'bottom': 0.8,
-            'footer': 0.39,
-            'header': 0.39,
-            'left': 0.39,
-            'right': 0.39,
-            'top': 0.8
-        },
-        'pageSetup': {
-            'blackAndWhite': true,
-            'orientation': 'landscape', // One of 'default', 'portrait', 'landscape'
-        },
-        // Set Header and Footer strings and options.
-        // https://poi.apache.org/apidocs/dev/org/apache/poi/xssf/usermodel/extensions/XSSFHeaderFooter.html
-        'headerFooter': {
-            'oddHeader': getHeader(opt),
-            'oddFooter': '&C &P of &N',
-            'differentFirst': false,
-            'differentOddEven': false,
-            'scaleWithDoc': true
-        },
-    }
+    let newWb = new XL.Workbook(OPT.workbook(opt));
 
     /** @type {Model} */
     let model = {
+        options: opt,
         wb: newWb,
-        ws: newWb.addWorksheet('REPORT', wsOptions),
-        row: 1
+        ws: newWb.addWorksheet('REPORT', OPT.worksheet(opt)),
+        row: 1,
     }
 
-    fillTable(model, opt);
-
-    write(model, opt, callback);
-}
-/**
- * @param {ReportOptions} opt
- * @returns string
- */
-function getHeader(opt) {
-    const { place, period } = opt;
-    return `&C&B Реестр оплаты проведенных осмотров транспортных средств: ${period.from} - ${period.to}
-Оператор технического осмотра: ${place.name} № в реестре ОТО ${place.oto_number}`;
+    prepareColumns(model);
+    fillTable(model, 'Банк');
+    fillTable(model, 'Касса');
+    write(model, callback);
 }
 
 /**
  * @param {Model} model
- * @param {ReportOptions} opt
  */
-function fillTable(model, opt) {
-    opt.data.forEach((data, index) => row(model, data, index));
-}
+function prepareColumns(model) {
+    colunms.forEach((val, index) => {
+        const col = index + 1;
+        model.ws.column(col).setWidth(val.width);
+        model.ws.cell(model.row, col).string(val.caption);
+    });
 
-/**
- * @param {Model} model
- * @param {ReportData} data
- * @param {number} index
- */
-function row(model, data, index) {
-    let col = 1;
-    model.ws.cell(model.row, col++).number(index + 1);
-    model.ws.cell(model.row, col++).date(new Date(data.date));
-    model.ws.cell(model.row, col++).string(data.staff);
-    model.ws.cell(model.row, col++).string(data.test_type);
-    model.ws.cell(model.row, col++).string(data.plate);
-    model.ws.cell(model.row, col++).string(data.ats_type);
-    model.ws.cell(model.row, col++).string(data.marka);
-    model.ws.cell(model.row, col++).number(data.release_year);
-    model.ws.cell(model.row, col++).string(data.owner);
-    model.ws.cell(model.row, col++).string(data.period);
-    model.ws.cell(model.row, col++).number(data.cost);
-    model.ws.cell(model.row, col++).string(data.cost_type);
+    model.ws.row(model.row).setHeight(24);
+    const style = model.wb.createStyle(OPT.headCell());
+    model.ws.cell(model.row, 1, model.row, colunms.length).style(style);
     model.row++;
 }
 
 /**
  * @param {Model} model
- * @param {ReportOptions} opt
+ * @param {string} costType
+ */
+function fillTable(model, costType) {
+    // name
+    model.ws.row(model.row).setHeight(24);
+    const styleName = model.wb.createStyle(OPT.subjectCell());
+    model.ws.cell(model.row, 1).string(costType).style(styleName);
+    model.row++;
+
+    // table
+    const arr = model.options.data.filter((data) => {
+        return data.cost_type === costType;
+    })
+    let summ = 0;
+    arr.forEach((data, rowIndex) => {
+        row(model, data, rowIndex);
+        summ += data.cost;
+    });
+
+    // summ
+    model.ws.row(model.row).setHeight(24);
+    const styleSumm = model.wb.createStyle(OPT.subjectCell());
+    model.ws.cell(model.row, 1).string('Итого оплата');
+    model.ws.cell(model.row, 3).string(costType);
+    model.ws.cell(model.row, 4).number(summ);
+    model.ws.cell(model.row, 1, model.row, 4).style(styleSumm);
+    model.row++;
+}
+
+/**
+ * @param {Model} model
+ * @param {ReportData} data
+ * @param {number} rowIndex
+ */
+function row(model, data, rowIndex) {
+    colunms.forEach((val, index) => {
+        const col = index + 1;
+        model.ws.cell(model.row, col)[val.type](val.value(rowIndex + 1, data));
+    });
+
+    model.ws.row(model.row).setHeight(24);
+    const style = model.wb.createStyle(OPT.cell());
+    model.ws.cell(model.row, 1, model.row, colunms.length).style(style);
+    model.row++;
+}
+
+/**
+ * @param {Model} model
  * @param {(err: string| null, path: string | null)=>void} callback
  */
-function write(model, opt, callback) {
-    const { fileName } = opt;
+function write(model, callback) {
+    const { fileName } = model.options;
     model.wb.write(fileName, function (err, stats) {
         if (err) {
             return callback('Write file error!', null);
@@ -134,19 +201,3 @@ function write(model, opt, callback) {
         callback(null, fileName);
     });
 }
-
-
-
-// Create a reusable style
-// var style = wb.createStyle({
-//     font: {
-//         color: '#FF0800',
-//         size: 12,
-//     },
-//     numberFormat: '$#,##0.00; ($#,##0.00); -',
-// });
-
-// Set value of cell A1 to 100 as a number type styled with paramaters of style
-// ws.cell(1, 1)
-//     .formula('A1 + B1')   .bool(true)
-//     .style(style);
