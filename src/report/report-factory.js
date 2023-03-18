@@ -23,10 +23,12 @@ module.exports = {
 }
 
 /**
+ * @param {string} fileName
  * @param {DatePeriod} period
  * @param {ReportData[]} data
+ * @param {(err: string| null, path: string | null)=>void} callback
  */
-function create(period, data) {
+function create(fileName, period, data, callback) {
     let newWb = new XL.Workbook();
 
     /** @type {Model} */
@@ -38,7 +40,7 @@ function create(period, data) {
 
     fillTable(model, data);
 
-    write(model, 'report.xlsx');
+    write(model, fileName, callback);
 }
 
 /**
@@ -74,11 +76,14 @@ function row(model, data, index) {
 /**
  * @param {Model} model
  * @param {string} fileName
+ * @param {(err: string| null, path: string | null)=>void} callback
  */
-function write(model, fileName) {
+function write(model, fileName, callback) {
     model.wb.write(fileName, function (err, stats) {
         if (err) {
+            return callback('Write file error!', null);
         }
+        callback(null, fileName);
     });
 }
 

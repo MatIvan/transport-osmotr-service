@@ -6,6 +6,7 @@ const controller = require('../controller');
 const pages = require('../pages');
 const PROPS = require('../../properties');
 const REPORT = require('../report/report-factory');
+const { dialog } = require('electron');
 
 /**
  * @typedef {Object} TsBeanForEdit
@@ -75,11 +76,27 @@ module.exports = {
         }
     },
 
-    report: (params, callback) => {
-        dbService.getReport(params.from, params.to, (data) => {
-            REPORT.create(params, data);
-            //TODO
-            callback('reportReady', null);
+    report: (period, callback) => {
+        dbService.getReport(period.from, period.to, (data) => {
+            const fileName = dialog.showSaveDialogSync({
+                title: "Save report",
+                buttonLabel: "Save Report File",
+                defaultPath: period.to + "-report.xlsx",
+                filters: [
+                    { name: 'XLSX', extensions: ['xlsx'] },
+                ]
+            });
+
+            if (!fileName) {
+                return;
+            }
+
+            REPORT.create(fileName, period, data, (error) => {
+                if (error) {
+                    return callback('reportError', error);
+                }
+                callback('reportReady', null);
+            });
         });
     },
 
