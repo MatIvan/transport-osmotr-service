@@ -6,8 +6,12 @@ module.exports = {
     worksheet,
     cell,
     headCell,
-    subjectCell
+    subjectCell,
+    cellCost,
+    subjectCellCost
 }
+
+const RUB_FORMAT = '# ##0,00"р.";-# ##0,00"р."';
 
 /**
  * @typedef {import('./types').ReportOptions} ReportOptions
@@ -83,6 +87,13 @@ function cell() {
     }
 }
 
+function cellCost(){
+    return {
+        ...cell(),
+        numberFormat: RUB_FORMAT,
+    }
+}
+
 function headCell() {
     return {
         font: {
@@ -124,6 +135,13 @@ function subjectCell(){
             horizontal: 'left',
             vertical: 'bottom',
         },
+    }
+}
+
+function subjectCellCost(){
+    return {
+        ...subjectCell(),
+        numberFormat: RUB_FORMAT,
     }
 }
 

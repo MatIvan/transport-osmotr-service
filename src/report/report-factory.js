@@ -91,8 +91,8 @@ const colunms = [
         caption: 'Сумма',
         width: 10,
         type: 'number',
-        style: OPT.cell(),
-        value: (row, data) => { return data.cost },
+        style: OPT.cellCost(),
+        value: (row, data) => { return (data.cost / 100) },
     },
     {
         caption: 'Способ оплаты',
@@ -164,11 +164,15 @@ function fillTable(model, costType) {
     // summ
     model.ws.row(model.row).setHeight(24);
     const styleSumm = model.wb.createStyle(OPT.subjectCell());
+
     model.ws.cell(model.row, 1).string('Итого оплата');
     model.ws.cell(model.row, 3).string(costType);
-    model.ws.cell(model.row, 4).number(summ);
-    model.ws.cell(model.row, 1, model.row, 4).style(styleSumm);
-    model.row++;
+    model.ws.cell(model.row, 1, model.row, 3).style(styleSumm);
+
+    const styleSummRub = model.wb.createStyle(OPT.subjectCellCost());
+    model.ws.cell(model.row, 4).number(summ / 100).style(styleSummRub);
+
+    model.row += 3;
 }
 
 /**
@@ -179,12 +183,10 @@ function fillTable(model, costType) {
 function row(model, data, rowIndex) {
     colunms.forEach((val, index) => {
         const col = index + 1;
-        model.ws.cell(model.row, col)[val.type](val.value(rowIndex + 1, data));
+        const style = model.wb.createStyle(val.style);
+        model.ws.cell(model.row, col)[val.type](val.value(rowIndex + 1, data)).style(style);
     });
-
     model.ws.row(model.row).setHeight(24);
-    const style = model.wb.createStyle(OPT.cell());
-    model.ws.cell(model.row, 1, model.row, colunms.length).style(style);
     model.row++;
 }
 
