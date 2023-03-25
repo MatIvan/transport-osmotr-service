@@ -6,3 +6,8 @@ TOS - ElectronJS application for TO-service
 npm install
 npx electron-forge import
 
+## debug/start
+npm start
+
+## build
+npm run make

@@ -34,6 +34,7 @@ module.exports = {
 
     open: function () {
         const dbFile = path.join(global.appRoot, 'database.sqlite')
+        console.log('dbFile: ', dbFile);
         db = new sqLite3.Database(dbFile, (err) => {
             if (err) return onErrorHandler(err);
             init();
