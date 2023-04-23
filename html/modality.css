@@ -25,6 +25,7 @@
     border-radius: 8px;
     margin: auto;
     background-color: white;
+    user-select: none;
 }
 
 .alert-window {
@@ -42,6 +43,7 @@
     text-align: center;
     margin: 10px;
     font-weight: bold;
+    user-select: none;
 }
 
 .confirm-window {
@@ -59,4 +61,5 @@
     text-align: center;
     margin: 10px;
     font-weight: bold;
+    user-select: none;
 }

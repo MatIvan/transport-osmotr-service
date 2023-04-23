@@ -66,12 +66,14 @@ body {
     font: caption;
     font-weight: bold;
     margin: 10px;
+    user-select: none;
 }
 
 .subcaption {
     font: small-caption;
     font-weight: bold;
     margin-bottom: 10px;
+    user-select: none;
 }
 
 .body-box {
