@@ -119,8 +119,8 @@ function create(opt, callback) {
     }
 
     prepareColumns(model);
-    fillTable(model, 'Банк');
     fillTable(model, 'Касса');
+    fillTable(model, 'Банк');
     write(model, callback);
 }
 
@@ -145,6 +145,14 @@ function prepareColumns(model) {
  * @param {string} costType
  */
 function fillTable(model, costType) {
+    const arr = model.options.data.filter((data) => {
+        return data.cost_type === costType;
+    })
+    if (arr.length == 0) {
+        console.log("Have no data for costType=" + costType);
+        return;
+    }
+
     // name
     model.ws.row(model.row).setHeight(24);
     const styleName = model.wb.createStyle(OPT.subjectCell());
@@ -152,9 +160,6 @@ function fillTable(model, costType) {
     model.row++;
 
     // table
-    const arr = model.options.data.filter((data) => {
-        return data.cost_type === costType;
-    })
     let summ = 0;
     arr.forEach((data, rowIndex) => {
         row(model, data, rowIndex);
