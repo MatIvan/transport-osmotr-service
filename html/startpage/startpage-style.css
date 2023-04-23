@@ -99,3 +99,10 @@
     margin-right: 10px;
     user-select: none;
 }
+
+.filter-caption {
+    background-color: #a7a7a7;
+    border: none;
+    font-weight: bold;
+    margin-top: -1px;
+}

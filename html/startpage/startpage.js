@@ -5,11 +5,12 @@ const { bindUpperValue, setChangeHandler } = require('../elementsUtil');
 const ELEM = require('./elements');
 const RPC = require('../rpc');
 const WAIT_WIN = require('../wait-win');
+const ALERT_WIN = require('../alert');
 const CONFIRM = require('../confirm');
 const EDIT_WIN = require('../edit-gto-win/edit-gto-win');
 const START_TABLE = require('./start-table');
 const DATE_UTIL = require('../date-util');
-
+const START_PAGE_FILTER = require('./start-page-filter');
 /**
  * @typedef {import('../date-util').DatePeriod} DatePeriod
  * @typedef {import('../../properties').Properties} Properties
@@ -39,6 +40,11 @@ var props = {
     placeId: -1,
     dbPath: ""
 }
+
+/**
+*  @type {StartTableBean[]} startTable
+*/
+var currentStartTable = [];
 
 var selectedDate = new Date().toISOString().substring(0, 10);
 
@@ -88,10 +94,10 @@ RPC.bind({
      * @param {StartTableBean[]} startTable
      */
     startpageTable: (startTable) => {
-        START_TABLE.setData(startTable);
+        currentStartTable = startTable;
+        refresh();
         WAIT_WIN.hide();
     },
-
 
     /**
     * @param {Staff[]} staffArray
@@ -133,6 +139,7 @@ RPC.bind({
     */
     gtoCostType: (costTypeArray) => {
         EDIT_WIN.setCostTypeList(costTypeArray);
+        START_PAGE_FILTER.setCostTypeList(costTypeArray);
     },
 
     gtoSavedSuccess: () => {
@@ -152,12 +159,16 @@ RPC.bind({
     },
 
     reportReady: () => {
-        //TODO
         console.log('report ready.');
+        ALERT_WIN.show('Отчет создан.');
     }
 });
 
 WAIT_WIN.show();
+
+START_PAGE_FILTER.bind(() => {
+    refresh();
+});
 
 ELEM.report.btnUpdate.onclick = () => {
     update();
@@ -210,4 +221,8 @@ function update() {
     selectedDate = ELEM.ui.filterDate.value;
     WAIT_WIN.show();
     RPC.getStartpageTableByDate(selectedDate);
+}
+
+function refresh() {
+    START_TABLE.setData(START_PAGE_FILTER.filter(currentStartTable));
 }

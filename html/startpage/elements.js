@@ -1,7 +1,7 @@
 //@ts-check
 'use strict';
 
-const { getDiv, getInput, getDate } = require('../elementsUtil');
+const { getDiv, getInput, getDate, getSelector } = require('../elementsUtil');
 
 module.exports = {
     ui: {
@@ -11,9 +11,12 @@ module.exports = {
         btnSearchPlate: getDiv('btn-search-plate'),
     },
     report: {
-        btnUpdate:  getDiv('btnUpdate'),
+        btnUpdate: getDiv('btnUpdate'),
         btnReportDay: getDiv('btnReportDay'),
         btnReportMonth: getDiv('btnReportMonth'),
+    },
+    filter: {
+        costType: getSelector('filter.costType'),
     },
     versionInfo: getDiv('info'),
     editLay: getDiv('edit-lay'),
