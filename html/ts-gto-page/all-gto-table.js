@@ -3,6 +3,7 @@
 
 const ELEM = require('./elements');
 const { createDiv } = require('../elementsUtil');
+const { toString : costString } = require('../cost-util');
 
 /**
  * @typedef {import('../../src/db/repository/ts-repo').Ts} Ts
@@ -48,6 +49,7 @@ function setData(gtoArray) {
             <div class="table-col col4">${getNameFromList(resultTypeList, gto.result_id)}</div>
             <div class="table-col col5">${getNameFromList(processTypeList, gto.process_id)}</div>
             <div class="table-col col6">${getStaffText(gto.staff_id)}</div>
+            <div class="table-col col7">${costString(gto.cost)}</div>
         `;
         ELEM.allGtoTable.appendChild(row);
     }

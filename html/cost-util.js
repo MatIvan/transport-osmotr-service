@@ -61,5 +61,5 @@ function toString(cost) {
     const str = String(cost);
     const rub = str.substring(0, str.length - 2);
     const kop = str.substring(str.length - 2);
-    return rub + '.' + kop;
+    return (rub.length == 0 ? "0" : rub) + '.' + kop;
 }
