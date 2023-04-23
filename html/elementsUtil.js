@@ -2,6 +2,7 @@
 'use strict';
 
 const STYLE_BAD = "bad";
+const STYLE_WARN = "warn";
 
 module.exports = {
     getDiv: getDiv,
@@ -45,6 +46,20 @@ module.exports = {
             }
         } else {
             elem.classList.remove(STYLE_BAD);
+        }
+    },
+
+    /**
+ * @param {HTMLElement} elem 
+ * @param {boolean} isWarn
+ */
+    markAsWarn: (elem, isWarn) => {
+        if (isWarn) {
+            if (!elem.classList.contains(STYLE_WARN)) {
+                elem.classList.add(STYLE_WARN);
+            }
+        } else {
+            elem.classList.remove(STYLE_WARN);
         }
     },
 

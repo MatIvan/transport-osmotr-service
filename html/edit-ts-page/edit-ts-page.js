@@ -7,6 +7,7 @@ const VIEW = require('./edit-ts-page-view');
 const WAIT_WIN = require('../wait-win');
 const ALERT_WIN = require('../alert');
 const CONFIRM_WIN = require('../confirm');
+const VALIDATOR = require('./edit-ts-validator');
 
 /**
  * @typedef {import('../../src/db/repository/types-repo').Ats_Type} Ats_Type
@@ -328,14 +329,19 @@ function save() {
 }
 
 function refreshUiState() {
-    if (hasChanged) {
-        ELEM.ui.btnSave.removeAttribute('disabled');
+    setDisabled(ELEM.ui.btnSave, hasChanged);
+    setDisabled(ELEM.ui.btnSave, !VALIDATOR.all(currentTs));
+    setDisabled(ELEM.ui.btnGtoList, (currentTs.id < 1));
+}
+
+/**
+ * @param {HTMLElement} element
+ * @param {boolean} isDisabled
+ */
+function setDisabled(element, isDisabled) {
+    if (isDisabled) {
+        element.setAttribute('disabled', "true");
     } else {
-        ELEM.ui.btnSave.setAttribute('disabled', "true");
-    }
-    if (currentTs.id > 0) {
-        ELEM.ui.btnGtoList.removeAttribute('disabled');
-    } else {
-        ELEM.ui.btnGtoList.setAttribute('disabled', "true");
+        element.removeAttribute('disabled');
     }
 }

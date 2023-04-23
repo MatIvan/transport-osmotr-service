@@ -1,8 +1,9 @@
 //@ts-check
 'use strict';
 
-const { fillList, markAsBad, bindUpperValue, setChangeHandler } = require('../elementsUtil');
+const { fillList, markAsBad, bindUpperValue, setChangeHandler, markAsWarn } = require('../elementsUtil');
 const ELEM = require('./elements');
+const VALIDATOR = require('./edit-ts-validator');
 
 /**
  * @typedef {import('../../src/db/repository/types-repo').Ats_Type} Ats_Type
@@ -58,6 +59,8 @@ function refreshAll(ts) {
 
     //ts
     ELEM.ts.plate.value = ts.plate;
+    markAsBad(ELEM.ts.plate, !VALIDATOR.plate(ts));
+
     ELEM.ts.no_grz.checked = ts.no_grz;
     ELEM.ts.brand.value = ts.brand;
     ELEM.ts.model.value = ts.model;
@@ -67,17 +70,18 @@ function refreshAll(ts) {
     ELEM.ts.no_vin.checked = ts.no_vin;
     ELEM.ts.chassis.value = ts.chassis;
     ELEM.ts.body.value = ts.body;
+
     ELEM.ts.ts_category.value = String(ts.ts_category_id);
+    markAsBad(ELEM.ts.ts_category, !VALIDATOR.category(ts));
     const atsTypeArray = atsTypeList.filter(atsType => atsType.ts_category_id === ts.ts_category_id);
     fillList(ELEM.ts.ats_type, atsTypeArray);
     ELEM.ts.ats_type.value = String(ts.ats_type_id);
+    markAsBad(ELEM.ts.ats_type, !VALIDATOR.atsType(ts));
+
     ELEM.ts.engine_type.value = String(ts.engine_type_id);
     ELEM.ts.odometer.value = String(ts.odometer);
-
-    markAsBad(ELEM.ts.year, ts.year < 1900 || ts.year > 2099);
-
-    const isVinValid = ts.no_vin || validateVin(ts.vin, ts.year);
-    markAsBad(ELEM.ts.vin, !isVinValid);
+    markAsBad(ELEM.ts.year, !VALIDATOR.year(ts));
+    markAsWarn(ELEM.ts.vin, !VALIDATOR.vin(ts));
 }
 
 function prepareElements() {
@@ -118,21 +122,6 @@ function prepareElements() {
     ELEM.ts.no_grz.onclick = () => { HANDLER.onNoGrz(ELEM.ts.no_grz.checked) };
     ELEM.ts.no_vin.onclick = () => { HANDLER.onNoVin(ELEM.ts.no_vin.checked) };
     ELEM.ts.btnBodyCopyVin.onclick = () => { HANDLER.onBody(ELEM.ts.vin.value) };
-}
-
-/**
- * @param {string} vin 
- * @param {number} year 
- */
-function validateVin(vin, year) {
-    if (year > 1980) {
-        var re = new RegExp("^[A-HJ-NPR-Z\\d]{8}[\\dX][A-HJ-NPR-Z\\d]{2}\\d{6}$");
-        return vin.match(re);
-    } else {
-        //Pre validation are rules to complex. We are forced to assume the vin is valid.
-        //Though really at least a simple test would be preferable - eg vin.length >= 20 or whatever
-        return true;
-    }
 }
 
 const HANDLER = {

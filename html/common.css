@@ -107,3 +107,11 @@ body {
 .icon-button:active {
     background-color: #6d6d6d;
 }
+
+.bad {
+    background-color: #ffbfbf;
+}
+
+.warn {
+    background-color: #ff8800;
+}
