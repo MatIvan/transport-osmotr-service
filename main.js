@@ -8,6 +8,9 @@ const PROPS = require('./properties');
 const { app } = require('electron');
 if (require('electron-squirrel-startup')) app.quit();
 
+global.version = app.getVersion();
+console.log("Start app version=" + global.version);
+
 const events = require('./src/local-events');
 const dbService = require('./src/db/db-service');
 const controller = require('./src/controller');

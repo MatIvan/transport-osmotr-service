@@ -7,6 +7,7 @@ const SQL = require('./db-sql');
 const fs = require("fs");
 const path = require('path');
 const events = require('../local-events')
+const PROPS = require('../../properties');
 
 /** @type {Database} */
 var db;
@@ -33,7 +34,7 @@ module.exports = {
     },
 
     open: function () {
-        const dbFile = path.join(global.appRoot, 'database.sqlite')
+        const dbFile = getDbPath();
         console.log('dbFile: ', dbFile);
         db = new sqLite3.Database(dbFile, (err) => {
             if (err) return onErrorHandler(err);
@@ -118,4 +119,12 @@ function load(file, callback) {
         }
         callback(null);
     });
+}
+
+function getDbPath() {
+    const propsPath = PROPS.get().dbPath;
+    if (propsPath && propsPath.length > 0) {
+        return propsPath;
+    }
+    return path.join(global.appRoot, 'database.sqlite');
 }

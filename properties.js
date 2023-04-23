@@ -6,13 +6,15 @@ const FS = require('fs');
 /**
  * @typedef {Object} Properties 
  * @property {number} placeId
+ * @property {string} dbPath
  */
 
 /**
  * @type Properties
  */
 const PROPS_DEFAULT = {
-    placeId: 1
+    placeId: 1,
+    dbPath: '',
 };
 
 /**
@@ -25,7 +27,7 @@ const FILE_NAME = path.join(global.appRoot, "properties.json");
 module.exports = {
     load,
     save,
-    get
+    get,
 }
 
 /**

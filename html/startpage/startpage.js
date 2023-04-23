@@ -36,7 +36,8 @@ ELEM.versionInfo.innerText = `Chrome ${appVers.chrome()}; Node.js ${appVers.node
  * @type Properties
  */
 var props = {
-    placeId: -1
+    placeId: -1,
+    dbPath: ""
 }
 
 var selectedDate = new Date().toISOString().substring(0, 10);
@@ -55,7 +56,7 @@ RPC.bind({
         RPC.getGtoPeriod();
         RPC.getGtoCostType();
 
-        RPC.getStartpageTableByDate(selectedDate);
+        update();
     },
 
     /**
@@ -135,8 +136,7 @@ RPC.bind({
     },
 
     gtoSavedSuccess: () => {
-        WAIT_WIN.show();
-        RPC.getStartpageTableByDate(selectedDate);
+        update();
     },
 
     /**
@@ -159,6 +159,10 @@ RPC.bind({
 
 WAIT_WIN.show();
 
+ELEM.report.btnUpdate.onclick = () => {
+    update();
+}
+
 ELEM.report.btnReportDay.onclick = () => {
     RPC.report(DATE_UTIL.getPeriodDay(selectedDate));
 }
@@ -177,9 +181,7 @@ bindUpperValue(ELEM.ui.searchPlate);
 
 ELEM.ui.filterDate.value = selectedDate;
 setChangeHandler(ELEM.ui.filterDate, () => {
-    selectedDate = ELEM.ui.filterDate.value;
-    WAIT_WIN.show();
-    RPC.getStartpageTableByDate(selectedDate);
+    update();
 });
 
 ELEM.ui.btnSearchPlate.onclick = () => {
@@ -202,4 +204,10 @@ RPC.startpageReady();
 function search() {
     WAIT_WIN.show();
     RPC.getTsBeanForEditByPlate({ id: -1, plate: ELEM.ui.searchPlate.value });
+}
+
+function update() {
+    selectedDate = ELEM.ui.filterDate.value;
+    WAIT_WIN.show();
+    RPC.getStartpageTableByDate(selectedDate);
 }

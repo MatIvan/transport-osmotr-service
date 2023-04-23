@@ -11,6 +11,7 @@ module.exports = {
         btnSearchPlate: getDiv('btn-search-plate'),
     },
     report: {
+        btnUpdate:  getDiv('btnUpdate'),
         btnReportDay: getDiv('btnReportDay'),
         btnReportMonth: getDiv('btnReportMonth'),
     },
