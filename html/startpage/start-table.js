@@ -3,6 +3,7 @@
 
 const ELEM = require('./elements');
 const { createDiv } = require('../elementsUtil');
+const { toString: costString } = require('../cost-util');
 
 /**
  * @typedef {import('../../src/db/repository/startpage-repo').StartTableBean} StartTableBean
@@ -29,9 +30,12 @@ function setData(startTable) {
         row.innerHTML = `
             <div class="table-col col1">${normStr(bean.plate)}</div>
             <div class="table-col col2">${normStr(bean.tsFullName)}</div>
-            <div class="table-col col3">${normStr(bean.category)}</div>
-            <div class="table-col col4">${normStr(bean.test)}</div>
-            <div class="table-col col5">${normStr(bean.resultName)}</div>
+            <div class="table-col col3">${normStr(bean.atsType)}</div>
+            <div class="table-col col4">${normStr(bean.tsYear)}</div>
+            <div class="table-col col5">${normStr(bean.test)}</div>
+            <div class="table-col col6">${normStr(bean.resultName)}</div>
+            <div class="table-col col7">${costString(bean.cost)}</div>
+            <div class="table-col col8">${normStr(bean.costType)}</div>
         `;
         ELEM.table.appendChild(row);
     }

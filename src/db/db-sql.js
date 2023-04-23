@@ -134,14 +134,18 @@ module.exports = {
             g.id                        AS gtoId,
             t.plate                     AS plate,
             t.brand || ' ' || t.model   AS tsFullName,
-            tc.name                     AS category,
+            t."year"                    AS tsYear,
+            atst.name                   AS atsType,
             tt.name                     AS test,
-            r.name                      AS resultName
+            r.name                      AS resultName,
+            g.cost                      AS cost,
+            ct.name                     AS costType
         FROM gto g
         LEFT JOIN ts t ON t.id = g.ts_id 
-        LEFT JOIN ts_category tc ON tc.id = t.ts_category_id
+        LEFT JOIN ats_type atst ON atst.id = t.ats_type_id
         LEFT JOIN test_type tt ON tt.id = g.test_type_id
         LEFT JOIN "result" r ON r.id = g.result_id 
+        LEFT JOIN cost_type ct ON ct.id = g.cost_type_id
         WHERE g.date like ?;
     `,
     selectGtoById: `SELECT * FROM gto WHERE id = ?`,
@@ -165,7 +169,7 @@ module.exports = {
         INNER JOIN ats_type atst ON atst.id = ts.ats_type_id
         INNER JOIN owner o ON o.id = ts.owner_id 
         INNER JOIN period p ON p.id = gto.period_id 
-        INNER JOIN cost_type ct ON ct.id = gto.cost_type_id  
+        INNER JOIN cost_type ct ON ct.id = gto.cost_type_id
         WHERE gto.date BETWEEN ? AND ?;
     `,
 }

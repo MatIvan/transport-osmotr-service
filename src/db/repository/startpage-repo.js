@@ -10,9 +10,12 @@ const SQL = require('../db-sql')
  * @property {number} gtoId
  * @property {string} plate
  * @property {string} tsFullName
- * @property {string} category
+ * @property {string} atsType
  * @property {string} test
  * @property {string} resultName
+ * @property {string} tsYear
+ * @property {number} cost
+ * @property {string} costType
  */
 
 module.exports = {

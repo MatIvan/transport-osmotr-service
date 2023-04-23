@@ -10,7 +10,9 @@ const defaultProps = {
     //secrity
     nodeIntegration: false,
     contextIsolation: true,
-    enableRemoteModule: false
+    enableRemoteModule: false,
+    width: 1024,
+    height: 768,
 }
 
 function getPreloaderPath(name) {
@@ -18,10 +20,9 @@ function getPreloaderPath(name) {
 }
 
 class AbstractWin extends BrowserWindow {
-    constructor({ name, ...windowSettings }) {
+    constructor({ name }) {
         super({
             ...defaultProps,
-            ...windowSettings,
             webPreferences: {
                 preload: getPreloaderPath(name),
             },
@@ -42,6 +43,7 @@ class AbstractWin extends BrowserWindow {
             this.show();
         })
     }
+
 }
 
 module.exports = AbstractWin

@@ -41,4 +41,5 @@ app.on('web-contents-created', (event, contents) => {
         showSearchWithGoogle: false,
         showLearnSpelling: false,
     });
+    contents.setZoomFactor(1.5);
 });

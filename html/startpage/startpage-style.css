@@ -50,23 +50,35 @@
 }
 
 .col1 {
-    width: 14%;
+    width: 10%;
 }
 
 .col2 {
-    width: 30%;
+    width: 24%;
 }
 
 .col3 {
-    width: 21%;
+    width: 10%;
 }
 
 .col4 {
-    width: 21%;
+    width: 10%;
 }
 
 .col5 {
+    width: 18%;
+}
+
+.col6 {
     width: 14%;
+}
+
+.col7 {
+    width: 6%;
+}
+
+.col8 {
+    width: 6%;
 }
 
 .edit-win {

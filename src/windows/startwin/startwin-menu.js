@@ -27,6 +27,14 @@ const template = [
             { id: 'onMenuStaff', label: "Сотрудники", click: onClick },
             { id: 'onMenuPlace', label: "Организации", click: onClick },
         ],
+    },
+    {
+        label: "Zoom",
+        submenu: [
+            { id: 'onZoom100', label: "100%", click: onClick },
+            { id: 'onZoom150', label: "150%", click: onClick },
+            { id: 'onZoom200', label: "200%", click: onClick },
+        ],
     }
 ];
 

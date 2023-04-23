@@ -3,15 +3,11 @@
 const AbstractWin = require('../abstract-win');
 const pages = require('../../pages');
 const Menu = require('./startwin-menu');
-
-const props = {
-    width: 800,
-    height: 600,
-}
+const { BrowserWindow } = require('electron');
 
 class StartWindow extends AbstractWin {
     constructor() {
-        super({ name: 'startwin', props });
+        super({ name: 'startwin' });
         this.setMenu(Menu.menu);
         Menu.setHandler(this);
     }
@@ -34,6 +30,18 @@ class StartWindow extends AbstractWin {
 
     onMenuAddGto(menuItem, browserWindow, event) {
         browserWindow.loadFile(pages.editGto);
+    }
+
+    onZoom100(menuItem, browserWindow, event) {
+        browserWindow.webContents.setZoomFactor(1.0);
+    }
+
+    onZoom150(menuItem, browserWindow, event) {
+        browserWindow.webContents.setZoomFactor(1.5);
+    }
+
+    onZoom200(menuItem, browserWindow, event) {
+        browserWindow.webContents.setZoomFactor(2.0);
     }
 }
 
