@@ -4,7 +4,7 @@
 const { BrowserWindow } = require('electron');
 const path = require('path');
 
-const isDevelopment = process.env.NODE_ENV !== 'production'
+const isDevelopment = (process.env.NODE_ENV?.trim() === "dev");
 const defaultProps = {
     show: false,
     //secrity
@@ -28,7 +28,7 @@ class AbstractWin extends BrowserWindow {
         })
 
         if (isDevelopment) {
-            this.webContents.openDevTools()
+            this.webContents.openDevTools();
         }
 
         this.webContents.on('devtools-opened', () => {

@@ -183,9 +183,14 @@ setChangeHandler(ELEM.ui.filterDate, () => {
 });
 
 ELEM.ui.btnSearchPlate.onclick = () => {
-    WAIT_WIN.show();
-    RPC.getTsBeanForEditByPlate({ id: -1, plate: ELEM.ui.searchPlate.value });
+    search();
 }
+
+ELEM.ui.searchPlate.addEventListener('keyup', (e) => {
+    if (e.key === 'Enter') {
+        search();
+    }
+});
 
 START_TABLE.onRowClick((startTableBean) => {
     WAIT_WIN.show();
@@ -193,3 +198,8 @@ START_TABLE.onRowClick((startTableBean) => {
 });
 
 RPC.startpageReady();
+
+function search() {
+    WAIT_WIN.show();
+    RPC.getTsBeanForEditByPlate({ id: -1, plate: ELEM.ui.searchPlate.value });
+}

@@ -1,13 +1,13 @@
 {
   "name": "tos",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TOS - Transport Osmotr Service",
   "private": true,
   "main": "main.js",
   "scripts": {
-    "start": "webpack && electron-forge start",
+    "start": "set NODE_ENV=dev && webpack && electron-forge start",
     "package": "webpack && electron-forge package",
-    "make": "webpack && electron-forge make"
+    "make": "webpack && electron-forge make && npx electron-forge make --arch=ia32"
   },
   "author": "mativ",
   "license": "MIT",
