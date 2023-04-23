@@ -22,8 +22,9 @@
     "webpack-cli": "5.0.1"
   },
   "dependencies": {
+    "electron-context-menu": "3.6.1",
     "electron-squirrel-startup": "1.0.0",
-    "sqlite3": "5.1.4",
-    "excel4node": "1.8.0"
+    "excel4node": "1.8.0",
+    "sqlite3": "5.1.4"
   }
 }

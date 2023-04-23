@@ -11,6 +11,7 @@ if (require('electron-squirrel-startup')) app.quit();
 const events = require('./src/local-events');
 const dbService = require('./src/db/db-service');
 const controller = require('./src/controller');
+const contextMenu = require('electron-context-menu')
 
 controller.bind();
 
@@ -30,5 +31,11 @@ app.on('window-all-closed', () => {
 app.on('web-contents-created', (event, contents) => {
     contents.on('will-navigate', (event, navigationUrl) => {
         event.preventDefault();
+    });
+    contextMenu({
+        window: contents,
+        showInspectElement: false,
+        showSearchWithGoogle: false,
+        showLearnSpelling: false,
     });
 });
