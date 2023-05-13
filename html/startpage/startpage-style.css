@@ -106,3 +106,17 @@
     font-weight: bold;
     margin-top: -1px;
 }
+
+.summ-panel {
+    justify-content: flex-end;
+    margin: 4px 30px;
+}
+
+#cars-number{
+    margin-right: 20px;
+    width: 5%;
+}
+
+#summ-val{
+    width: 10%;
+}

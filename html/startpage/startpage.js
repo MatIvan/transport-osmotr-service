@@ -11,6 +11,8 @@ const EDIT_WIN = require('../edit-gto-win/edit-gto-win');
 const START_TABLE = require('./start-table');
 const DATE_UTIL = require('../date-util');
 const START_PAGE_FILTER = require('./start-page-filter');
+const SUMM_PANEL = require('./start-page-summ-panel');
+
 /**
  * @typedef {import('../date-util').DatePeriod} DatePeriod
  * @typedef {import('../../properties').Properties} Properties
@@ -224,5 +226,7 @@ function update() {
 }
 
 function refresh() {
-    START_TABLE.setData(START_PAGE_FILTER.filter(currentStartTable));
+    const data = START_PAGE_FILTER.filter(currentStartTable);
+    START_TABLE.setData(data);
+    SUMM_PANEL.setData(data);
 }

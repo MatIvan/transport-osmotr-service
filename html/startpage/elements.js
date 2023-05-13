@@ -18,6 +18,10 @@ module.exports = {
     filter: {
         costType: getSelector('filter.costType'),
     },
+    summ: {
+        carsNumber: getInput('cars-number'),
+        summVal: getInput('summ-val'),
+    },
     versionInfo: getDiv('info'),
     editLay: getDiv('edit-lay'),
     table: getDiv('start-table'),

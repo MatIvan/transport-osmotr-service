@@ -1,7 +1,6 @@
 //@ts-check
 'use strict';
 
-const { fillList } = require('../elementsUtil');
 const ELEM = require('./elements');
 
 /**
